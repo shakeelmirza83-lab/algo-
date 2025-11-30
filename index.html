@@ -859,154 +859,95 @@ function sendToWhatsApp() {
     alert('WhatsApp opened! Please send the message.');
     document.getElementById('whatsappForm').reset();
 }
-</script>
-  <!-- FAQ Section -->
-<section id="faq" class="faq">
-    <div class="container">
-        <div class="section-header">
-            <h2>Frequently Asked <span class="accent-text">Questions</span></h2>
-            <p>Get answers to common questions about our algorithmic trading services</p>
+<!-- FAQ Section -->
+<section id="faq" class="faq" style="padding: 80px 0; background: #f8fafc;">
+    <div class="container" style="max-width: 1200px; margin: 0 auto; padding: 0 2rem;">
+        <div class="section-header" style="text-align: center; margin-bottom: 4rem;">
+            <h2 style="font-size: 2.8rem; font-weight: 700; margin-bottom: 1rem; background: linear-gradient(135deg, #2563eb, #7c3aed); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+                Frequently Asked <span style="color: #059669;">Questions</span>
+            </h2>
+            <p style="font-size: 1.2rem; color: #6b7280; max-width: 600px; margin: 0 auto;">
+                Get answers to common questions about our algorithmic trading services
+            </p>
         </div>
         
         <div class="faq-content">
-            <div class="faq-item">
-                <div class="faq-question">
-                    <h3>What is algorithmic trading?</h3>
-                    <span class="faq-toggle">+</span>
+            <!-- FAQ 1 -->
+            <div class="faq-item" style="background: white; border-radius: 10px; margin-bottom: 1rem; box-shadow: 0 5px 15px rgba(0,0,0,0.08); overflow: hidden; border-left: 4px solid #2563eb;">
+                <div class="faq-question" style="padding: 1.5rem 2rem; display: flex; justify-content: space-between; align-items: center; cursor: pointer; transition: all 0.3s ease;" onclick="toggleFAQ(this)">
+                    <h3 style="font-size: 1.1rem; font-weight: 600; color: #1f2937; margin: 0;">What is algorithmic trading?</h3>
+                    <span class="faq-toggle" style="font-size: 1.5rem; font-weight: 300; color: #2563eb; transition: transform 0.3s ease;">+</span>
                 </div>
-                <div class="faq-answer">
-                    <p>Algorithmic trading uses computer programs and AI to execute trades automatically based on predefined strategies. It removes human emotion from trading and can process market data much faster than manual trading.</p>
-                </div>
-            </div>
-            
-            <div class="faq-item">
-                <div class="faq-question">
-                    <h3>What's the minimum investment required?</h3>
-                    <span class="faq-toggle">+</span>
-                </div>
-                <div class="faq-answer">
-                    <p>We offer flexible plans starting from ₹25,000. The minimum investment depends on the trading strategy and risk profile. Contact us for a personalized consultation.</p>
+                <div class="faq-answer" style="padding: 0 2rem; max-height: 0; overflow: hidden; transition: all 0.3s ease;">
+                    <p style="padding-bottom: 1.5rem; color: #6b7280; line-height: 1.6; margin: 0;">Algorithmic trading uses computer programs and AI to execute trades automatically based on predefined strategies. It removes human emotion from trading and can process market data much faster than manual trading.</p>
                 </div>
             </div>
             
-            <div class="faq-item">
-                <div class="faq-question">
-                    <h3>What is the success rate of your algorithms?</h3>
-                    <span class="faq-toggle">+</span>
+            <!-- FAQ 2 -->
+            <div class="faq-item" style="background: white; border-radius: 10px; margin-bottom: 1rem; box-shadow: 0 5px 15px rgba(0,0,0,0.08); overflow: hidden; border-left: 4px solid #2563eb;">
+                <div class="faq-question" style="padding: 1.5rem 2rem; display: flex; justify-content: space-between; align-items: center; cursor: pointer; transition: all 0.3s ease;" onclick="toggleFAQ(this)">
+                    <h3 style="font-size: 1.1rem; font-weight: 600; color: #1f2937; margin: 0;">What's the minimum investment required?</h3>
+                    <span class="faq-toggle" style="font-size: 1.5rem; font-weight: 300; color: #2563eb; transition: transform 0.3s ease;">+</span>
                 </div>
-                <div class="faq-answer">
-                    <p>Our algorithms have consistently achieved 85-95% accuracy in backtesting. However, past performance doesn't guarantee future results. We provide detailed performance reports for each strategy.</p>
-                </div>
-            </div>
-            
-            <div class="faq-item">
-                <div class="faq-question">
-                    <h3>Do I need trading experience?</h3>
-                    <span class="faq-toggle">+</span>
-                </div>
-                <div class="faq-answer">
-                    <p>No prior trading experience is necessary. Our systems are designed to be user-friendly, and we provide complete guidance and support throughout your trading journey.</p>
+                <div class="faq-answer" style="padding: 0 2rem; max-height: 0; overflow: hidden; transition: all 0.3s ease;">
+                    <p style="padding-bottom: 1.5rem; color: #6b7280; line-height: 1.6; margin: 0;">We offer flexible plans starting from ₹25,000. The minimum investment depends on the trading strategy and risk profile. Contact us for a personalized consultation.</p>
                 </div>
             </div>
             
-            <div class="faq-item">
-                <div class="faq-question">
-                    <h3>How do I get started?</h3>
-                    <span class="faq-toggle">+</span>
+            <!-- FAQ 3 -->
+            <div class="faq-item" style="background: white; border-radius: 10px; margin-bottom: 1rem; box-shadow: 0 5px 15px rgba(0,0,0,0.08); overflow: hidden; border-left: 4px solid #2563eb;">
+                <div class="faq-question" style="padding: 1.5rem 2rem; display: flex; justify-content: space-between; align-items: center; cursor: pointer; transition: all 0.3s ease;" onclick="toggleFAQ(this)">
+                    <h3 style="font-size: 1.1rem; font-weight: 600; color: #1f2937; margin: 0;">What is the success rate of your algorithms?</h3>
+                    <span class="faq-toggle" style="font-size: 1.5rem; font-weight: 300; color: #2563eb; transition: transform 0.3s ease;">+</span>
                 </div>
-                <div class="faq-answer">
-                    <p>Simply contact us via WhatsApp or the contact form. We'll schedule a free consultation, understand your requirements, and guide you through the onboarding process.</p>
+                <div class="faq-answer" style="padding: 0 2rem; max-height: 0; overflow: hidden; transition: all 0.3s ease;">
+                    <p style="padding-bottom: 1.5rem; color: #6b7280; line-height: 1.6; margin: 0;">Our algorithms have consistently achieved 85-95% accuracy in backtesting. However, past performance doesn't guarantee future results. We provide detailed performance reports for each strategy.</p>
                 </div>
             </div>
             
-            <div class="faq-item">
-                <div class="faq-question">
-                    <h3>Is my investment safe?</h3>
-                    <span class="faq-toggle">+</span>
+            <!-- FAQ 4 -->
+            <div class="faq-item" style="background: white; border-radius: 10px; margin-bottom: 1rem; box-shadow: 0 5px 15px rgba(0,0,0,0.08); overflow: hidden; border-left: 4px solid #2563eb;">
+                <div class="faq-question" style="padding: 1.5rem 2rem; display: flex; justify-content: space-between; align-items: center; cursor: pointer; transition: all 0.3s ease;" onclick="toggleFAQ(this)">
+                    <h3 style="font-size: 1.1rem; font-weight: 600; color: #1f2937; margin: 0;">Do I need trading experience?</h3>
+                    <span class="faq-toggle" style="font-size: 1.5rem; font-weight: 300; color: #2563eb; transition: transform 0.3s ease;">+</span>
                 </div>
-                <div class="faq-answer">
-                    <p>We implement robust risk management strategies and use stop-loss mechanisms. However, all trading involves risk, and we recommend only investing capital you can afford to risk.</p>
+                <div class="faq-answer" style="padding: 0 2rem; max-height: 0; overflow: hidden; transition: all 0.3s ease;">
+                    <p style="padding-bottom: 1.5rem; color: #6b7280; line-height: 1.6; margin: 0;">No prior trading experience is necessary. Our systems are designed to be user-friendly, and we provide complete guidance and support throughout your trading journey.</p>
+                </div>
+            </div>
+            
+            <!-- FAQ 5 -->
+            <div class="faq-item" style="background: white; border-radius: 10px; margin-bottom: 1rem; box-shadow: 0 5px 15px rgba(0,0,0,0.08); overflow: hidden; border-left: 4px solid #2563eb;">
+                <div class="faq-question" style="padding: 1.5rem 2rem; display: flex; justify-content: space-between; align-items: center; cursor: pointer; transition: all 0.3s ease;" onclick="toggleFAQ(this)">
+                    <h3 style="font-size: 1.1rem; font-weight: 600; color: #1f2937; margin: 0;">How do I get started?</h3>
+                    <span class="faq-toggle" style="font-size: 1.5rem; font-weight: 300; color: #2563eb; transition: transform 0.3s ease;">+</span>
+                </div>
+                <div class="faq-answer" style="padding: 0 2rem; max-height: 0; overflow: hidden; transition: all 0.3s ease;">
+                    <p style="padding-bottom: 1.5rem; color: #6b7280; line-height: 1.6; margin: 0;">Simply contact us via WhatsApp or the contact form. We'll schedule a free consultation, understand your requirements, and guide you through the onboarding process.</p>
                 </div>
             </div>
         </div>
     </div>
 </section>
 
-<style>
-/* FAQ Section Styles */
-.faq {
-    padding: 80px 0;
-    background: var(--bg-light);
-}
-
-.faq-item {
-    background: var(--white);
-    border-radius: 10px;
-    margin-bottom: 1rem;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
-    overflow: hidden;
-    border-left: 4px solid var(--primary);
-}
-
-.faq-question {
-    padding: 1.5rem 2rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-.faq-question:hover {
-    background: #f8fafc;
-}
-
-.faq-question h3 {
-    font-size: 1.1rem;
-    font-weight: 600;
-    color: var(--text-dark);
-    margin: 0;
-}
-
-.faq-toggle {
-    font-size: 1.5rem;
-    font-weight: 300;
-    color: var(--primary);
-    transition: transform 0.3s ease;
-}
-
-.faq-answer {
-    padding: 0 2rem;
-    max-height: 0;
-    overflow: hidden;
-    transition: all 0.3s ease;
-}
-
-.faq-answer p {
-    padding-bottom: 1.5rem;
-    color: var(--text-light);
-    line-height: 1.6;
-    margin: 0;
-}
-
-/* Active state */
-.faq-item.active .faq-answer {
-    max-height: 500px;
-}
-
-.faq-item.active .faq-toggle {
-    transform: rotate(45deg);
-}
-</style>
-
 <script>
-// FAQ Toggle functionality
-document.querySelectorAll('.faq-question').forEach(question => {
-    question.addEventListener('click', () => {
-        const faqItem = question.parentElement;
-        faqItem.classList.toggle('active');
-    });
-});
+function toggleFAQ(element) {
+    const faqItem = element.parentElement;
+    const answer = faqItem.querySelector('.faq-answer');
+    const toggle = faqItem.querySelector('.faq-toggle');
+    
+    if (answer.style.maxHeight) {
+        // Close FAQ
+        answer.style.maxHeight = null;
+        toggle.textContent = '+';
+        toggle.style.transform = 'rotate(0deg)';
+    } else {
+        // Open FAQ
+        answer.style.maxHeight = answer.scrollHeight + 'px';
+        toggle.textContent = '×';
+        toggle.style.transform = 'rotate(45deg)';
+    }
+}
 </script>
     <!-- Footer -->
     <footer class="footer">
