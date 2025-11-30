@@ -6,72 +6,60 @@
     <title>Algo For You - Algorithmic Trading Solutions</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* COMPLETE CSS - DIRECTLY IN HEAD */
+        /* === BRIGHTEXTECH INSPIRED STYLES === */
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --secondary: #7c3aed;
+            --accent: #10b981;
+            --text-dark: #1f2937;
+            --text-light: #6b7280;
+            --bg-light: #f8fafc;
+            --white: #ffffff;
+            --gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --gradient-2: linear-gradient(135deg, var(--primary), var(--secondary));
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
-        :root {
-            --primary: #2563eb;
-            --primary-dark: #1d4ed8;
-            --secondary: #7c3aed;
-            --accent: #059669;
-            --warning: #f59e0b;
-            --dark: #1f2937;
-            --dark-light: #374151;
-            --light: #f8fafc;
-            --white: #ffffff;
-            --gray: #6b7280;
-            --gray-light: #9ca3af;
-            --shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-            --shadow-lg: 0 20px 40px rgba(0, 0, 0, 0.15);
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Inter', 'Segoe UI', sans-serif;
             line-height: 1.6;
-            color: var(--dark);
-            background: var(--white);
+            color: var(--text-dark);
             overflow-x: hidden;
         }
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        /* Header & Navigation */
+        /* === HEADER === */
         .header {
             position: fixed;
             top: 0;
             width: 100%;
             background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
+            backdrop-filter: blur(20px);
             z-index: 1000;
-            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
-            transition: all 0.3s ease;
+            padding: 1rem 0;
+            box-shadow: 0 2px 30px rgba(0, 0, 0, 0.1);
         }
 
-        .navbar {
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 1.2rem 0;
         }
 
-        .logo h2 {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+        .logo {
             font-size: 1.8rem;
             font-weight: 700;
+            background: var(--gradient-2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
         .nav-menu {
@@ -82,9 +70,8 @@
 
         .nav-menu a {
             text-decoration: none;
-            color: var(--dark);
+            color: var(--text-dark);
             font-weight: 500;
-            font-size: 1rem;
             transition: all 0.3s ease;
             position: relative;
         }
@@ -100,7 +87,7 @@
             left: 0;
             width: 0;
             height: 2px;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            background: var(--gradient-2);
             transition: width 0.3s ease;
         }
 
@@ -108,25 +95,11 @@
             width: 100%;
         }
 
-        .hamburger {
-            display: none;
-            flex-direction: column;
-            cursor: pointer;
-        }
-
-        .hamburger span {
-            width: 25px;
-            height: 3px;
-            background: var(--dark);
-            margin: 3px 0;
-            transition: 0.3s;
-        }
-
-        /* Hero Section */
+        /* === HERO SECTION === */
         .hero {
-            padding: 160px 0 100px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: var(--gradient);
             color: var(--white);
+            padding: 160px 0 100px;
             position: relative;
             overflow: hidden;
         }
@@ -141,7 +114,10 @@
             background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><polygon fill="rgba(255,255,255,0.05)" points="0,1000 1000,0 1000,1000"/></svg>');
         }
 
-        .hero .container {
+        .hero-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 4rem;
@@ -165,15 +141,14 @@
 
         .hero-content p {
             font-size: 1.2rem;
-            margin-bottom: 2.5rem;
             opacity: 0.9;
+            margin-bottom: 2.5rem;
             line-height: 1.6;
         }
 
         .hero-buttons {
             display: flex;
             gap: 1rem;
-            flex-wrap: wrap;
         }
 
         .btn {
@@ -191,15 +166,14 @@
         }
 
         .btn-primary {
-            background: var(--primary);
-            color: var(--white);
-            box-shadow: 0 4px 15px rgba(37, 99, 235, 0.4);
+            background: var(--white);
+            color: var(--primary);
+            box-shadow: 0 4px 15px rgba(255, 255, 255, 0.3);
         }
 
         .btn-primary:hover {
-            background: var(--primary-dark);
             transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(37, 99, 235, 0.6);
+            box-shadow: 0 8px 25px rgba(255, 255, 255, 0.4);
         }
 
         .btn-secondary {
@@ -211,11 +185,9 @@
         .btn-secondary:hover {
             background: var(--white);
             color: var(--primary);
-            transform: translateY(-2px);
         }
 
         .hero-image {
-            position: relative;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -229,17 +201,8 @@
             border-radius: 15px;
             padding: 2rem 1.5rem;
             text-align: center;
-            min-width: 140px;
             animation: float 3s ease-in-out infinite;
             transition: all 0.3s ease;
-        }
-
-        .floating-card:nth-child(2) {
-            animation-delay: 0.5s;
-        }
-
-        .floating-card:nth-child(3) {
-            animation-delay: 1s;
         }
 
         .floating-card:hover {
@@ -250,14 +213,9 @@
         .floating-card i {
             font-size: 2.5rem;
             margin-bottom: 1rem;
-            background: linear-gradient(135deg, #fbbf24, #ef4444);
+            background: linear-gradient(45deg, #fbbf24, #ef4444);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-        }
-
-        .floating-card h4 {
-            font-size: 1rem;
-            font-weight: 600;
         }
 
         @keyframes float {
@@ -265,7 +223,18 @@
             50% { transform: translateY(-20px); }
         }
 
-        /* Section Headers */
+        /* === SERVICES === */
+        .services {
+            padding: 100px 0;
+            background: var(--bg-light);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
         .section-header {
             text-align: center;
             margin-bottom: 4rem;
@@ -275,22 +244,16 @@
             font-size: 2.8rem;
             font-weight: 700;
             margin-bottom: 1rem;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            background: var(--gradient-2);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
         .section-header p {
             font-size: 1.2rem;
-            color: var(--gray);
+            color: var(--text-light);
             max-width: 600px;
             margin: 0 auto;
-        }
-
-        /* Services Section */
-        .services {
-            padding: 100px 0;
-            background: var(--light);
         }
 
         .services-grid {
@@ -304,7 +267,7 @@
             padding: 3rem 2rem;
             border-radius: 15px;
             text-align: center;
-            box-shadow: var(--shadow);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
             transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
@@ -317,24 +280,23 @@
             left: 0;
             right: 0;
             height: 4px;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            background: var(--gradient-2);
         }
 
         .service-card:hover {
             transform: translateY(-10px);
-            box-shadow: var(--shadow-lg);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
         }
 
         .service-icon {
             width: 80px;
             height: 80px;
             margin: 0 auto 1.5rem;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            background: var(--gradient-2);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            position: relative;
         }
 
         .service-icon i {
@@ -346,83 +308,18 @@
             font-size: 1.5rem;
             font-weight: 600;
             margin-bottom: 1rem;
-            color: var(--dark);
+            color: var(--text-dark);
         }
 
         .service-card p {
-            color: var(--gray);
+            color: var(--text-light);
             line-height: 1.6;
         }
 
-        /* Algorithms Section */
-        .algorithms {
-            padding: 100px 0;
-            background: var(--white);
-        }
-
-        .algo-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 2.5rem;
-        }
-
-        .algo-card {
-            background: var(--white);
-            padding: 3rem 2rem;
-            border-radius: 15px;
-            text-align: center;
-            box-shadow: var(--shadow);
-            transition: all 0.3s ease;
-            border: 1px solid #f1f5f9;
-        }
-
-        .algo-card:hover {
-            transform: translateY(-5px);
-            box-shadow: var(--shadow-lg);
-        }
-
-        .algo-icon {
-            width: 70px;
-            height: 70px;
-            margin: 0 auto 1.5rem;
-            background: linear-gradient(135deg, var(--accent), var(--primary));
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .algo-icon i {
-            font-size: 1.8rem;
-            color: var(--white);
-        }
-
-        .algo-card h3 {
-            font-size: 1.4rem;
-            font-weight: 600;
-            margin-bottom: 1rem;
-            color: var(--dark);
-        }
-
-        .algo-card p {
-            color: var(--gray);
-            margin-bottom: 1.5rem;
-            line-height: 1.6;
-        }
-
-        .success-badge {
-            background: linear-gradient(135deg, var(--accent), #10b981);
-            color: var(--white);
-            padding: 8px 20px;
-            border-radius: 20px;
-            font-size: 0.9rem;
-            font-weight: 600;
-        }
-
-        /* About Section */
+        /* === ABOUT SECTION === */
         .about {
             padding: 100px 0;
-            background: var(--light);
+            background: var(--white);
         }
 
         .about-content {
@@ -436,12 +333,12 @@
             font-size: 2.5rem;
             font-weight: 700;
             margin-bottom: 1.5rem;
-            color: var(--dark);
+            color: var(--text-dark);
         }
 
         .about-text > p {
             font-size: 1.1rem;
-            color: var(--gray);
+            color: var(--text-light);
             margin-bottom: 2.5rem;
             line-height: 1.7;
         }
@@ -462,23 +359,16 @@
             font-size: 1.1rem;
         }
 
-        .feature span {
-            color: var(--dark);
-            font-weight: 500;
-        }
-
         .contact-info-box {
-            background: var(--white);
+            background: var(--bg-light);
             padding: 2rem;
             border-radius: 10px;
-            box-shadow: var(--shadow);
             border-left: 4px solid var(--primary);
         }
 
         .contact-info-box h4 {
-            color: var(--dark);
+            color: var(--text-dark);
             margin-bottom: 1.5rem;
-            font-size: 1.2rem;
         }
 
         .contact-detail {
@@ -498,7 +388,7 @@
         }
 
         .image-placeholder {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            background: var(--gradient-2);
             border-radius: 20px;
             height: 400px;
             display: flex;
@@ -511,52 +401,12 @@
         .image-placeholder i {
             font-size: 8rem;
             color: rgba(255, 255, 255, 0.9);
-            z-index: 2;
-            position: relative;
         }
 
-        .floating-elements {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-        }
-
-        .floating-elements div {
-            position: absolute;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 50%;
-        }
-
-        .element1 {
-            width: 80px;
-            height: 80px;
-            top: 20%;
-            left: 20%;
-            animation: float 4s ease-in-out infinite;
-        }
-
-        .element2 {
-            width: 120px;
-            height: 120px;
-            bottom: 30%;
-            right: 20%;
-            animation: float 5s ease-in-out infinite 1s;
-        }
-
-        .element3 {
-            width: 60px;
-            height: 60px;
-            top: 60%;
-            left: 10%;
-            animation: float 3.5s ease-in-out infinite 0.5s;
-        }
-
-        /* Contact Section */
+        /* === CONTACT SECTION === */
         .contact {
             padding: 100px 0;
-            background: var(--white);
+            background: var(--bg-light);
         }
 
         .contact-content {
@@ -569,13 +419,12 @@
             font-size: 2rem;
             font-weight: 600;
             margin-bottom: 1rem;
-            color: var(--dark);
+            color: var(--text-dark);
         }
 
         .contact-info > p {
-            color: var(--gray);
+            color: var(--text-light);
             margin-bottom: 2.5rem;
-            font-size: 1.1rem;
         }
 
         .contact-item {
@@ -584,20 +433,20 @@
             gap: 1.5rem;
             margin-bottom: 2rem;
             padding: 1.5rem;
-            background: var(--light);
+            background: var(--white);
             border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
             transition: all 0.3s ease;
         }
 
         .contact-item:hover {
             transform: translateX(10px);
-            box-shadow: var(--shadow);
         }
 
         .contact-icon {
             width: 50px;
             height: 50px;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            background: var(--gradient-2);
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -611,38 +460,20 @@
         }
 
         .contact-details h4 {
-            color: var(--dark);
+            color: var(--text-dark);
             margin-bottom: 0.5rem;
-            font-size: 1.1rem;
         }
 
         .contact-details p {
-            color: var(--gray);
+            color: var(--text-light);
             font-weight: 500;
         }
 
-        .business-hours {
-            background: var(--light);
-            padding: 1.5rem;
-            border-radius: 10px;
-            margin-top: 2rem;
-        }
-
-        .business-hours h4 {
-            color: var(--dark);
-            margin-bottom: 1rem;
-        }
-
-        .business-hours p {
-            color: var(--gray);
-            margin-bottom: 0.5rem;
-        }
-
         .contact-form {
-            background: var(--light);
+            background: var(--white);
             padding: 2.5rem;
             border-radius: 15px;
-            box-shadow: var(--shadow);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
         }
 
         .form-group {
@@ -658,7 +489,6 @@
             border-radius: 8px;
             font-size: 1rem;
             transition: all 0.3s ease;
-            background: var(--white);
         }
 
         .form-group input:focus,
@@ -669,14 +499,9 @@
             box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
         }
 
-        .form-group textarea {
-            resize: vertical;
-            min-height: 120px;
-        }
-
-        /* Footer */
+        /* === FOOTER === */
         .footer {
-            background: linear-gradient(135deg, var(--dark), var(--dark-light));
+            background: var(--text-dark);
             color: var(--white);
             padding: 60px 0 20px;
         }
@@ -691,11 +516,10 @@
         .footer-section h3,
         .footer-section h4 {
             margin-bottom: 1.5rem;
-            color: var(--white);
         }
 
         .footer-section p {
-            color: var(--gray-light);
+            color: #9ca3af;
             line-height: 1.6;
             margin-bottom: 1.5rem;
         }
@@ -709,146 +533,36 @@
         }
 
         .footer-section ul li a {
-            color: var(--gray-light);
+            color: #9ca3af;
             text-decoration: none;
             transition: color 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
         }
 
         .footer-section ul li a:hover {
             color: var(--white);
         }
 
-        .footer-section ul li a i {
-            font-size: 0.8rem;
-        }
-
-        .social-links {
-            display: flex;
-            gap: 1rem;
-        }
-
-        .social-links a {
-            width: 40px;
-            height: 40px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--white);
-            text-decoration: none;
-            transition: all 0.3s ease;
-        }
-
-        .social-links a:hover {
-            background: var(--primary);
-            transform: translateY(-3px);
-        }
-
-        .footer-contact p {
-            display: flex;
-            align-items: center;
-            gap: 0.8rem;
-            margin-bottom: 1rem;
-        }
-
-        .footer-contact i {
-            width: 16px;
-        }
-
         .footer-bottom {
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            border-top: 1px solid #374151;
             padding-top: 2rem;
             text-align: center;
-            color: var(--gray-light);
+            color: #9ca3af;
         }
 
-        /* Responsive Design */
+        /* === RESPONSIVE === */
         @media (max-width: 768px) {
-            .container {
-                padding: 0 15px;
-            }
-
-            .hamburger {
-                display: flex;
-            }
-
-            .nav-menu {
-                position: fixed;
-                top: 80px;
-                left: -100%;
-                width: 100%;
-                background: var(--white);
-                flex-direction: column;
-                text-align: center;
-                transition: 0.3s;
-                box-shadow: var(--shadow);
-                padding: 2rem 0;
-                gap: 0;
-            }
-
-            .nav-menu.active {
-                left: 0;
-            }
-
-            .nav-menu li {
-                margin: 1rem 0;
-            }
-
-            .hero .container {
-                grid-template-columns: 1fr;
-                text-align: center;
-                gap: 3rem;
-            }
-
-            .hero-content h1 {
-                font-size: 2.5rem;
-            }
-
-            .hero-image {
-                flex-direction: column;
-            }
-
+            .hero-container,
             .about-content,
             .contact-content {
                 grid-template-columns: 1fr;
             }
-
+            
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+            
             .footer-content {
                 grid-template-columns: 1fr;
-                gap: 2rem;
-            }
-
-            .services-grid,
-            .algo-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .hero-buttons {
-                justify-content: center;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .hero-content h1 {
-                font-size: 2rem;
-            }
-
-            .section-header h2 {
-                font-size: 2rem;
-            }
-
-            .btn {
-                padding: 12px 24px;
-                font-size: 0.9rem;
-            }
-
-            .service-card,
-            .algo-card {
-                padding: 2rem 1.5rem;
             }
         }
     </style>
@@ -856,30 +570,20 @@
 <body>
     <!-- Header -->
     <header class="header">
-        <div class="container">
-            <nav class="navbar">
-                <div class="logo">
-                    <h2>Algo For You</h2>
-                </div>
-                <ul class="nav-menu">
-                    <li><a href="#home">Home</a></li>
-                    <li><a href="#services">Services</a></li>
-                    <li><a href="#algorithms">Algorithms</a></li>
-                    <li><a href="#about">About</a></li>
-                    <li><a href="#contact">Contact</a></li>
-                </ul>
-                <div class="hamburger">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </div>
-            </nav>
+        <div class="nav-container">
+            <div class="logo">Algo For You</div>
+            <ul class="nav-menu">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
         </div>
     </header>
 
     <!-- Hero Section -->
     <section id="home" class="hero">
-        <div class="container">
+        <div class="hero-container">
             <div class="hero-content">
                 <h1>Advanced <span>Algorithmic Trading</span> Solutions</h1>
                 <p>We provide cutting-edge AI-powered algorithmic trading solutions for maximum returns in stock markets</p>
@@ -896,10 +600,6 @@
                 <div class="floating-card">
                     <i class="fas fa-robot"></i>
                     <h4>AI Trading</h4>
-                </div>
-                <div class="floating-card">
-                    <i class="fas fa-bolt"></i>
-                    <h4>Fast Execution</h4>
                 </div>
             </div>
         </div>
@@ -945,66 +645,26 @@
         </div>
     </section>
 
-    <!-- Algorithms Section -->
-    <section id="algorithms" class="algorithms">
-        <div class="container">
-            <div class="section-header">
-                <h2>Trading Algorithms</h2>
-                <p>Advanced algorithms for different market conditions</p>
-            </div>
-            <div class="algo-grid">
-                <div class="algo-card">
-                    <div class="algo-icon">
-                        <i class="fas fa-rocket"></i>
-                    </div>
-                    <h3>Momentum Pro</h3>
-                    <p>Trend-following algorithm designed for high volatility markets with 92% success rate.</p>
-                    <span class="success-badge">92% Success</span>
-                </div>
-                <div class="algo-card">
-                    <div class="algo-icon">
-                        <i class="fas fa-arrows-alt-h"></i>
-                    </div>
-                    <h3>Arbitrage Master</h3>
-                    <p>Price difference exploitation across multiple exchanges with 88% success rate.</p>
-                    <span class="success-badge">88% Success</span>
-                </div>
-                <div class="algo-card">
-                    <div class="algo-icon">
-                        <i class="fas fa-network-wired"></i>
-                    </div>
-                    <h3>Neural Predict</h3>
-                    <p>Deep learning neural networks for accurate price prediction with 95% success rate.</p>
-                    <span class="success-badge">95% Success</span>
-                </div>
-            </div>
-        </div>
-    </section>
-
     <!-- About Section -->
     <section id="about" class="about">
         <div class="container">
             <div class="about-content">
                 <div class="about-text">
                     <h2>About Algo For You</h2>
-                    <p>We are a leading algorithmic trading company specializing in AI-powered stock market solutions. Our team of experts combines financial expertise with cutting-edge technology to deliver exceptional results for our clients.</p>
+                    <p>We are a leading algorithmic trading company specializing in AI-powered stock market solutions. Our team of experts combines financial expertise with cutting-edge technology.</p>
                     
                     <div class="features-list">
                         <div class="feature">
                             <i class="fas fa-check"></i>
-                            <span>90%+ Accuracy Rate in Market Predictions</span>
+                            <span>90%+ Accuracy Rate</span>
                         </div>
                         <div class="feature">
                             <i class="fas fa-check"></i>
-                            <span>24/7 Real-time Market Monitoring</span>
+                            <span>24/7 Market Monitoring</span>
                         </div>
                         <div class="feature">
                             <i class="fas fa-check"></i>
-                            <span>Advanced Risk Management Systems</span>
-                        </div>
-                        <div class="feature">
-                            <i class="fas fa-check"></i>
-                            <span>Customized Trading Strategies</span>
+                            <span>Real-time Execution</span>
                         </div>
                     </div>
 
@@ -1023,11 +683,6 @@
                 <div class="about-image">
                     <div class="image-placeholder">
                         <i class="fas fa-chart-network"></i>
-                        <div class="floating-elements">
-                            <div class="element1"></div>
-                            <div class="element2"></div>
-                            <div class="element3"></div>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -1039,19 +694,19 @@
         <div class="container">
             <div class="section-header">
                 <h2>Contact Us</h2>
-                <p>Get in touch with our trading experts</p>
+                <p>Get in touch with our experts</p>
             </div>
             <div class="contact-content">
                 <div class="contact-info">
-                    <h3>Let's Start Your Trading Journey</h3>
-                    <p>Contact us for a free consultation and demo of our algorithmic trading systems.</p>
+                    <h3>Start Your Trading Journey</h3>
+                    <p>Contact us for a free consultation and demo.</p>
                     
                     <div class="contact-item">
                         <div class="contact-icon">
                             <i class="fas fa-phone"></i>
                         </div>
                         <div class="contact-details">
-                            <h4>Phone Number</h4>
+                            <h4>Phone</h4>
                             <p>+91 77709 52979</p>
                         </div>
                     </div>
@@ -1061,7 +716,7 @@
                             <i class="fas fa-envelope"></i>
                         </div>
                         <div class="contact-details">
-                            <h4>Email Address</h4>
+                            <h4>Email</h4>
                             <p>contact@algoforyou.com</p>
                         </div>
                     </div>
@@ -1071,47 +726,35 @@
                             <i class="fas fa-map-marker-alt"></i>
                         </div>
                         <div class="contact-details">
-                            <h4>Office Address</h4>
-                            <p>A-100 Ekta Nagar, Bahodapur, Gwalior, Madhya Pradesh</p>
+                            <h4>Address</h4>
+                            <p>A-100 Ekta Nagar, Bahodapur, Gwalior</p>
                         </div>
-                    </div>
-
-                    <div class="business-hours">
-                        <h4>Business Hours</h4>
-                        <p>Monday - Friday: 9:00 AM - 6:00 PM</p>
-                        <p>Saturday: 10:00 AM - 2:00 PM</p>
                     </div>
                 </div>
                 
                 <div class="contact-form">
-                    <form id="contactForm">
+                    <form>
                         <div class="form-group">
-                            <input type="text" placeholder="Your Full Name" required>
+                            <input type="text" placeholder="Your Name" required>
                         </div>
                         <div class="form-group">
-                            <input type="email" placeholder="Your Email Address" required>
+                            <input type="email" placeholder="Your Email" required>
                         </div>
                         <div class="form-group">
-                            <input type="tel" placeholder="Your Phone Number">
+                            <input type="tel" placeholder="Your Phone">
                         </div>
                         <div class="form-group">
                             <select required>
-                                <option value="">Select Service Interested In</option>
+                                <option value="">Select Service</option>
                                 <option>Algorithmic Trading</option>
-                                <option>AI Stock Predictions</option>
-                                <option>Market Analysis Reports</option>
-                                <option>Portfolio Management</option>
-                                <option>Custom Algorithm Development</option>
-                                <option>Other Query</option>
+                                <option>AI Predictions</option>
+                                <option>Market Analysis</option>
                             </select>
                         </div>
                         <div class="form-group">
-                            <textarea placeholder="Your Message or Requirements" rows="6" required></textarea>
+                            <textarea placeholder="Your Message" rows="5" required></textarea>
                         </div>
-                        <button type="submit" class="btn btn-primary">
-                            <i class="fas fa-paper-plane"></i>
-                            Send Message
-                        </button>
+                        <button type="submit" class="btn btn-primary" style="width: 100%;">Send Message</button>
                     </form>
                 </div>
             </div>
@@ -1123,86 +766,45 @@
         <div class="container">
             <div class="footer-content">
                 <div class="footer-section">
-                    <div class="logo">
-                        <h3>Algo For You</h3>
-                    </div>
-                    <p>Advanced algorithmic trading solutions powered by AI and machine learning for modern investors and traders.</p>
-                    <div class="social-links">
-                        <a href="#"><i class="fab fa-linkedin"></i></a>
-                        <a href="#"><i class="fab fa-twitter"></i></a>
-                        <a href="#"><i class="fab fa-facebook"></i></a>
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                    </div>
+                    <h3>Algo For You</h3>
+                    <p>Advanced algorithmic trading solutions powered by AI and machine learning.</p>
                 </div>
                 
                 <div class="footer-section">
                     <h4>Quick Links</h4>
                     <ul>
-                        <li><a href="#home"><i class="fas fa-chevron-right"></i> Home</a></li>
-                        <li><a href="#services"><i class="fas fa-chevron-right"></i> Services</a></li>
-                        <li><a href="#algorithms"><i class="fas fa-chevron-right"></i> Algorithms</a></li>
-                        <li><a href="#about"><i class="fas fa-chevron-right"></i> About Us</a></li>
-                        <li><a href="#contact"><i class="fas fa-chevron-right"></i> Contact</a></li>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#services">Services</a></li>
+                        <li><a href="#about">About</a></li>
+                        <li><a href="#contact">Contact</a></li>
                     </ul>
                 </div>
                 
                 <div class="footer-section">
-                    <h4>Our Services</h4>
+                    <h4>Services</h4>
                     <ul>
-                        <li><a href="#"><i class="fas fa-chevron-right"></i> Algorithmic Trading</a></li>
-                        <li><a href="#"><i class="fas fa-chevron-right"></i> AI Predictions</a></li>
-                        <li><a href="#"><i class="fas fa-chevron-right"></i> Market Analysis</a></li>
-                        <li><a href="#"><i class="fas fa-chevron-right"></i> Portfolio Management</a></li>
+                        <li><a href="#">Algorithmic Trading</a></li>
+                        <li><a href="#">AI Predictions</a></li>
+                        <li><a href="#">Market Analysis</a></li>
                     </ul>
                 </div>
                 
                 <div class="footer-section">
-                    <h4>Contact Info</h4>
-                    <div class="footer-contact">
-                        <p><i class="fas fa-phone"></i> +91 77709 52979</p>
-                        <p><i class="fas fa-envelope"></i> contact@algoforyou.com</p>
-                        <p><i class="fas fa-map-marker-alt"></i> A-100 Ekta Nagar, Bahodapur, Gwalior</p>
-                    </div>
+                    <h4>Contact</h4>
+                    <p>+91 77709 52979</p>
+                    <p>contact@algoforyou.com</p>
+                    <p>A-100 Ekta Nagar, Bahodapur, Gwalior</p>
                 </div>
             </div>
             
             <div class="footer-bottom">
-                <p>&copy; 2024 Algo For You. All rights reserved. | Designed for Modern Traders</p>
+                <p>&copy; 2024 Algo For You. All rights reserved.</p>
             </div>
         </div>
     </footer>
 
     <script>
-        // Mobile Navigation Toggle
-        const hamburger = document.querySelector('.hamburger');
-        const navMenu = document.querySelector('.nav-menu');
-
-        hamburger.addEventListener('click', () => {
-            hamburger.classList.toggle('active');
-            navMenu.classList.toggle('active');
-        });
-
-        // Close mobile menu when clicking on a link
-        document.querySelectorAll('.nav-menu a').forEach(link => {
-            link.addEventListener('click', () => {
-                hamburger.classList.remove('active');
-                navMenu.classList.remove('active');
-            });
-        });
-
-        // Header background on scroll
-        window.addEventListener('scroll', () => {
-            const header = document.querySelector('.header');
-            if (window.scrollY > 100) {
-                header.style.background = 'rgba(255, 255, 255, 0.98)';
-                header.style.boxShadow = '0 5px 30px rgba(0, 0, 0, 0.15)';
-            } else {
-                header.style.background = 'rgba(255, 255, 255, 0.95)';
-                header.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.1)';
-            }
-        });
-
-        // Smooth scrolling for navigation links
+        // Smooth scrolling
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
@@ -1216,25 +818,15 @@
             });
         });
 
-        // Form submission handling
-        const contactForm = document.getElementById('contactForm');
-        if (contactForm) {
-            contactForm.addEventListener('submit', function(e) {
-                e.preventDefault();
-                
-                // Get form data
-                const formData = new FormData(this);
-                const name = this.querySelector('input[type="text"]').value;
-                
-                // Show success message
-                alert(`Thank you ${name}! Your message has been sent successfully. We will contact you soon.`);
-                
-                // Reset form
-                this.reset();
-            });
-        }
-
-        console.log('Algo For You Website Loaded Successfully!');
+        // Header background on scroll
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('.header');
+            if (window.scrollY > 100) {
+                header.style.background = 'rgba(255, 255, 255, 0.98)';
+            } else {
+                header.style.background = 'rgba(255, 255, 255, 0.95)';
+            }
+        });
     </script>
 </body>
-</html>
+</html>   
