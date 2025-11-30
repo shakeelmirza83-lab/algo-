@@ -207,6 +207,9 @@
             position: relative;
             overflow: hidden;
             text-align: center;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
         }
 
         .hero-container {
@@ -327,10 +330,20 @@
             font-weight: 600;
         }
 
-        /* Services Section */
-        .services {
+        /* Content Sections - HIDDEN BY DEFAULT */
+        .content-section {
+            display: none;
             padding: 100px 0;
-            background: var(--white);
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        .content-section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .container {
@@ -358,6 +371,7 @@
             margin: 0 auto;
         }
 
+        /* Services Section */
         .services-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -420,11 +434,6 @@
         }
 
         /* Packages Section */
-        .packages {
-            padding: 100px 0;
-            background: var(--bg-light);
-        }
-
         .packages-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
@@ -534,11 +543,6 @@
         }
 
         /* FAQ Section */
-        .faq {
-            padding: 100px 0;
-            background: var(--white);
-        }
-
         .faq-item {
             background: var(--white);
             border-radius: 10px;
@@ -583,11 +587,6 @@
         }
 
         /* Testimonials Section */
-        .testimonials {
-            padding: 100px 0;
-            background: var(--white);
-        }
-
         .testimonials-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
@@ -645,11 +644,6 @@
         }
 
         /* Disclaimer Section */
-        .disclaimer {
-            padding: 100px 0;
-            background: var(--bg-light);
-        }
-
         .disclaimer-content {
             background: var(--white);
             padding: 40px;
@@ -702,12 +696,6 @@
         }
 
         /* Contact Section */
-        .contact {
-            padding: 100px 0;
-            background: var(--gradient);
-            color: var(--white);
-        }
-
         .contact-content {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -914,30 +902,30 @@
         <div class="nav-container">
             <div class="logo">ALGO FOR YOU</div>
             <ul class="nav-menu">
-                <li><a href="#home">Home</a></li>
-                <li><a href="#services">Our Services</a></li>
-                <li><a href="#packages">Packages</a></li>
-                <li><a href="#testimonials">Testimonials</a></li>
-                <li><a href="#faq">FAQ</a></li>
-                <li><a href="#disclaimer">Disclaimer</a></li>
-                <li><a href="#contact">Contact Us</a></li>
+                <li><a href="#" onclick="showSection('home')">Home</a></li>
+                <li><a href="#" onclick="showSection('services')">Our Services</a></li>
+                <li><a href="#" onclick="showSection('packages')">Packages</a></li>
+                <li><a href="#" onclick="showSection('testimonials')">Testimonials</a></li>
+                <li><a href="#" onclick="showSection('faq')">FAQ</a></li>
+                <li><a href="#" onclick="showSection('disclaimer')">Disclaimer</a></li>
+                <li><a href="#" onclick="showSection('contact')">Contact Us</a></li>
             </ul>
         </div>
     </header>
 
-    <!-- Hero Section -->
+    <!-- Home Section (Visible by Default) -->
     <section id="home" class="hero">
         <div class="hero-container">
             <h1>Transforming Strategies into Algorithms</h1>
             <p>Your Premier Partner in Algorithmic Trading Software Solutions for Unparalleled Market Success</p>
             <div>
-                <a href="#contact" class="btn btn-primary">Get Started</a>
-                <a href="#packages" class="btn btn-secondary">View Packages</a>
+                <a href="#" onclick="showSection('contact')" class="btn btn-primary">Get Started</a>
+                <a href="#" onclick="showSection('packages')" class="btn btn-secondary">View Packages</a>
             </div>
         </div>
     </section>
 
-    <!-- Stats Section -->
+    <!-- Stats Section (Visible on Home) -->
     <section class="stats">
         <div class="stats-container">
             <div class="stat-card">
@@ -971,8 +959,10 @@
         </div>
     </section>
 
+    <!-- Other Sections (Hidden by Default) -->
+    
     <!-- Services Section -->
-    <section id="services" class="services">
+    <section id="services" class="content-section">
         <div class="container">
             <div class="section-header">
                 <h2>Our Services</h2>
@@ -1005,7 +995,7 @@
     </section>
 
     <!-- Packages Section -->
-    <section id="packages" class="packages">
+    <section id="packages" class="content-section">
         <div class="container">
             <div class="section-header">
                 <h2>Our Trading Packages</h2>
@@ -1071,7 +1061,7 @@
     </section>
 
     <!-- FAQ Section -->
-    <section id="faq" class="faq">
+    <section id="faq" class="content-section">
         <div class="container">
             <div class="section-header">
                 <h2>Frequently Asked Questions</h2>
@@ -1123,7 +1113,7 @@
     </section>
 
     <!-- Testimonials Section -->
-    <section id="testimonials" class="testimonials">
+    <section id="testimonials" class="content-section">
         <div class="container">
             <div class="section-header">
                 <h2>Client Testimonials</h2>
@@ -1171,7 +1161,7 @@
     </section>
 
     <!-- Disclaimer Section -->
-    <section id="disclaimer" class="disclaimer">
+    <section id="disclaimer" class="content-section">
         <div class="container">
             <div class="section-header">
                 <h2>Legal Disclaimer</h2>
@@ -1236,7 +1226,7 @@
     </section>
 
     <!-- Contact Section -->
-    <section id="contact" class="contact">
+    <section id="contact" class="content-section">
         <div class="container">
             <div class="section-header">
                 <h2>Contact Us</h2>
@@ -1323,21 +1313,21 @@
                 <div class="footer-section">
                     <h4>Quick Links</h4>
                     <ul>
-                        <li><a href="#home">Home</a></li>
-                        <li><a href="#services">Our Services</a></li>
-                        <li><a href="#packages">Packages</a></li>
-                        <li><a href="#testimonials">Testimonials</a></li>
-                        <li><a href="#disclaimer">Disclaimer</a></li>
+                        <li><a href="#" onclick="showSection('home')">Home</a></li>
+                        <li><a href="#" onclick="showSection('services')">Our Services</a></li>
+                        <li><a href="#" onclick="showSection('packages')">Packages</a></li>
+                        <li><a href="#" onclick="showSection('testimonials')">Testimonials</a></li>
+                        <li><a href="#" onclick="showSection('disclaimer')">Disclaimer</a></li>
                     </ul>
                 </div>
                 
                 <div class="footer-section">
                     <h4>Services</h4>
                     <ul>
-                        <li><a href="#">Algorithmic Trading</a></li>
-                        <li><a href="#">AI Predictions</a></li>
-                        <li><a href="#">Market Analysis</a></li>
-                        <li><a href="#">Portfolio Management</a></li>
+                        <li><a href="#" onclick="showSection('services')">Algorithmic Trading</a></li>
+                        <li><a href="#" onclick="showSection('services')">AI Predictions</a></li>
+                        <li><a href="#" onclick="showSection('services')">Market Analysis</a></li>
+                        <li><a href="#" onclick="showSection('services')">Portfolio Management</a></li>
                     </ul>
                 </div>
                 
@@ -1356,7 +1346,7 @@
     </footer>
 
     <script>
-        // Create floating candles - NOW CLEARLY VISIBLE
+        // Create floating candles
         function createFloatingCandles() {
             const container = document.getElementById('floatingCandles');
             const candleCount = 12;
@@ -1383,19 +1373,37 @@
         // Initialize floating candles
         createFloatingCandles();
 
-        // Smooth scrolling
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
+        // Show/Hide Sections Function
+        function showSection(sectionId) {
+            // Hide all content sections
+            document.querySelectorAll('.content-section').forEach(section => {
+                section.classList.remove('active');
             });
-        });
+            
+            // Hide hero and stats when showing other sections
+            if (sectionId !== 'home') {
+                document.querySelector('.hero').style.display = 'none';
+                document.querySelector('.stats').style.display = 'none';
+                
+                // Show the selected section
+                document.getElementById(sectionId).classList.add('active');
+                
+                // Scroll to top
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            } else {
+                // Show home sections
+                document.querySelector('.hero').style.display = 'flex';
+                document.querySelector('.stats').style.display = 'block';
+                
+                // Hide all other sections
+                document.querySelectorAll('.content-section').forEach(section => {
+                    section.classList.remove('active');
+                });
+                
+                // Scroll to top
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        }
 
         // FAQ Toggle functionality
         document.querySelectorAll('.faq-question').forEach(question => {
@@ -1448,6 +1456,11 @@
                 header.style.background = 'rgba(255, 255, 255, 0.95)';
                 header.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.1)';
             }
+        });
+
+        // Initialize - Show home page by default
+        document.addEventListener('DOMContentLoaded', function() {
+            showSection('home');
         });
     </script>
 </body>
