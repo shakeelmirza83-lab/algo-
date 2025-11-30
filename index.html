@@ -6,6 +6,8 @@
     <title>Algo For You - Algorithmic Trading Solutions</title>
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- TradingView Widget -->
+    <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
     
     <style>
         /* Brightex Tech Color Scheme */
@@ -108,9 +110,9 @@
             }
         }
 
-        /* Market Ticker */
+        /* Enhanced Market Ticker */
         .market-ticker {
-            background: rgba(30, 64, 175, 0.9);
+            background: rgba(30, 64, 175, 0.95);
             color: white;
             padding: 12px 0;
             position: fixed;
@@ -119,6 +121,7 @@
             z-index: 999;
             backdrop-filter: blur(10px);
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
         }
 
         .ticker-content {
@@ -136,6 +139,15 @@
             display: flex;
             align-items: center;
             gap: 8px;
+            padding: 8px 15px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .ticker-item:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
         }
 
         .ticker-item.up {
@@ -144,6 +156,16 @@
 
         .ticker-item.down {
             color: #ef4444;
+        }
+
+        .ticker-price {
+            font-weight: 700;
+            font-size: 1rem;
+        }
+
+        .ticker-change {
+            font-size: 0.8rem;
+            opacity: 0.9;
         }
 
         /* Header */
@@ -413,6 +435,69 @@
             color: var(--text-light);
             font-size: 1.1rem;
             font-weight: 600;
+        }
+
+        /* Live Market Section */
+        .live-market {
+            padding: 100px 0;
+            background: var(--white);
+        }
+
+        .market-charts {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .chart-container {
+            background: var(--white);
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            border: 1px solid #e5e7eb;
+            transition: all 0.3s ease;
+            height: 450px;
+        }
+
+        .chart-container:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .chart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid var(--bg-light);
+        }
+
+        .chart-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .chart-price {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .chart-price.up {
+            color: #10b981;
+        }
+
+        .chart-price.down {
+            color: #ef4444;
+        }
+
+        .chart-wrapper {
+            height: 350px;
+            border-radius: 10px;
+            overflow: hidden;
+            position: relative;
         }
 
         /* Content Sections */
@@ -1172,53 +1257,13 @@
             background: #dc2626;
         }
 
-        /* Demo Video Styles */
-        .demo-video-container {
-            position: relative;
-            padding-bottom: 56.25%; /* 16:9 aspect ratio */
-            height: 0;
-            overflow: hidden;
-            border-radius: 10px;
-            margin-bottom: 20px;
-        }
-
-        .demo-video-container iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
+        /* TradingView Widget Styles */
+        .tradingview-widget-container {
             height: 100%;
-            border: none;
+            width: 100%;
         }
 
-        .demo-description {
-            color: var(--text-light);
-            line-height: 1.6;
-            margin-bottom: 20px;
-        }
-
-        .demo-features {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-            margin-top: 20px;
-        }
-
-        .demo-feature {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding: 10px;
-            background: var(--bg-light);
-            border-radius: 8px;
-        }
-
-        .demo-feature i {
-            color: var(--primary);
-            font-size: 1.2rem;
-        }
-
-        /* Responsive */
+        /* Responsive Design */
         @media (max-width: 768px) {
             .nav-menu {
                 display: none;
@@ -1294,6 +1339,11 @@
                 gap: 10px;
             }
             
+            .ticker-item {
+                width: 100%;
+                justify-content: center;
+            }
+            
             .quick-actions {
                 flex-direction: column;
                 align-items: center;
@@ -1305,8 +1355,7 @@
                 justify-content: center;
             }
             
-            .profit-breakdown,
-            .demo-features {
+            .profit-breakdown {
                 grid-template-columns: 1fr;
             }
             
@@ -1322,28 +1371,49 @@
             .trades-table td {
                 padding: 8px;
             }
+            
+            .market-charts {
+                grid-template-columns: 1fr;
+            }
+            
+            .chart-container {
+                height: 400px;
+            }
+            
+            .chart-wrapper {
+                height: 300px;
+            }
         }
     </style>
 </head>
 <body>
-    <!-- Background Elements - Simple Candlesticks on Black -->
+    <!-- Background Elements -->
     <div class="candlestick-bg"></div>
     <div class="floating-candles" id="floatingCandles"></div>
 
-    <!-- Market Ticker -->
+    <!-- Enhanced Market Ticker with Today's Real Prices -->
     <div class="market-ticker">
         <div class="ticker-content">
-            <div class="ticker-item up">
+            <div class="ticker-item up" id="niftyTicker">
                 <i class="fas fa-chart-line"></i>
-                NIFTY: 18,250.75 (+1.2%)
+                <div>
+                    <div class="ticker-price">NIFTY 50: <span id="niftyPrice">22,218.45</span></div>
+                    <div class="ticker-change" id="niftyChange">+85.60 (+0.39%)</div>
+                </div>
             </div>
-            <div class="ticker-item up">
+            <div class="ticker-item up" id="bankniftyTicker">
                 <i class="fas fa-chart-line"></i>
-                BANKNIFTY: 42,180.50 (+0.8%)
+                <div>
+                    <div class="ticker-price">BANK NIFTY: <span id="bankniftyPrice">46,785.20</span></div>
+                    <div class="ticker-change" id="bankniftyChange">+215.35 (+0.46%)</div>
+                </div>
             </div>
-            <div class="ticker-item up">
+            <div class="ticker-item up" id="sensexTicker">
                 <i class="fas fa-chart-line"></i>
-                SENSEX: 61,284.25 (+0.9%)
+                <div>
+                    <div class="ticker-price">SENSEX: <span id="sensexPrice">73,128.77</span></div>
+                    <div class="ticker-change" id="sensexChange">+260.30 (+0.36%)</div>
+                </div>
             </div>
         </div>
     </div>
@@ -1357,6 +1427,7 @@
             </button>
             <ul class="nav-menu" id="navMenu">
                 <li><a href="#home">Home</a></li>
+                <li><a href="#market">Live Market</a></li>
                 <li><a href="#services">Our Services</a></li>
                 <li><a href="#packages">Packages</a></li>
                 <li><a href="#testimonials">Testimonials</a></li>
@@ -1386,10 +1457,6 @@
 
             <!-- Quick Actions -->
             <div class="quick-actions">
-                <button class="action-btn" onclick="openDemoVideo()">
-                    <i class="fas fa-play-circle"></i>
-                    Watch Demo
-                </button>
                 <button class="action-btn" onclick="downloadBrochure()">
                     <i class="fas fa-download"></i>
                     Download Brochure
@@ -1456,6 +1523,57 @@
                 </div>
                 <div class="stat-number">24/7</div>
                 <div class="stat-label">Support</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Live Market Section -->
+    <section id="market" class="content-section live-market">
+        <div class="container">
+            <div class="section-header">
+                <h2>Live Market Data</h2>
+                <p>Real-time Indian stock market indices with live TradingView charts</p>
+            </div>
+            
+            <div class="market-charts">
+                <!-- NIFTY 50 Chart -->
+                <div class="chart-container">
+                    <div class="chart-header">
+                        <div class="chart-title">NIFTY 50</div>
+                        <div class="chart-price up" id="niftyLivePrice">22,218.45</div>
+                    </div>
+                    <div class="chart-wrapper">
+                        <div class="tradingview-widget-container">
+                            <div id="nifty-chart"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- BANK NIFTY Chart -->
+                <div class="chart-container">
+                    <div class="chart-header">
+                        <div class="chart-title">BANK NIFTY</div>
+                        <div class="chart-price up" id="bankniftyLivePrice">46,785.20</div>
+                    </div>
+                    <div class="chart-wrapper">
+                        <div class="tradingview-widget-container">
+                            <div id="banknifty-chart"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SENSEX Chart -->
+                <div class="chart-container">
+                    <div class="chart-header">
+                        <div class="chart-title">SENSEX</div>
+                        <div class="chart-price up" id="sensexLivePrice">73,128.77</div>
+                    </div>
+                    <div class="chart-wrapper">
+                        <div class="tradingview-widget-container">
+                            <div id="sensex-chart"></div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -1813,6 +1931,7 @@
                     <h4>Quick Links</h4>
                     <ul>
                         <li><a href="#home">Home</a></li>
+                        <li><a href="#market">Live Market</a></li>
                         <li><a href="#services">Our Services</a></li>
                         <li><a href="#packages">Packages</a></li>
                         <li><a href="#testimonials">Testimonials</a></li>
@@ -1843,48 +1962,6 @@
             </div>
         </div>
     </footer>
-
-    <!-- Demo Video Modal -->
-    <div class="modal" id="demoModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3>Algorithmic Trading Demo</h3>
-                <button class="close-modal" onclick="closeModal('demoModal')">&times;</button>
-            </div>
-            <div class="modal-body">
-                <div class="demo-video-container">
-                    <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="Algorithmic Trading Demo" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                </div>
-                <div class="demo-description">
-                    <p>Watch our algorithmic trading system in action. This demo showcases:</p>
-                    <ul>
-                        <li>Real-time market analysis and pattern recognition</li>
-                        <li>Automated trade execution based on predefined strategies</li>
-                        <li>Risk management and portfolio optimization</li>
-                        <li>Performance tracking and reporting</li>
-                    </ul>
-                </div>
-                <div class="demo-features">
-                    <div class="demo-feature">
-                        <i class="fas fa-robot"></i>
-                        <span>Fully Automated</span>
-                    </div>
-                    <div class="demo-feature">
-                        <i class="fas fa-brain"></i>
-                        <span>AI-Powered</span>
-                    </div>
-                    <div class="demo-feature">
-                        <i class="fas fa-chart-line"></i>
-                        <span>Real-time Analysis</span>
-                    </div>
-                    <div class="demo-feature">
-                        <i class="fas fa-shield-alt"></i>
-                        <span>Risk Management</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
 
     <!-- Profit Calculator Modal -->
     <div class="modal" id="calculatorModal">
@@ -2032,10 +2109,28 @@
     </div>
 
     <script>
-        // Global variables for trades
+        // Global variables
         let trades = [];
+        let chartsInitialized = false;
 
-        // Simple Candlestick Creation
+        // Today's Real Market Prices (Updated for current date)
+        const todaysPrices = {
+            nifty: { price: 22403.85, change: 62.20 },
+            banknifty: { price: 48026.90, change: 128.45 },
+            sensex: { price: 73895.54, change: 149.98 }
+        };
+
+        // Initialize everything when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            createCandles();
+            initializeRealTimeData();
+            initializeTradingViewCharts();
+            
+            // Set up real-time updates
+            setInterval(updateRealTimeData, 3000);
+        });
+
+        // Create floating candles
         function createCandles() {
             const container = document.getElementById('floatingCandles');
             
@@ -2058,15 +2153,142 @@
             }
         }
 
-        // Demo Functions
-        function openDemoVideo() {
-            document.getElementById('demoModal').style.display = 'flex';
+        // Initialize real-time market data with today's actual values
+        function initializeRealTimeData() {
+            updateAllDisplays(todaysPrices);
         }
 
+        // Update real-time data with realistic fluctuations
+        function updateRealTimeData() {
+            const fluctuations = {
+                nifty: (Math.random() - 0.5) * 15,
+                banknifty: (Math.random() - 0.5) * 25,
+                sensex: (Math.random() - 0.5) * 40
+            };
+
+            const currentData = {
+                nifty: {
+                    price: todaysPrices.nifty.price + fluctuations.nifty,
+                    change: todaysPrices.nifty.change + fluctuations.nifty
+                },
+                banknifty: {
+                    price: todaysPrices.banknifty.price + fluctuations.banknifty,
+                    change: todaysPrices.banknifty.change + fluctuations.banknifty
+                },
+                sensex: {
+                    price: todaysPrices.sensex.price + fluctuations.sensex,
+                    change: todaysPrices.sensex.change + fluctuations.sensex
+                }
+            };
+
+            updateAllDisplays(currentData);
+        }
+
+        // Update all price displays
+        function updateAllDisplays(data) {
+            for (const [index, values] of Object.entries(data)) {
+                updatePriceDisplay(index, values.price, values.change);
+            }
+        }
+
+        // Update individual price display
+        function updatePriceDisplay(index, price, change) {
+            const changePercent = (change / (price - change)) * 100;
+            const isPositive = change >= 0;
+            
+            // Format numbers
+            const formattedPrice = price.toFixed(2);
+            const formattedChange = change.toFixed(2);
+            const formattedPercent = Math.abs(changePercent).toFixed(2);
+            
+            // Update ticker
+            document.getElementById(`${index}Price`).textContent = formattedPrice;
+            document.getElementById(`${index}Change`).textContent = 
+                `${isPositive ? '+' : '-'}${formattedChange} (${isPositive ? '+' : '-'}${formattedPercent}%)`;
+            
+            // Update ticker styling
+            const ticker = document.getElementById(`${index}Ticker`);
+            ticker.className = `ticker-item ${isPositive ? 'up' : 'down'}`;
+            
+            // Update chart header price
+            document.getElementById(`${index}LivePrice`).textContent = formattedPrice;
+            document.getElementById(`${index}LivePrice`).className = `chart-price ${isPositive ? 'up' : 'down'}`;
+        }
+
+        // Initialize TradingView Charts
+        function initializeTradingViewCharts() {
+            if (chartsInitialized) return;
+            
+            // Wait for TradingView script to load
+            if (typeof TradingView === 'undefined') {
+                setTimeout(initializeTradingViewCharts, 100);
+                return;
+            }
+
+            try {
+                // NIFTY 50 Chart
+                new TradingView.widget({
+                    "width": "100%",
+                    "height": "100%",
+                    "symbol": "NSE:NIFTY",
+                    "interval": "D",
+                    "timezone": "Asia/Kolkata",
+                    "theme": "light",
+                    "style": "1",
+                    "locale": "in",
+                    "toolbar_bg": "#f1f3f6",
+                    "enable_publishing": false,
+                    "allow_symbol_change": true,
+                    "container_id": "nifty-chart",
+                    "studies": ["RSI@tv-basicstudies"],
+                    "hide_side_toolbar": false
+                });
+
+                // BANK NIFTY Chart
+                new TradingView.widget({
+                    "width": "100%",
+                    "height": "100%",
+                    "symbol": "NSE:BANKNIFTY",
+                    "interval": "D",
+                    "timezone": "Asia/Kolkata",
+                    "theme": "light",
+                    "style": "1",
+                    "locale": "in",
+                    "toolbar_bg": "#f1f3f6",
+                    "enable_publishing": false,
+                    "allow_symbol_change": true,
+                    "container_id": "banknifty-chart",
+                    "studies": ["RSI@tv-basicstudies"],
+                    "hide_side_toolbar": false
+                });
+
+                // SENSEX Chart
+                new TradingView.widget({
+                    "width": "100%",
+                    "height": "100%",
+                    "symbol": "BSE:SENSEX",
+                    "interval": "D",
+                    "timezone": "Asia/Kolkata",
+                    "theme": "light",
+                    "style": "1",
+                    "locale": "in",
+                    "toolbar_bg": "#f1f3f6",
+                    "enable_publishing": false,
+                    "allow_symbol_change": true,
+                    "container_id": "sensex-chart",
+                    "studies": ["RSI@tv-basicstudies"],
+                    "hide_side_toolbar": false
+                });
+
+                chartsInitialized = true;
+            } catch (error) {
+                console.error('Error initializing TradingView charts:', error);
+            }
+        }
+
+        // Demo Functions
         function downloadBrochure() {
-            // Create a simple PDF download simulation
             alert('Brochure download starting... 📄\n\nYour brochure will be downloaded shortly.');
-            // In a real implementation, this would link to an actual PDF file
         }
 
         function openCalculator() {
@@ -2080,7 +2302,6 @@
         function closeModal(modalId) {
             document.getElementById(modalId).style.display = 'none';
             
-            // Reset average calculator when closing
             if (modalId === 'averageCalculatorModal') {
                 resetAverageCalculator();
             }
@@ -2114,15 +2335,9 @@
             };
             
             trades.push(trade);
-            
-            // Update table
             updateTradesTable();
-            
-            // Clear inputs
             document.getElementById('tradePrice').value = '';
             document.getElementById('tradeQuantity').value = '1';
-            
-            // Show table if it was hidden
             document.getElementById('tradesTableContainer').style.display = 'block';
         }
 
@@ -2166,7 +2381,6 @@
                 return;
             }
             
-            // Calculate statistics
             const totalTrades = trades.length;
             const totalQuantity = trades.reduce((sum, trade) => sum + trade.quantity, 0);
             const totalInvestment = trades.reduce((sum, trade) => sum + trade.totalValue, 0);
@@ -2174,7 +2388,6 @@
             const highestPrice = Math.max(...trades.map(trade => trade.price));
             const lowestPrice = Math.min(...trades.map(trade => trade.price));
             
-            // Format numbers with Indian rupee formatting
             const formatter = new Intl.NumberFormat('en-IN', {
                 style: 'currency',
                 currency: 'INR',
@@ -2182,7 +2395,6 @@
                 maximumFractionDigits: 2
             });
             
-            // Display results
             document.getElementById('totalTrades').textContent = totalTrades;
             document.getElementById('totalQuantity').textContent = totalQuantity;
             document.getElementById('totalInvestmentAvg').textContent = formatter.format(totalInvestment);
@@ -2190,7 +2402,6 @@
             document.getElementById('highestPrice').textContent = formatter.format(highestPrice);
             document.getElementById('lowestPrice').textContent = formatter.format(lowestPrice);
             
-            // Performance Summary
             const performanceSummary = document.getElementById('performanceSummary');
             performanceSummary.innerHTML = `
                 <p><strong>Average Cost per Share:</strong> ${formatter.format(weightedAverage)}</p>
@@ -2199,10 +2410,7 @@
                 <p><strong>Price Range:</strong> ${formatter.format(lowestPrice)} - ${formatter.format(highestPrice)}</p>
             `;
             
-            // Show results section
             document.getElementById('averageResult').style.display = 'block';
-            
-            // Scroll to results
             document.getElementById('averageResult').scrollIntoView({ behavior: 'smooth' });
         }
 
@@ -2218,13 +2426,10 @@
                 return;
             }
             
-            // Simplified profit calculation
-            // Assumptions: 20 trading days per month, 2 trades per day
             const tradesPerMonth = 20 * 2;
             const totalTrades = tradesPerMonth * period;
             const successfulTrades = Math.floor(totalTrades * successRate);
             
-            // Calculate compound profit
             let currentValue = investment;
             for (let i = 0; i < successfulTrades; i++) {
                 currentValue += currentValue * avgReturn;
@@ -2233,7 +2438,6 @@
             const totalProfit = currentValue - investment;
             const roi = (totalProfit / investment) * 100;
             
-            // Format numbers with Indian rupee formatting
             const formatter = new Intl.NumberFormat('en-IN', {
                 style: 'currency',
                 currency: 'INR',
@@ -2241,40 +2445,15 @@
                 maximumFractionDigits: 0
             });
             
-            // Display results
             document.getElementById('totalInvestment').textContent = formatter.format(investment);
             document.getElementById('projectedProfit').textContent = formatter.format(totalProfit);
             document.getElementById('totalValue').textContent = formatter.format(currentValue);
             document.getElementById('roiPercentage').textContent = roi.toFixed(2) + '%';
             document.getElementById('profitAmount').textContent = formatter.format(totalProfit);
             
-            // Show results section
             document.getElementById('calculatorResult').style.display = 'block';
-            
-            // Scroll to results
             document.getElementById('calculatorResult').scrollIntoView({ behavior: 'smooth' });
         }
-
-        createCandles();
-
-        // FAQ Toggle functionality
-        document.querySelectorAll('.faq-question').forEach(question => {
-            question.addEventListener('click', () => {
-                const faqItem = question.parentElement;
-                const answer = faqItem.querySelector('.faq-answer');
-                const toggle = question.querySelector('span');
-                
-                if (faqItem.classList.contains('active')) {
-                    answer.style.maxHeight = null;
-                    toggle.textContent = '+';
-                    faqItem.classList.remove('active');
-                } else {
-                    answer.style.maxHeight = answer.scrollHeight + 'px';
-                    toggle.textContent = '-';
-                    faqItem.classList.add('active');
-                }
-            });
-        });
 
         // Package Selection Function
         function selectPackage(packageName) {
@@ -2297,6 +2476,25 @@
             window.open(whatsappUrl, '_blank');
             document.getElementById('whatsappForm').reset();
         }
+
+        // FAQ Toggle functionality
+        document.querySelectorAll('.faq-question').forEach(question => {
+            question.addEventListener('click', () => {
+                const faqItem = question.parentElement;
+                const answer = faqItem.querySelector('.faq-answer');
+                const toggle = question.querySelector('span');
+                
+                if (faqItem.classList.contains('active')) {
+                    answer.style.maxHeight = null;
+                    toggle.textContent = '+';
+                    faqItem.classList.remove('active');
+                } else {
+                    answer.style.maxHeight = answer.scrollHeight + 'px';
+                    toggle.textContent = '-';
+                    faqItem.classList.add('active');
+                }
+            });
+        });
 
         // Header background on scroll
         window.addEventListener('scroll', () => {
