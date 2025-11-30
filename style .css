@@ -1,8 +1,61 @@
-/* Complete CSS code jo maine diya tha */
-:root {
-    --primary: #2563eb;
-    --secondary: #7c3aed;
-    /* ... rest colors */
-}
-
-/* ... rest CSS */
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Algo For You - Stock Market Algorithms</title>
+    
+    <!-- Direct CSS Start -->
+    <style>
+    :root {
+        --primary: #2563eb;
+        --secondary: #7c3aed;
+        --accent: #059669;
+        --warning: #f59e0b;
+        --dark: #1f2937;
+        --light: #f8fafc;
+    }
+    
+    body {
+        font-family: 'Arial', sans-serif;
+        line-height: 1.6;
+        color: var(--dark);
+        background: var(--light);
+        margin: 0;
+        padding: 0;
+    }
+    
+    /* Navigation */
+    .navbar {
+        background: white;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        position: fixed;
+        width: 100%;
+        top: 0;
+        z-index: 1000;
+    }
+    
+    .nav-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 1rem 2rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    
+    .logo h2 {
+        background: linear-gradient(45deg, var(--primary), var(--secondary));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+    
+    /* Hero Section Colors */
+    .hero {
+        padding: 120px 2rem 80px;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+    }
+    
+    /* Add more basic styles here... */
+    </style>
+    <!-- Direct CSS End -->
+</head>
