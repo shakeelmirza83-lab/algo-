@@ -156,6 +156,7 @@
             padding: 15px 0;
             box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
             backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
         }
 
         .nav-container {
@@ -205,6 +206,15 @@
 
         .nav-menu a:hover::after {
             width: 100%;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--primary);
+            cursor: pointer;
         }
 
         /* Enhanced Hero Section */
@@ -405,16 +415,10 @@
             font-weight: 600;
         }
 
-        /* Content Sections - HIDDEN BY DEFAULT */
+        /* Content Sections */
         .content-section {
-            display: none;
             padding: 100px 0;
             animation: fadeIn 0.5s ease-in;
-            background: var(--white);
-        }
-
-        .content-section.active {
-            display: block;
         }
 
         @keyframes fadeIn {
@@ -957,10 +961,204 @@
             font-size: 0.9rem;
         }
 
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background: var(--white);
+            border-radius: 15px;
+            width: 90%;
+            max-width: 600px;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        .modal-header {
+            padding: 20px 30px;
+            border-bottom: 1px solid #e5e7eb;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-header h3 {
+            color: var(--primary);
+            font-size: 1.5rem;
+            margin: 0;
+        }
+
+        .close-modal {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--text-light);
+            transition: color 0.3s ease;
+        }
+
+        .close-modal:hover {
+            color: var(--primary);
+        }
+
+        .modal-body {
+            padding: 30px;
+        }
+
+        /* Calculator Styles */
+        .calculator-form {
+            display: grid;
+            gap: 20px;
+        }
+
+        .calculator-input {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .calculator-input label {
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        .calculator-input input {
+            padding: 12px 15px;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .calculator-input input:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .calculator-result {
+            background: var(--bg-light);
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .calculator-result h4 {
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+
+        .profit-amount {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #10b981;
+            margin: 10px 0;
+        }
+
+        .profit-breakdown {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .breakdown-item {
+            background: var(--white);
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .breakdown-item h5 {
+            color: var(--text-light);
+            font-size: 0.9rem;
+            margin-bottom: 5px;
+        }
+
+        .breakdown-value {
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        /* Demo Video Styles */
+        .demo-video-container {
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 aspect ratio */
+            height: 0;
+            overflow: hidden;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        .demo-video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .demo-description {
+            color: var(--text-light);
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .demo-features {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .demo-feature {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px;
+            background: var(--bg-light);
+            border-radius: 8px;
+        }
+
+        .demo-feature i {
+            color: var(--primary);
+            font-size: 1.2rem;
+        }
+
         /* Responsive */
         @media (max-width: 768px) {
             .nav-menu {
                 display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: var(--white);
+                flex-direction: column;
+                padding: 20px;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            }
+            
+            .nav-menu.active {
+                display: flex;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
             }
             
             .hero h1 {
@@ -1027,6 +1225,11 @@
                 max-width: 250px;
                 justify-content: center;
             }
+            
+            .profit-breakdown,
+            .demo-features {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
@@ -1057,30 +1260,33 @@
     <header class="header">
         <div class="nav-container">
             <div class="logo">ALGO FOR YOU</div>
-            <ul class="nav-menu">
-                <li><a href="#" onclick="showSection('home')">Home</a></li>
-                <li><a href="#" onclick="showSection('services')">Our Services</a></li>
-                <li><a href="#" onclick="showSection('packages')">Packages</a></li>
-                <li><a href="#" onclick="showSection('testimonials')">Testimonials</a></li>
-                <li><a href="#" onclick="showSection('faq')">FAQ</a></li>
-                <li><a href="#" onclick="showSection('disclaimer')">Disclaimer</a></li>
-                <li><a href="#" onclick="showSection('contact')">Contact Us</a></li>
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#services">Our Services</a></li>
+                <li><a href="#packages">Packages</a></li>
+                <li><a href="#testimonials">Testimonials</a></li>
+                <li><a href="#faq">FAQ</a></li>
+                <li><a href="#disclaimer">Disclaimer</a></li>
+                <li><a href="#contact">Contact Us</a></li>
             </ul>
         </div>
     </header>
 
-    <!-- Enhanced Home Section (Visible by Default) -->
+    <!-- Enhanced Home Section -->
     <section id="home" class="hero">
         <div class="hero-container">
             <h1>Algorithmic Trading Revolution Starts Here</h1>
             <p>Experience 92% Accuracy with AI-Powered Trading Algorithms. Join 500+ Successful Traders Today!</p>
             
             <div class="hero-buttons">
-                <a href="#" onclick="showSection('contact')" class="btn btn-primary">
+                <a href="#contact" class="btn btn-primary">
                     <i class="fas fa-rocket"></i>
                     Start Trading Now
                 </a>
-                <a href="#" onclick="showSection('packages')" class="btn btn-secondary">
+                <a href="#packages" class="btn btn-secondary">
                     <i class="fas fa-crown"></i>
                     View Premium Plans
                 </a>
@@ -1124,7 +1330,7 @@
         </div>
     </section>
 
-    <!-- Enhanced Stats Section (Visible on Home) -->
+    <!-- Enhanced Stats Section -->
     <section class="stats">
         <div class="stats-container">
             <div class="stat-card">
@@ -1192,7 +1398,7 @@
     </section>
 
     <!-- Packages Section -->
-    <section id="packages" class="content-section">
+    <section id="packages" class="content-section packages">
         <div class="container">
             <div class="section-header">
                 <h2>Our Trading Packages</h2>
@@ -1258,7 +1464,7 @@
     </section>
 
     <!-- FAQ Section -->
-    <section id="faq" class="content-section">
+    <section id="faq" class="content-section faq">
         <div class="container">
             <div class="section-header">
                 <h2>Frequently Asked Questions</h2>
@@ -1310,7 +1516,7 @@
     </section>
 
     <!-- Testimonials Section -->
-    <section id="testimonials" class="content-section">
+    <section id="testimonials" class="content-section testimonials">
         <div class="container">
             <div class="section-header">
                 <h2>Client Testimonials</h2>
@@ -1358,7 +1564,7 @@
     </section>
 
     <!-- Disclaimer Section -->
-    <section id="disclaimer" class="content-section">
+    <section id="disclaimer" class="content-section disclaimer">
         <div class="container">
             <div class="section-header">
                 <h2>Legal Disclaimer</h2>
@@ -1423,7 +1629,7 @@
     </section>
 
     <!-- Contact Section -->
-    <section id="contact" class="content-section">
+    <section id="contact" class="content-section contact">
         <div class="container">
             <div class="section-header">
                 <h2>Contact Us</h2>
@@ -1510,21 +1716,21 @@
                 <div class="footer-section">
                     <h4>Quick Links</h4>
                     <ul>
-                        <li><a href="#" onclick="showSection('home')">Home</a></li>
-                        <li><a href="#" onclick="showSection('services')">Our Services</a></li>
-                        <li><a href="#" onclick="showSection('packages')">Packages</a></li>
-                        <li><a href="#" onclick="showSection('testimonials')">Testimonials</a></li>
-                        <li><a href="#" onclick="showSection('disclaimer')">Disclaimer</a></li>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#services">Our Services</a></li>
+                        <li><a href="#packages">Packages</a></li>
+                        <li><a href="#testimonials">Testimonials</a></li>
+                        <li><a href="#disclaimer">Disclaimer</a></li>
                     </ul>
                 </div>
                 
                 <div class="footer-section">
                     <h4>Services</h4>
                     <ul>
-                        <li><a href="#" onclick="showSection('services')">Algorithmic Trading</a></li>
-                        <li><a href="#" onclick="showSection('services')">AI Predictions</a></li>
-                        <li><a href="#" onclick="showSection('services')">Market Analysis</a></li>
-                        <li><a href="#" onclick="showSection('services')">Portfolio Management</a></li>
+                        <li><a href="#services">Algorithmic Trading</a></li>
+                        <li><a href="#services">AI Predictions</a></li>
+                        <li><a href="#services">Market Analysis</a></li>
+                        <li><a href="#services">Portfolio Management</a></li>
                     </ul>
                 </div>
                 
@@ -1541,6 +1747,108 @@
             </div>
         </div>
     </footer>
+
+    <!-- Demo Video Modal -->
+    <div class="modal" id="demoModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Algorithmic Trading Demo</h3>
+                <button class="close-modal" onclick="closeModal('demoModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="demo-video-container">
+                    <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="Algorithmic Trading Demo" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+                <div class="demo-description">
+                    <p>Watch our algorithmic trading system in action. This demo showcases:</p>
+                    <ul>
+                        <li>Real-time market analysis and pattern recognition</li>
+                        <li>Automated trade execution based on predefined strategies</li>
+                        <li>Risk management and portfolio optimization</li>
+                        <li>Performance tracking and reporting</li>
+                    </ul>
+                </div>
+                <div class="demo-features">
+                    <div class="demo-feature">
+                        <i class="fas fa-robot"></i>
+                        <span>Fully Automated</span>
+                    </div>
+                    <div class="demo-feature">
+                        <i class="fas fa-brain"></i>
+                        <span>AI-Powered</span>
+                    </div>
+                    <div class="demo-feature">
+                        <i class="fas fa-chart-line"></i>
+                        <span>Real-time Analysis</span>
+                    </div>
+                    <div class="demo-feature">
+                        <i class="fas fa-shield-alt"></i>
+                        <span>Risk Management</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Profit Calculator Modal -->
+    <div class="modal" id="calculatorModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Profit Calculator</h3>
+                <button class="close-modal" onclick="closeModal('calculatorModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="calculator-form">
+                    <div class="calculator-input">
+                        <label for="investmentAmount">Investment Amount (₹)</label>
+                        <input type="number" id="investmentAmount" placeholder="Enter investment amount" min="1000" step="1000" value="100000">
+                    </div>
+                    <div class="calculator-input">
+                        <label for="tradingPeriod">Trading Period (Months)</label>
+                        <input type="number" id="tradingPeriod" placeholder="Enter trading period" min="1" max="36" value="12">
+                    </div>
+                    <div class="calculator-input">
+                        <label for="successRate">Expected Success Rate (%)</label>
+                        <input type="number" id="successRate" placeholder="Enter success rate" min="50" max="95" value="85">
+                    </div>
+                    <div class="calculator-input">
+                        <label for="avgReturn">Average Return per Trade (%)</label>
+                        <input type="number" id="avgReturn" placeholder="Enter average return" min="1" max="20" value="5" step="0.5">
+                    </div>
+                    <button class="btn btn-primary" onclick="calculateProfit()" style="width: 100%;">
+                        <i class="fas fa-calculator"></i>
+                        Calculate Potential Profit
+                    </button>
+                </div>
+                <div class="calculator-result" id="calculatorResult" style="display: none;">
+                    <h4>Projected Profit Analysis</h4>
+                    <div class="profit-amount" id="profitAmount">₹0</div>
+                    <p>Based on your inputs and our algorithmic trading performance</p>
+                    <div class="profit-breakdown">
+                        <div class="breakdown-item">
+                            <h5>Total Investment</h5>
+                            <div class="breakdown-value" id="totalInvestment">₹0</div>
+                        </div>
+                        <div class="breakdown-item">
+                            <h5>Projected Profit</h5>
+                            <div class="breakdown-value" id="projectedProfit">₹0</div>
+                        </div>
+                        <div class="breakdown-item">
+                            <h5>Total Value</h5>
+                            <div class="breakdown-value" id="totalValue">₹0</div>
+                        </div>
+                        <div class="breakdown-item">
+                            <h5>ROI</h5>
+                            <div class="breakdown-value" id="roiPercentage">0%</div>
+                        </div>
+                    </div>
+                    <div class="warning-box" style="margin-top: 20px;">
+                        <p><strong>Disclaimer:</strong> This is a hypothetical projection based on historical performance. Past results do not guarantee future returns. Algorithmic trading involves risk of loss.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <script>
         // Simple Candlestick Creation
@@ -1568,50 +1876,73 @@
 
         // Demo Functions
         function openDemoVideo() {
-            alert('Demo video would open here! 🎥');
+            document.getElementById('demoModal').style.display = 'flex';
         }
 
         function downloadBrochure() {
-            alert('Brochure download starting... 📄');
+            // Create a simple PDF download simulation
+            alert('Brochure download starting... 📄\n\nYour brochure will be downloaded shortly.');
+            // In a real implementation, this would link to an actual PDF file
         }
 
         function openCalculator() {
-            alert('Profit calculator opening... 🧮');
+            document.getElementById('calculatorModal').style.display = 'flex';
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+        }
+
+        // Profit Calculator Function
+        function calculateProfit() {
+            const investment = parseFloat(document.getElementById('investmentAmount').value);
+            const period = parseInt(document.getElementById('tradingPeriod').value);
+            const successRate = parseFloat(document.getElementById('successRate').value) / 100;
+            const avgReturn = parseFloat(document.getElementById('avgReturn').value) / 100;
+            
+            if (isNaN(investment) || isNaN(period) || isNaN(successRate) || isNaN(avgReturn)) {
+                alert('Please enter valid numbers in all fields');
+                return;
+            }
+            
+            // Simplified profit calculation
+            // Assumptions: 20 trading days per month, 2 trades per day
+            const tradesPerMonth = 20 * 2;
+            const totalTrades = tradesPerMonth * period;
+            const successfulTrades = Math.floor(totalTrades * successRate);
+            
+            // Calculate compound profit
+            let currentValue = investment;
+            for (let i = 0; i < successfulTrades; i++) {
+                currentValue += currentValue * avgReturn;
+            }
+            
+            const totalProfit = currentValue - investment;
+            const roi = (totalProfit / investment) * 100;
+            
+            // Format numbers with Indian rupee formatting
+            const formatter = new Intl.NumberFormat('en-IN', {
+                style: 'currency',
+                currency: 'INR',
+                minimumFractionDigits: 0,
+                maximumFractionDigits: 0
+            });
+            
+            // Display results
+            document.getElementById('totalInvestment').textContent = formatter.format(investment);
+            document.getElementById('projectedProfit').textContent = formatter.format(totalProfit);
+            document.getElementById('totalValue').textContent = formatter.format(currentValue);
+            document.getElementById('roiPercentage').textContent = roi.toFixed(2) + '%';
+            document.getElementById('profitAmount').textContent = formatter.format(totalProfit);
+            
+            // Show results section
+            document.getElementById('calculatorResult').style.display = 'block';
+            
+            // Scroll to results
+            document.getElementById('calculatorResult').scrollIntoView({ behavior: 'smooth' });
         }
 
         createCandles();
-
-        // Show/Hide Sections Function
-        function showSection(sectionId) {
-            // Hide all content sections
-            document.querySelectorAll('.content-section').forEach(section => {
-                section.classList.remove('active');
-            });
-            
-            // Hide hero and stats when showing other sections
-            if (sectionId !== 'home') {
-                document.querySelector('.hero').style.display = 'none';
-                document.querySelector('.stats').style.display = 'none';
-                
-                // Show the selected section
-                document.getElementById(sectionId).classList.add('active');
-                
-                // Scroll to top
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-            } else {
-                // Show home sections
-                document.querySelector('.hero').style.display = 'flex';
-                document.querySelector('.stats').style.display = 'block';
-                
-                // Hide all other sections
-                document.querySelectorAll('.content-section').forEach(section => {
-                    section.classList.remove('active');
-                });
-                
-                // Scroll to top
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-            }
-        }
 
         // FAQ Toggle functionality
         document.querySelectorAll('.faq-question').forEach(question => {
@@ -1666,9 +1997,40 @@
             }
         });
 
-        // Initialize - Show home page by default
-        document.addEventListener('DOMContentLoaded', function() {
-            showSection('home');
+        // Mobile menu toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const navMenu = document.getElementById('navMenu');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    // Close mobile menu if open
+                    navMenu.classList.remove('active');
+                    
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 100,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Close modals when clicking outside
+        window.addEventListener('click', (e) => {
+            if (e.target.classList.contains('modal')) {
+                e.target.style.display = 'none';
+            }
         });
     </script>
 </body>
