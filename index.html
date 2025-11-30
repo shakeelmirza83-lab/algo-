@@ -37,15 +37,119 @@
             background: var(--white);
         }
 
+        /* Candlestick Chart Background - CLEARLY VISIBLE */
+        .candlestick-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            opacity: 0.15;
+            background: 
+                /* Chart Grid */
+                linear-gradient(90deg, #cbd5e1 1px, transparent 1px),
+                linear-gradient(0deg, #cbd5e1 1px, transparent 1px),
+                /* Green Candles (Bullish) */
+                linear-gradient(90deg, transparent 20%, #10b981 20%, #10b981 25%, transparent 25%),
+                linear-gradient(90deg, transparent 35%, #10b981 35%, #10b981 40%, transparent 40%),
+                linear-gradient(90deg, transparent 50%, #10b981 50%, #10b981 55%, transparent 55%),
+                linear-gradient(90deg, transparent 65%, #10b981 65%, #10b981 70%, transparent 70%),
+                /* Red Candles (Bearish) */
+                linear-gradient(90deg, transparent 80%, #ef4444 80%, #ef4444 85%, transparent 85%),
+                linear-gradient(90deg, transparent 10%, #ef4444 10%, #ef4444 15%, transparent 15%),
+                linear-gradient(90deg, transparent 45%, #ef4444 45%, #ef4444 50%, transparent 50%);
+            background-size: 120px 120px;
+        }
+
+        /* Floating Candles - CLEARLY VISIBLE */
+        .floating-candles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .candle {
+            position: absolute;
+            width: 12px;
+            background: linear-gradient(to bottom, #ef4444, #dc2626);
+            border-radius: 6px;
+            animation: floatCandle 25s linear infinite;
+            opacity: 0.4;
+            box-shadow: 0 0 15px rgba(239, 68, 68, 0.4);
+        }
+
+        .candle.green {
+            background: linear-gradient(to bottom, #10b981, #059669);
+            box-shadow: 0 0 15px rgba(16, 185, 129, 0.4);
+        }
+
+        .candle .wick {
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 3px;
+            height: 20px;
+            background: #374151;
+            border-radius: 1px;
+        }
+
+        .candle .flame {
+            position: absolute;
+            top: -35px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 8px;
+            height: 15px;
+            background: linear-gradient(to bottom, #fbbf24, #ef4444);
+            border-radius: 50% 50% 20% 20%;
+            animation: flicker 0.8s ease-in-out infinite alternate;
+        }
+
+        @keyframes floatCandle {
+            0% {
+                transform: translateY(100vh) translateX(-100px) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.4;
+            }
+            90% {
+                opacity: 0.4;
+            }
+            100% {
+                transform: translateY(-100px) translateX(100px) rotate(180deg);
+                opacity: 0;
+            }
+        }
+
+        @keyframes flicker {
+            0% {
+                transform: translateX(-50%) scale(1);
+                opacity: 0.7;
+            }
+            100% {
+                transform: translateX(-50%) scale(1.2);
+                opacity: 1;
+            }
+        }
+
         /* Header */
         .header {
             position: fixed;
             top: 0;
             width: 100%;
-            background: var(--white);
+            background: rgba(255, 255, 255, 0.95);
             z-index: 1000;
             padding: 15px 0;
             box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
         }
 
         .nav-container {
@@ -532,6 +636,9 @@
             border-radius: 8px;
             cursor: pointer;
             transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
 
         .btn-whatsapp:hover {
@@ -621,6 +728,10 @@
     </style>
 </head>
 <body>
+    <!-- Background Elements - NOW CLEARLY VISIBLE -->
+    <div class="candlestick-bg"></div>
+    <div class="floating-candles" id="floatingCandles"></div>
+
     <!-- Header -->
     <header class="header">
         <div class="nav-container">
@@ -754,6 +865,16 @@
                         <p>Our algorithms have consistently achieved 85-95% accuracy in backtesting. However, past performance doesn't guarantee future results. We provide detailed performance reports for each strategy.</p>
                     </div>
                 </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        Do I need trading experience?
+                        <span>+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>No prior trading experience is necessary. Our systems are designed to be user-friendly, and we provide complete guidance and support throughout your trading journey.</p>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -790,6 +911,18 @@
                         </div>
                     </div>
                 </div>
+
+                <div class="testimonial-card">
+                    <div class="stars">⭐⭐⭐⭐⭐</div>
+                    <p>"The portfolio management service is outstanding. They optimized my investments and reduced risks significantly. Highly recommended!"</p>
+                    <div class="client-info">
+                        <div class="client-avatar">AK</div>
+                        <div class="client-details">
+                            <h4>Amit Kumar</h4>
+                            <p>Bangalore Businessman</p>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -799,7 +932,7 @@
         <div class="container">
             <div class="section-header">
                 <h2>Contact Us</h2>
-                <p>Get in touch with our trading experts</p>
+                <p>Get in touch with our trading experts via WhatsApp</p>
             </div>
             <div class="contact-content">
                 <div class="contact-info">
@@ -839,27 +972,28 @@
                 
                 <div class="contact-form">
                     <h3>Send Message via WhatsApp</h3>
-                    <p>Fill the form and we'll connect with you on WhatsApp</p>
-                    <form id="contactForm">
+                    <p>Fill the form and we'll open WhatsApp with your message</p>
+                    <form id="whatsappForm">
                         <div class="form-group">
-                            <input type="text" placeholder="Your Full Name" required>
+                            <input type="text" id="clientName" placeholder="Your Full Name" required>
                         </div>
                         <div class="form-group">
-                            <input type="tel" placeholder="Your Phone Number" required>
+                            <input type="tel" id="clientPhone" placeholder="Your WhatsApp Number" required>
                         </div>
                         <div class="form-group">
-                            <select required>
+                            <select id="serviceType" required>
                                 <option value="">Select Service Interested In</option>
                                 <option value="Algorithmic Trading">Algorithmic Trading</option>
                                 <option value="AI Stock Predictions">AI Stock Predictions</option>
                                 <option value="Market Analysis Reports">Market Analysis Reports</option>
                                 <option value="Portfolio Management">Portfolio Management</option>
+                                <option value="Custom Algorithm Development">Custom Algorithm Development</option>
                             </select>
                         </div>
                         <div class="form-group">
-                            <textarea placeholder="Your Message or Requirements" rows="5" required></textarea>
+                            <textarea id="clientMessage" placeholder="Your Message or Requirements" rows="5" required></textarea>
                         </div>
-                        <button type="button" class="btn-whatsapp">
+                        <button type="button" onclick="sendToWhatsApp()" class="btn-whatsapp">
                             <i class="fab fa-whatsapp"></i>
                             Send via WhatsApp
                         </button>
@@ -913,6 +1047,33 @@
     </footer>
 
     <script>
+        // Create floating candles - NOW CLEARLY VISIBLE
+        function createFloatingCandles() {
+            const container = document.getElementById('floatingCandles');
+            const candleCount = 12;
+            
+            for (let i = 0; i < candleCount; i++) {
+                const candle = document.createElement('div');
+                candle.className = Math.random() > 0.5 ? 'candle green' : 'candle';
+                candle.style.left = Math.random() * 100 + '%';
+                candle.style.height = (Math.random() * 120 + 80) + 'px';
+                candle.style.animationDelay = (Math.random() * 20) + 's';
+                
+                const wick = document.createElement('div');
+                wick.className = 'wick';
+                
+                const flame = document.createElement('div');
+                flame.className = 'flame';
+                
+                candle.appendChild(flame);
+                candle.appendChild(wick);
+                container.appendChild(candle);
+            }
+        }
+
+        // Initialize floating candles
+        createFloatingCandles();
+
         // Smooth scrolling
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
@@ -947,18 +1108,19 @@
         });
 
         // WhatsApp Form Functionality
-        document.querySelector('.btn-whatsapp').addEventListener('click', function() {
-            const name = document.querySelector('input[type="text"]').value;
-            const phone = document.querySelector('input[type="tel"]').value;
-            const service = document.querySelector('select').value;
-            const message = document.querySelector('textarea').value;
+        function sendToWhatsApp() {
+            const name = document.getElementById('clientName').value;
+            const phone = document.getElementById('clientPhone').value;
+            const service = document.getElementById('serviceType').value;
+            const message = document.getElementById('clientMessage').value;
             
             const formattedMessage = `Hello Algo For You!%0A%0A*Name:* ${name}%0A*Phone:* ${phone}%0A*Service Interested:* ${service}%0A*Message:* ${message}%0A%0AI found you through your website.`.trim();
             
             const whatsappUrl = `https://wa.me/917770952979?text=${formattedMessage}`;
             
             window.open(whatsappUrl, '_blank');
-        });
+            document.getElementById('whatsappForm').reset();
+        }
 
         // Header background on scroll
         window.addEventListener('scroll', () => {
@@ -967,7 +1129,7 @@
                 header.style.background = 'rgba(255, 255, 255, 0.98)';
                 header.style.boxShadow = '0 2px 30px rgba(0, 0, 0, 0.15)';
             } else {
-                header.style.background = 'var(--white)';
+                header.style.background = 'rgba(255, 255, 255, 0.95)';
                 header.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.1)';
             }
         });
