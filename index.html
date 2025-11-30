@@ -108,6 +108,44 @@
             }
         }
 
+        /* Market Ticker */
+        .market-ticker {
+            background: rgba(30, 64, 175, 0.9);
+            color: white;
+            padding: 12px 0;
+            position: fixed;
+            top: 80px;
+            width: 100%;
+            z-index: 999;
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .ticker-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            font-size: 0.9rem;
+            font-weight: 600;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .ticker-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .ticker-item.up {
+            color: #10b981;
+        }
+
+        .ticker-item.down {
+            color: #ef4444;
+        }
+
         /* Header */
         .header {
             position: fixed;
@@ -169,11 +207,11 @@
             width: 100%;
         }
 
-        /* Hero Section */
+        /* Enhanced Hero Section */
         .hero {
             background: var(--gradient);
             color: var(--white);
-            padding: 150px 0 100px;
+            padding: 180px 0 100px;
             position: relative;
             overflow: hidden;
             text-align: center;
@@ -191,19 +229,27 @@
         }
 
         .hero h1 {
-            font-size: 3.2rem;
+            font-size: 3.5rem;
             font-weight: 700;
             margin-bottom: 20px;
             line-height: 1.2;
         }
 
         .hero p {
-            font-size: 1.3rem;
+            font-size: 1.4rem;
             opacity: 0.9;
             margin-bottom: 40px;
             max-width: 800px;
             margin-left: auto;
             margin-right: auto;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 30px;
         }
 
         .btn {
@@ -215,8 +261,9 @@
             text-decoration: none;
             transition: all 0.3s ease;
             cursor: pointer;
-            display: inline-block;
-            margin: 0 10px;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
         }
 
         .btn-primary {
@@ -241,10 +288,61 @@
             color: var(--primary);
         }
 
-        /* Stats Section */
+        /* Quick Actions */
+        .quick-actions {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+
+        .action-btn {
+            padding: 12px 25px;
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--white);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 6px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .action-btn:hover {
+            background: var(--white);
+            color: var(--primary);
+            transform: translateY(-2px);
+        }
+
+        /* Trust Badges */
+        .trust-badges {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 40px;
+            flex-wrap: wrap;
+        }
+
+        .badge {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 0.9rem;
+        }
+
+        .badge i {
+            font-size: 1.2rem;
+            color: #10b981;
+        }
+
+        /* Enhanced Stats Section */
         .stats {
             background: var(--bg-light);
-            padding: 60px 0;
+            padding: 80px 0;
         }
 
         .stats-container {
@@ -258,37 +356,44 @@
 
         .stat-card {
             text-align: center;
-            padding: 30px 20px;
+            padding: 40px 30px;
             background: var(--white);
             border-radius: 15px;
-            transition: transform 0.3s ease;
+            transition: all 0.3s ease;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
             border-left: 4px solid var(--primary);
+            position: relative;
+            overflow: hidden;
         }
 
         .stat-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
         }
 
         .stat-icon {
-            width: 70px;
-            height: 70px;
+            width: 80px;
+            height: 80px;
             margin: 0 auto 20px;
             background: var(--gradient);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
+            transition: transform 0.3s ease;
+        }
+
+        .stat-card:hover .stat-icon {
+            transform: scale(1.1);
         }
 
         .stat-icon i {
-            font-size: 1.8rem;
+            font-size: 2rem;
             color: var(--white);
         }
 
         .stat-number {
-            font-size: 2.5rem;
+            font-size: 3rem;
             font-weight: 700;
             color: var(--primary);
             margin-bottom: 10px;
@@ -296,7 +401,7 @@
 
         .stat-label {
             color: var(--text-light);
-            font-size: 1rem;
+            font-size: 1.1rem;
             font-weight: 600;
         }
 
@@ -859,11 +964,27 @@
             }
             
             .hero h1 {
-                font-size: 2.2rem;
+                font-size: 2.5rem;
             }
             
             .hero p {
                 font-size: 1.1rem;
+            }
+            
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .btn {
+                width: 100%;
+                max-width: 300px;
+                justify-content: center;
+            }
+            
+            .trust-badges {
+                flex-direction: column;
+                gap: 15px;
             }
             
             .contact-content {
@@ -886,6 +1007,26 @@
             .package-card.popular {
                 transform: scale(1);
             }
+            
+            .market-ticker {
+                top: 70px;
+            }
+            
+            .ticker-content {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .quick-actions {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .action-btn {
+                width: 100%;
+                max-width: 250px;
+                justify-content: center;
+            }
         }
     </style>
 </head>
@@ -893,6 +1034,24 @@
     <!-- Background Elements - Simple Candlesticks on Black -->
     <div class="candlestick-bg"></div>
     <div class="floating-candles" id="floatingCandles"></div>
+
+    <!-- Market Ticker -->
+    <div class="market-ticker">
+        <div class="ticker-content">
+            <div class="ticker-item up">
+                <i class="fas fa-chart-line"></i>
+                NIFTY: 18,250.75 (+1.2%)
+            </div>
+            <div class="ticker-item up">
+                <i class="fas fa-chart-line"></i>
+                BANKNIFTY: 42,180.50 (+0.8%)
+            </div>
+            <div class="ticker-item up">
+                <i class="fas fa-chart-line"></i>
+                SENSEX: 61,284.25 (+0.9%)
+            </div>
+        </div>
+    </div>
 
     <!-- Header -->
     <header class="header">
@@ -910,19 +1069,62 @@
         </div>
     </header>
 
-    <!-- Home Section (Visible by Default) -->
+    <!-- Enhanced Home Section (Visible by Default) -->
     <section id="home" class="hero">
         <div class="hero-container">
-            <h1>Transforming Strategies into Algorithms</h1>
-            <p>Your Premier Partner in Algorithmic Trading Software Solutions for Unparalleled Market Success</p>
-            <div>
-                <a href="#" onclick="showSection('contact')" class="btn btn-primary">Get Started</a>
-                <a href="#" onclick="showSection('packages')" class="btn btn-secondary">View Packages</a>
+            <h1>Algorithmic Trading Revolution Starts Here</h1>
+            <p>Experience 92% Accuracy with AI-Powered Trading Algorithms. Join 500+ Successful Traders Today!</p>
+            
+            <div class="hero-buttons">
+                <a href="#" onclick="showSection('contact')" class="btn btn-primary">
+                    <i class="fas fa-rocket"></i>
+                    Start Trading Now
+                </a>
+                <a href="#" onclick="showSection('packages')" class="btn btn-secondary">
+                    <i class="fas fa-crown"></i>
+                    View Premium Plans
+                </a>
+            </div>
+
+            <!-- Quick Actions -->
+            <div class="quick-actions">
+                <button class="action-btn" onclick="openDemoVideo()">
+                    <i class="fas fa-play-circle"></i>
+                    Watch Demo
+                </button>
+                <button class="action-btn" onclick="downloadBrochure()">
+                    <i class="fas fa-download"></i>
+                    Download Brochure
+                </button>
+                <button class="action-btn" onclick="openCalculator()">
+                    <i class="fas fa-calculator"></i>
+                    Profit Calculator
+                </button>
+            </div>
+
+            <!-- Trust Badges -->
+            <div class="trust-badges">
+                <div class="badge">
+                    <i class="fas fa-shield-alt"></i>
+                    <span>Bank-Level Security</span>
+                </div>
+                <div class="badge">
+                    <i class="fas fa-clock"></i>
+                    <span>24/7 Support</span>
+                </div>
+                <div class="badge">
+                    <i class="fas fa-rupee-sign"></i>
+                    <span>Transparent Pricing</span>
+                </div>
+                <div class="badge">
+                    <i class="fas fa-trophy"></i>
+                    <span>92% Success Rate</span>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- Stats Section (Visible on Home) -->
+    <!-- Enhanced Stats Section (Visible on Home) -->
     <section class="stats">
         <div class="stats-container">
             <div class="stat-card">
@@ -1362,6 +1564,19 @@
                 candle.appendChild(bottomWick);
                 container.appendChild(candle);
             }
+        }
+
+        // Demo Functions
+        function openDemoVideo() {
+            alert('Demo video would open here! 🎥');
+        }
+
+        function downloadBrochure() {
+            alert('Brochure download starting... 📄');
+        }
+
+        function openCalculator() {
+            alert('Profit calculator opening... 🧮');
         }
 
         createCandles();
