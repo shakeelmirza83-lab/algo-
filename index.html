@@ -419,10 +419,124 @@
             line-height: 1.6;
         }
 
+        /* Packages Section */
+        .packages {
+            padding: 100px 0;
+            background: var(--bg-light);
+        }
+
+        .packages-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .package-card {
+            background: var(--white);
+            border-radius: 15px;
+            padding: 40px 30px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            position: relative;
+            border: 2px solid #e5e7eb;
+        }
+
+        .package-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+            border-color: var(--primary);
+        }
+
+        .package-card.popular {
+            border-color: var(--primary);
+            transform: scale(1.05);
+        }
+
+        .package-card.popular::before {
+            content: 'MOST POPULAR';
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--primary);
+            color: var(--white);
+            padding: 5px 20px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .package-header {
+            margin-bottom: 30px;
+        }
+
+        .package-name {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+
+        .package-price {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 10px;
+        }
+
+        .package-period {
+            color: var(--text-light);
+            font-size: 1rem;
+        }
+
+        .package-features {
+            list-style: none;
+            margin-bottom: 30px;
+            text-align: left;
+        }
+
+        .package-features li {
+            padding: 12px 0;
+            border-bottom: 1px solid #f1f5f9;
+            color: var(--text-dark);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .package-features li:last-child {
+            border-bottom: none;
+        }
+
+        .package-features li i {
+            color: #10b981;
+            font-size: 1.1rem;
+        }
+
+        .package-btn {
+            background: var(--gradient);
+            color: var(--white);
+            border: none;
+            padding: 15px 40px;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+
+        .package-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(59, 130, 246, 0.3);
+        }
+
         /* FAQ Section */
         .faq {
             padding: 100px 0;
-            background: var(--bg-light);
+            background: var(--white);
         }
 
         .faq-item {
@@ -779,6 +893,14 @@
             .stats-container {
                 grid-template-columns: 1fr;
             }
+            
+            .packages-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .package-card.popular {
+                transform: scale(1);
+            }
         }
     </style>
 </head>
@@ -794,6 +916,7 @@
             <ul class="nav-menu">
                 <li><a href="#home">Home</a></li>
                 <li><a href="#services">Our Services</a></li>
+                <li><a href="#packages">Packages</a></li>
                 <li><a href="#testimonials">Testimonials</a></li>
                 <li><a href="#faq">FAQ</a></li>
                 <li><a href="#disclaimer">Disclaimer</a></li>
@@ -809,7 +932,7 @@
             <p>Your Premier Partner in Algorithmic Trading Software Solutions for Unparalleled Market Success</p>
             <div>
                 <a href="#contact" class="btn btn-primary">Get Started</a>
-                <a href="#services" class="btn btn-secondary">Learn More</a>
+                <a href="#packages" class="btn btn-secondary">View Packages</a>
             </div>
         </div>
     </section>
@@ -881,6 +1004,72 @@
         </div>
     </section>
 
+    <!-- Packages Section -->
+    <section id="packages" class="packages">
+        <div class="container">
+            <div class="section-header">
+                <h2>Our Trading Packages</h2>
+                <p>Choose the perfect plan for your trading needs</p>
+            </div>
+            
+            <div class="packages-grid">
+                <!-- Monthly Package -->
+                <div class="package-card">
+                    <div class="package-header">
+                        <div class="package-name">MONTHLY</div>
+                        <div class="package-price">₹12,500 +GST</div>
+                        <div class="package-period">Billed Monthly</div>
+                    </div>
+                    <ul class="package-features">
+                        <li><i class="fas fa-check"></i> Completely Automated</li>
+                        <li><i class="fas fa-check"></i> Trades Indices</li>
+                        <li><i class="fas fa-check"></i> WhatsApp Support</li>
+                        <li><i class="fas fa-check"></i> Remote Support</li>
+                        <li><i class="fas fa-check"></i> 1 Strategy</li>
+                        <li><i class="fas fa-check"></i> ₹1000 Maintenance Charges per month</li>
+                    </ul>
+                    <button class="package-btn" onclick="selectPackage('MONTHLY')">CHOOSE THIS PLAN</button>
+                </div>
+
+                <!-- Quarterly Package -->
+                <div class="package-card popular">
+                    <div class="package-header">
+                        <div class="package-name">QUARTERLY</div>
+                        <div class="package-price">₹38,000 +GST</div>
+                        <div class="package-period">Billed Quarterly</div>
+                    </div>
+                    <ul class="package-features">
+                        <li><i class="fas fa-check"></i> Completely Automated</li>
+                        <li><i class="fas fa-check"></i> Trades Indices</li>
+                        <li><i class="fas fa-check"></i> WhatsApp Support</li>
+                        <li><i class="fas fa-check"></i> Remote Support</li>
+                        <li><i class="fas fa-check"></i> 3-4 Strategies</li>
+                        <li><i class="fas fa-check"></i> ₹1000 Maintenance Charges per month</li>
+                    </ul>
+                    <button class="package-btn" onclick="selectPackage('QUARTERLY')">CHOOSE THIS PLAN</button>
+                </div>
+
+                <!-- Half Yearly Package -->
+                <div class="package-card">
+                    <div class="package-header">
+                        <div class="package-name">HALF YEARLY</div>
+                        <div class="package-price">₹72,000 +GST</div>
+                        <div class="package-period">Billed Half Yearly</div>
+                    </div>
+                    <ul class="package-features">
+                        <li><i class="fas fa-check"></i> Completely Automated</li>
+                        <li><i class="fas fa-check"></i> Trades Indices</li>
+                        <li><i class="fas fa-check"></i> WhatsApp Support</li>
+                        <li><i class="fas fa-check"></i> Remote Support</li>
+                        <li><i class="fas fa-check"></i> 7-8 Strategies</li>
+                        <li><i class="fas fa-check"></i> ₹1000 Maintenance Charges per month</li>
+                    </ul>
+                    <button class="package-btn" onclick="selectPackage('HALF YEARLY')">CHOOSE THIS PLAN</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- FAQ Section -->
     <section id="faq" class="faq">
         <div class="container">
@@ -906,7 +1095,7 @@
                         <span>+</span>
                     </div>
                     <div class="faq-answer">
-                        <p>We offer flexible plans starting from ₹25,000. The minimum investment depends on the trading strategy and risk profile. Contact us for a personalized consultation.</p>
+                        <p>We offer flexible plans starting from ₹12,500 per month. The minimum investment depends on the trading strategy and risk profile. Contact us for a personalized consultation.</p>
                     </div>
                 </div>
                 
@@ -1136,6 +1325,7 @@
                     <ul>
                         <li><a href="#home">Home</a></li>
                         <li><a href="#services">Our Services</a></li>
+                        <li><a href="#packages">Packages</a></li>
                         <li><a href="#testimonials">Testimonials</a></li>
                         <li><a href="#disclaimer">Disclaimer</a></li>
                     </ul>
@@ -1225,6 +1415,13 @@
                 }
             });
         });
+
+        // Package Selection Function
+        function selectPackage(packageName) {
+            const message = `Hello Algo For You!%0A%0AI'm interested in your *${packageName}* trading package.%0APlease provide me with more details and the next steps.`;
+            const whatsappUrl = `https://wa.me/917770952979?text=${message}`;
+            window.open(whatsappUrl, '_blank');
+        }
 
         // WhatsApp Form Functionality
         function sendToWhatsApp() {
