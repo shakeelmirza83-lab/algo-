@@ -55,11 +55,9 @@
                 linear-gradient(90deg, transparent 20%, #10b981 20%, #10b981 25%, transparent 25%),
                 linear-gradient(90deg, transparent 35%, #10b981 35%, #10b981 40%, transparent 40%),
                 linear-gradient(90deg, transparent 50%, #10b981 50%, #10b981 55%, transparent 55%),
-                linear-gradient(90deg, transparent 65%, #10b981 65%, #10b981 70%, transparent 70%),
                 /* Red Candles (Bearish) */
                 linear-gradient(90deg, transparent 80%, #ef4444 80%, #ef4444 85%, transparent 85%),
-                linear-gradient(90deg, transparent 10%, #ef4444 10%, #ef4444 15%, transparent 15%),
-                linear-gradient(90deg, transparent 45%, #ef4444 45%, #ef4444 50%, transparent 50%);
+                linear-gradient(90deg, transparent 10%, #ef4444 10%, #ef4444 15%, transparent 15%);
             background-size: 120px 120px;
         }
 
@@ -532,6 +530,63 @@
             color: var(--white);
         }
 
+        /* Disclaimer Section */
+        .disclaimer {
+            padding: 100px 0;
+            background: var(--bg-light);
+        }
+
+        .disclaimer-content {
+            background: var(--white);
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            border-left: 4px solid var(--primary);
+        }
+
+        .disclaimer-section {
+            margin-bottom: 30px;
+        }
+
+        .disclaimer-section h3 {
+            color: var(--primary-dark);
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+        }
+
+        .disclaimer-section p {
+            color: var(--text-light);
+            margin-bottom: 10px;
+            line-height: 1.6;
+        }
+
+        .disclaimer-section ul {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        .disclaimer-section li {
+            color: var(--text-light);
+            margin-bottom: 8px;
+            line-height: 1.6;
+        }
+
+        .warning-box {
+            background: #fef2f2;
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 4px solid #ef4444;
+            margin: 20px 0;
+        }
+
+        .highlight-box {
+            background: var(--bg-light);
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 4px solid var(--primary);
+            margin: 20px 0;
+        }
+
         /* Contact Section */
         .contact {
             padding: 100px 0;
@@ -738,11 +793,10 @@
             <div class="logo">ALGO FOR YOU</div>
             <ul class="nav-menu">
                 <li><a href="#home">Home</a></li>
-                <li><a href="#about">About Us</a></li>
                 <li><a href="#services">Our Services</a></li>
-                <li><a href="#packages">Packages</a></li>
-                <li><a href="#disclaimer">Disclaimer</a></li>
                 <li><a href="#testimonials">Testimonials</a></li>
+                <li><a href="#faq">FAQ</a></li>
+                <li><a href="#disclaimer">Disclaimer</a></li>
                 <li><a href="#contact">Contact Us</a></li>
             </ul>
         </div>
@@ -927,6 +981,71 @@
         </div>
     </section>
 
+    <!-- Disclaimer Section -->
+    <section id="disclaimer" class="disclaimer">
+        <div class="container">
+            <div class="section-header">
+                <h2>Legal Disclaimer</h2>
+                <p>Important Risk Disclosures and Legal Information</p>
+            </div>
+            
+            <div class="disclaimer-content">
+                <div class="disclaimer-section">
+                    <div class="warning-box">
+                        <h3>⚠️ Important Warning</h3>
+                        <p><strong>Algorithmic trading involves substantial risk of loss and is not suitable for every investor.</strong> The valuation of stocks and other investments may fluctuate, and as a result, clients may lose more than their original investment.</p>
+                    </div>
+                </div>
+
+                <div class="disclaimer-section">
+                    <h3>Risk Disclosure</h3>
+                    <p>All investments and trading involve risk, including the possible loss of principal. Past performance does not guarantee future results.</p>
+                    
+                    <ul>
+                        <li><strong>Market Risk:</strong> Investments are subject to market fluctuations</li>
+                        <li><strong>Technical Risk:</strong> Algorithms may experience technical failures</li>
+                        <li><strong>Execution Risk:</strong> Delays or errors in trade execution may occur</li>
+                        <li><strong>Leverage Risk:</strong> Use of leverage can magnify losses</li>
+                    </ul>
+                </div>
+
+                <div class="disclaimer-section">
+                    <h3>Performance Disclaimer</h3>
+                    <div class="highlight-box">
+                        <p><strong>Algo For You does not guarantee any specific investment results.</strong> Performance figures are based on historical backtesting and should not be considered as guarantees of future performance.</p>
+                    </div>
+                    <p>Hypothetical performance results have many inherent limitations. No representation is being made that any account will achieve profits or losses similar to those shown.</p>
+                </div>
+
+                <div class="disclaimer-section">
+                    <h3>Educational Purpose</h3>
+                    <p>The information provided by Algo For You is for educational and informational purposes only. It should not be considered as financial advice or a recommendation to buy or sell any securities.</p>
+                    <p><strong>Algo For You is not a registered investment advisor.</strong> You should consult with appropriate licensed professionals before making any investment decisions.</p>
+                </div>
+
+                <div class="disclaimer-section">
+                    <h3>Limitation of Liability</h3>
+                    <p>To the maximum extent permitted by law, Algo For You shall not be liable for any indirect, incidental, special, consequential, or punitive damages, or any loss of profits or revenues resulting from your use of our services.</p>
+                </div>
+
+                <div class="disclaimer-section">
+                    <h3>User Responsibilities</h3>
+                    <ul>
+                        <li>Only risk capital that you can afford to lose</li>
+                        <li>Regularly monitor your trading activities</li>
+                        <li>Understand the risks involved in algorithmic trading</li>
+                        <li>Accept full responsibility for all trading decisions</li>
+                    </ul>
+                </div>
+
+                <div class="disclaimer-section">
+                    <p><strong>Last Updated:</strong> January 2024</p>
+                    <p>By using our services, you acknowledge that you have read, understood, and agree to this disclaimer.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Contact Section -->
     <section id="contact" class="contact">
         <div class="container">
@@ -1016,9 +1135,9 @@
                     <h4>Quick Links</h4>
                     <ul>
                         <li><a href="#home">Home</a></li>
-                        <li><a href="#about">About Us</a></li>
                         <li><a href="#services">Our Services</a></li>
-                        <li><a href="#packages">Packages</a></li>
+                        <li><a href="#testimonials">Testimonials</a></li>
+                        <li><a href="#disclaimer">Disclaimer</a></li>
                     </ul>
                 </div>
                 
