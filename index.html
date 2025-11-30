@@ -34,10 +34,10 @@
             color: var(--text-dark);
             overflow-x: hidden;
             font-size: 14px;
-            background: var(--white);
+            background: #000000; /* Black Background */
         }
 
-        /* Candlestick Chart Background - CLEARLY VISIBLE */
+        /* Simple Candlestick Background */
         .candlestick-bg {
             position: fixed;
             top: 0;
@@ -46,22 +46,11 @@
             height: 100%;
             pointer-events: none;
             z-index: -1;
-            opacity: 0.15;
-            background: 
-                /* Chart Grid */
-                linear-gradient(90deg, #cbd5e1 1px, transparent 1px),
-                linear-gradient(0deg, #cbd5e1 1px, transparent 1px),
-                /* Green Candles (Bullish) */
-                linear-gradient(90deg, transparent 20%, #10b981 20%, #10b981 25%, transparent 25%),
-                linear-gradient(90deg, transparent 35%, #10b981 35%, #10b981 40%, transparent 40%),
-                linear-gradient(90deg, transparent 50%, #10b981 50%, #10b981 55%, transparent 55%),
-                /* Red Candles (Bearish) */
-                linear-gradient(90deg, transparent 80%, #ef4444 80%, #ef4444 85%, transparent 85%),
-                linear-gradient(90deg, transparent 10%, #ef4444 10%, #ef4444 15%, transparent 15%);
-            background-size: 120px 120px;
+            opacity: 0.1;
+            background: #000000;
         }
 
-        /* Floating Candles - CLEARLY VISIBLE */
+        /* Floating Candlesticks */
         .floating-candles {
             position: fixed;
             top: 0;
@@ -74,45 +63,37 @@
 
         .candle {
             position: absolute;
-            width: 12px;
-            background: linear-gradient(to bottom, #ef4444, #dc2626);
-            border-radius: 6px;
+            width: 8px;
+            background: #10b981;
+            border-radius: 2px;
             animation: floatCandle 25s linear infinite;
             opacity: 0.4;
-            box-shadow: 0 0 15px rgba(239, 68, 68, 0.4);
         }
 
-        .candle.green {
-            background: linear-gradient(to bottom, #10b981, #059669);
-            box-shadow: 0 0 15px rgba(16, 185, 129, 0.4);
+        .candle.red {
+            background: #ef4444;
         }
 
         .candle .wick {
             position: absolute;
-            top: -20px;
             left: 50%;
             transform: translateX(-50%);
-            width: 3px;
+            width: 2px;
             height: 20px;
-            background: #374151;
-            border-radius: 1px;
+            background: #6b7280;
         }
 
-        .candle .flame {
-            position: absolute;
-            top: -35px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 8px;
-            height: 15px;
-            background: linear-gradient(to bottom, #fbbf24, #ef4444);
-            border-radius: 50% 50% 20% 20%;
-            animation: flicker 0.8s ease-in-out infinite alternate;
+        .candle .top-wick {
+            top: -20px;
+        }
+
+        .candle .bottom-wick {
+            bottom: -20px;
         }
 
         @keyframes floatCandle {
             0% {
-                transform: translateY(100vh) translateX(-100px) rotate(0deg);
+                transform: translateY(100vh) translateX(-100px);
                 opacity: 0;
             }
             10% {
@@ -122,19 +103,8 @@
                 opacity: 0.4;
             }
             100% {
-                transform: translateY(-100px) translateX(100px) rotate(180deg);
+                transform: translateY(-100px) translateX(100px);
                 opacity: 0;
-            }
-        }
-
-        @keyframes flicker {
-            0% {
-                transform: translateX(-50%) scale(1);
-                opacity: 0.7;
-            }
-            100% {
-                transform: translateX(-50%) scale(1.2);
-                opacity: 1;
             }
         }
 
@@ -335,6 +305,7 @@
             display: none;
             padding: 100px 0;
             animation: fadeIn 0.5s ease-in;
+            background: var(--white);
         }
 
         .content-section.active {
@@ -434,6 +405,11 @@
         }
 
         /* Packages Section */
+        .packages {
+            padding: 100px 0;
+            background: var(--bg-light);
+        }
+
         .packages-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
@@ -543,6 +519,11 @@
         }
 
         /* FAQ Section */
+        .faq {
+            padding: 100px 0;
+            background: var(--white);
+        }
+
         .faq-item {
             background: var(--white);
             border-radius: 10px;
@@ -587,6 +568,11 @@
         }
 
         /* Testimonials Section */
+        .testimonials {
+            padding: 100px 0;
+            background: var(--white);
+        }
+
         .testimonials-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
@@ -644,6 +630,11 @@
         }
 
         /* Disclaimer Section */
+        .disclaimer {
+            padding: 100px 0;
+            background: var(--bg-light);
+        }
+
         .disclaimer-content {
             background: var(--white);
             padding: 40px;
@@ -696,6 +687,12 @@
         }
 
         /* Contact Section */
+        .contact {
+            padding: 100px 0;
+            background: var(--gradient);
+            color: var(--white);
+        }
+
         .contact-content {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -893,7 +890,7 @@
     </style>
 </head>
 <body>
-    <!-- Background Elements - NOW CLEARLY VISIBLE -->
+    <!-- Background Elements - Simple Candlesticks on Black -->
     <div class="candlestick-bg"></div>
     <div class="floating-candles" id="floatingCandles"></div>
 
@@ -959,8 +956,6 @@
         </div>
     </section>
 
-    <!-- Other Sections (Hidden by Default) -->
-    
     <!-- Services Section -->
     <section id="services" class="content-section">
         <div class="container">
@@ -1346,32 +1341,30 @@
     </footer>
 
     <script>
-        // Create floating candles
-        function createFloatingCandles() {
+        // Simple Candlestick Creation
+        function createCandles() {
             const container = document.getElementById('floatingCandles');
-            const candleCount = 12;
             
-            for (let i = 0; i < candleCount; i++) {
+            for (let i = 0; i < 20; i++) {
                 const candle = document.createElement('div');
-                candle.className = Math.random() > 0.5 ? 'candle green' : 'candle';
+                candle.className = Math.random() > 0.5 ? 'candle' : 'candle red';
                 candle.style.left = Math.random() * 100 + '%';
-                candle.style.height = (Math.random() * 120 + 80) + 'px';
+                candle.style.height = (Math.random() * 40 + 20) + 'px';
                 candle.style.animationDelay = (Math.random() * 20) + 's';
                 
-                const wick = document.createElement('div');
-                wick.className = 'wick';
+                const topWick = document.createElement('div');
+                topWick.className = 'wick top-wick';
                 
-                const flame = document.createElement('div');
-                flame.className = 'flame';
+                const bottomWick = document.createElement('div');
+                bottomWick.className = 'wick bottom-wick';
                 
-                candle.appendChild(flame);
-                candle.appendChild(wick);
+                candle.appendChild(topWick);
+                candle.appendChild(bottomWick);
                 container.appendChild(candle);
             }
         }
 
-        // Initialize floating candles
-        createFloatingCandles();
+        createCandles();
 
         // Show/Hide Sections Function
         function showSection(sectionId) {
