@@ -979,7 +979,7 @@
             background: var(--white);
             border-radius: 15px;
             width: 90%;
-            max-width: 600px;
+            max-width: 700px;
             max-height: 90vh;
             overflow-y: auto;
             position: relative;
@@ -1091,6 +1091,85 @@
         .breakdown-value {
             font-weight: 700;
             color: var(--primary);
+        }
+
+        /* Average Calculator Specific Styles */
+        .trade-values-list {
+            background: var(--bg-light);
+            padding: 15px;
+            border-radius: 10px;
+            border-left: 4px solid var(--primary);
+        }
+
+        .trade-values-list h5 {
+            color: var(--primary);
+            margin-bottom: 10px;
+            font-size: 1rem;
+        }
+
+        .input-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .add-trade-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            justify-content: center;
+            margin-top: 10px;
+        }
+
+        .add-trade-btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+
+        .trades-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        .trades-table th,
+        .trades-table td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .trades-table th {
+            background: var(--bg-light);
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        .trades-table tr:hover {
+            background: var(--bg-light);
+        }
+
+        .delete-btn {
+            background: #ef4444;
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.8rem;
+        }
+
+        .delete-btn:hover {
+            background: #dc2626;
         }
 
         /* Demo Video Styles */
@@ -1230,6 +1309,19 @@
             .demo-features {
                 grid-template-columns: 1fr;
             }
+            
+            .input-row {
+                grid-template-columns: 1fr;
+            }
+            
+            .trades-table {
+                font-size: 0.8rem;
+            }
+            
+            .trades-table th,
+            .trades-table td {
+                padding: 8px;
+            }
         }
     </style>
 </head>
@@ -1305,6 +1397,10 @@
                 <button class="action-btn" onclick="openCalculator()">
                     <i class="fas fa-calculator"></i>
                     Profit Calculator
+                </button>
+                <button class="action-btn" onclick="openAverageCalculator()">
+                    <i class="fas fa-chart-bar"></i>
+                    Average Calculator
                 </button>
             </div>
 
@@ -1850,7 +1946,95 @@
         </div>
     </div>
 
+    <!-- Enhanced Average Calculator Modal -->
+    <div class="modal" id="averageCalculatorModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Average Calculator</h3>
+                <button class="close-modal" onclick="closeModal('averageCalculatorModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="calculator-form">
+                    <div class="calculator-input">
+                        <label>Add Trade Details:</label>
+                        <div class="input-row">
+                            <input type="number" id="tradePrice" placeholder="Price per share (₹)" min="0" step="0.01">
+                            <input type="number" id="tradeQuantity" placeholder="Quantity" min="1" value="1">
+                        </div>
+                        <button type="button" class="add-trade-btn" onclick="addTrade()">
+                            <i class="fas fa-plus"></i>
+                            Add Trade
+                        </button>
+                    </div>
+                    
+                    <!-- Trades Table -->
+                    <div class="trade-values-list" id="tradesTableContainer" style="display: none;">
+                        <h5>Your Trades:</h5>
+                        <table class="trades-table">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Price (₹)</th>
+                                    <th>Quantity</th>
+                                    <th>Total Value (₹)</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tradesTableBody">
+                                <!-- Trades will be added here dynamically -->
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <button class="btn btn-primary" onclick="calculateWeightedAverage()" style="width: 100%; margin-top: 20px;">
+                        <i class="fas fa-calculator"></i>
+                        Calculate Weighted Average
+                    </button>
+                </div>
+                
+                <div class="calculator-result" id="averageResult" style="display: none; margin-top: 30px;">
+                    <h4>Average Calculation Results</h4>
+                    <div class="profit-breakdown">
+                        <div class="breakdown-item">
+                            <h5>Total Trades</h5>
+                            <div class="breakdown-value" id="totalTrades">0</div>
+                        </div>
+                        <div class="breakdown-item">
+                            <h5>Total Quantity</h5>
+                            <div class="breakdown-value" id="totalQuantity">0</div>
+                        </div>
+                        <div class="breakdown-item">
+                            <h5>Total Investment</h5>
+                            <div class="breakdown-value" id="totalInvestmentAvg">₹0</div>
+                        </div>
+                        <div class="breakdown-item">
+                            <h5>Weighted Average</h5>
+                            <div class="breakdown-value" id="weightedAverage">₹0</div>
+                        </div>
+                        <div class="breakdown-item">
+                            <h5>Highest Price</h5>
+                            <div class="breakdown-value" id="highestPrice">₹0</div>
+                        </div>
+                        <div class="breakdown-item">
+                            <h5>Lowest Price</h5>
+                            <div class="breakdown-value" id="lowestPrice">₹0</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Performance Summary -->
+                    <div class="trade-values-list" style="margin-top: 20px;">
+                        <h5>Performance Summary:</h5>
+                        <div id="performanceSummary" style="line-height: 1.6;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script>
+        // Global variables for trades
+        let trades = [];
+
         // Simple Candlestick Creation
         function createCandles() {
             const container = document.getElementById('floatingCandles');
@@ -1889,8 +2073,137 @@
             document.getElementById('calculatorModal').style.display = 'flex';
         }
 
+        function openAverageCalculator() {
+            document.getElementById('averageCalculatorModal').style.display = 'flex';
+        }
+
         function closeModal(modalId) {
             document.getElementById(modalId).style.display = 'none';
+            
+            // Reset average calculator when closing
+            if (modalId === 'averageCalculatorModal') {
+                resetAverageCalculator();
+            }
+        }
+
+        // Reset Average Calculator
+        function resetAverageCalculator() {
+            trades = [];
+            document.getElementById('tradePrice').value = '';
+            document.getElementById('tradeQuantity').value = '1';
+            document.getElementById('tradesTableContainer').style.display = 'none';
+            document.getElementById('averageResult').style.display = 'none';
+            document.getElementById('tradesTableBody').innerHTML = '';
+        }
+
+        // Add Trade Function
+        function addTrade() {
+            const price = parseFloat(document.getElementById('tradePrice').value);
+            const quantity = parseInt(document.getElementById('tradeQuantity').value);
+            
+            if (isNaN(price) || isNaN(quantity) || price <= 0 || quantity <= 0) {
+                alert('Please enter valid price and quantity');
+                return;
+            }
+            
+            const trade = {
+                id: Date.now(),
+                price: price,
+                quantity: quantity,
+                totalValue: price * quantity
+            };
+            
+            trades.push(trade);
+            
+            // Update table
+            updateTradesTable();
+            
+            // Clear inputs
+            document.getElementById('tradePrice').value = '';
+            document.getElementById('tradeQuantity').value = '1';
+            
+            // Show table if it was hidden
+            document.getElementById('tradesTableContainer').style.display = 'block';
+        }
+
+        // Update Trades Table
+        function updateTradesTable() {
+            const tableBody = document.getElementById('tradesTableBody');
+            tableBody.innerHTML = '';
+            
+            trades.forEach((trade, index) => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${index + 1}</td>
+                    <td>₹${trade.price.toFixed(2)}</td>
+                    <td>${trade.quantity}</td>
+                    <td>₹${trade.totalValue.toFixed(2)}</td>
+                    <td>
+                        <button class="delete-btn" onclick="deleteTrade(${trade.id})">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </td>
+                `;
+                tableBody.appendChild(row);
+            });
+        }
+
+        // Delete Trade Function
+        function deleteTrade(tradeId) {
+            trades = trades.filter(trade => trade.id !== tradeId);
+            updateTradesTable();
+            
+            if (trades.length === 0) {
+                document.getElementById('tradesTableContainer').style.display = 'none';
+                document.getElementById('averageResult').style.display = 'none';
+            }
+        }
+
+        // Calculate Weighted Average
+        function calculateWeightedAverage() {
+            if (trades.length === 0) {
+                alert('Please add at least one trade');
+                return;
+            }
+            
+            // Calculate statistics
+            const totalTrades = trades.length;
+            const totalQuantity = trades.reduce((sum, trade) => sum + trade.quantity, 0);
+            const totalInvestment = trades.reduce((sum, trade) => sum + trade.totalValue, 0);
+            const weightedAverage = totalInvestment / totalQuantity;
+            const highestPrice = Math.max(...trades.map(trade => trade.price));
+            const lowestPrice = Math.min(...trades.map(trade => trade.price));
+            
+            // Format numbers with Indian rupee formatting
+            const formatter = new Intl.NumberFormat('en-IN', {
+                style: 'currency',
+                currency: 'INR',
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2
+            });
+            
+            // Display results
+            document.getElementById('totalTrades').textContent = totalTrades;
+            document.getElementById('totalQuantity').textContent = totalQuantity;
+            document.getElementById('totalInvestmentAvg').textContent = formatter.format(totalInvestment);
+            document.getElementById('weightedAverage').textContent = formatter.format(weightedAverage);
+            document.getElementById('highestPrice').textContent = formatter.format(highestPrice);
+            document.getElementById('lowestPrice').textContent = formatter.format(lowestPrice);
+            
+            // Performance Summary
+            const performanceSummary = document.getElementById('performanceSummary');
+            performanceSummary.innerHTML = `
+                <p><strong>Average Cost per Share:</strong> ${formatter.format(weightedAverage)}</p>
+                <p><strong>Total Shares:</strong> ${totalQuantity}</p>
+                <p><strong>Total Investment:</strong> ${formatter.format(totalInvestment)}</p>
+                <p><strong>Price Range:</strong> ${formatter.format(lowestPrice)} - ${formatter.format(highestPrice)}</p>
+            `;
+            
+            // Show results section
+            document.getElementById('averageResult').style.display = 'block';
+            
+            // Scroll to results
+            document.getElementById('averageResult').scrollIntoView({ behavior: 'smooth' });
         }
 
         // Profit Calculator Function
