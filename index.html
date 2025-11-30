@@ -688,79 +688,148 @@
             </div>
         </div>
     </section>
-
-    <!-- Contact Section -->
-    <section id="contact" class="contact">
-        <div class="container">
-            <div class="section-header">
-                <h2>Contact Us</h2>
-                <p>Get in touch with our experts</p>
-            </div>
-            <div class="contact-content">
-                <div class="contact-info">
-                    <h3>Start Your Trading Journey</h3>
-                    <p>Contact us for a free consultation and demo.</p>
-                    
-                    <div class="contact-item">
-                        <div class="contact-icon">
-                            <i class="fas fa-phone"></i>
-                        </div>
-                        <div class="contact-details">
-                            <h4>Phone</h4>
-                            <p>+91 77709 52979</p>
-                        </div>
+<!-- Contact Section -->
+<section id="contact" class="contact">
+    <div class="container">
+        <div class="section-header">
+            <h2>Contact <span class="accent-text">Us</span></h2>
+            <p>Get in touch with our trading experts via WhatsApp</p>
+        </div>
+        <div class="contact-content">
+            <div class="contact-info">
+                <h3>Start Your Trading Journey</h3>
+                <p>Contact us for a free consultation and demo of our algorithmic trading systems.</p>
+                
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <i class="fas fa-phone"></i>
                     </div>
-                    
-                    <div class="contact-item">
-                        <div class="contact-icon">
-                            <i class="fas fa-envelope"></i>
-                        </div>
-                        <div class="contact-details">
-                            <h4>Email</h4>
-                            <p>contact@algoforyou.com</p>
-                        </div>
-                    </div>
-                    
-                    <div class="contact-item">
-                        <div class="contact-icon">
-                            <i class="fas fa-map-marker-alt"></i>
-                        </div>
-                        <div class="contact-details">
-                            <h4>Address</h4>
-                            <p>A-100 Ekta Nagar, Bahodapur, Gwalior</p>
-                        </div>
+                    <div class="contact-details">
+                        <h4>Phone / WhatsApp</h4>
+                        <p>+91 77709 52979</p>
                     </div>
                 </div>
                 
-                <div class="contact-form">
-                    <form>
-                        <div class="form-group">
-                            <input type="text" placeholder="Your Name" required>
-                        </div>
-                        <div class="form-group">
-                            <input type="email" placeholder="Your Email" required>
-                        </div>
-                        <div class="form-group">
-                            <input type="tel" placeholder="Your Phone">
-                        </div>
-                        <div class="form-group">
-                            <select required>
-                                <option value="">Select Service</option>
-                                <option>Algorithmic Trading</option>
-                                <option>AI Predictions</option>
-                                <option>Market Analysis</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <textarea placeholder="Your Message" rows="5" required></textarea>
-                        </div>
-                        <button type="submit" class="btn btn-primary" style="width: 100%;">Send Message</button>
-                    </form>
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <div class="contact-details">
+                        <h4>Email Address</h4>
+                        <p>contact@algoforyou.com</p>
+                    </div>
+                </div>
+                
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <i class="fas fa-map-marker-alt"></i>
+                    </div>
+                    <div class="contact-details">
+                        <h4>Office Address</h4>
+                        <p>A-100 Ekta Nagar, Bahodapur, Gwalior, Madhya Pradesh</p>
+                    </div>
+                </div>
+
+                <div class="business-hours">
+                    <h4>Business Hours</h4>
+                    <p>Monday - Friday: 9:00 AM - 6:00 PM</p>
+                    <p>Saturday: 10:00 AM - 2:00 PM</p>
+                </div>
+
+                <!-- Direct WhatsApp Button -->
+                <div class="direct-whatsapp">
+                    <a href="https://wa.me/917770952979?text=Hello%20Algo%20For%20You!%20I%20want%20to%20know%20more%20about%20your%20services." 
+                       class="btn btn-whatsapp" target="_blank">
+                        <i class="fab fa-whatsapp"></i>
+                        Chat Directly on WhatsApp
+                    </a>
                 </div>
             </div>
+            
+            <!-- WhatsApp Contact Form -->
+            <div class="contact-form">
+                <h3>Send Message via WhatsApp</h3>
+                <p>Fill the form and we'll open WhatsApp with your message</p>
+                
+                <form id="whatsappForm">
+                    <div class="form-group">
+                        <input type="text" id="clientName" placeholder="Your Full Name" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="tel" id="clientPhone" placeholder="Your WhatsApp Number" required>
+                    </div>
+                    <div class="form-group">
+                        <select id="serviceType" required>
+                            <option value="">Select Service Interested In</option>
+                            <option value="Algorithmic Trading">Algorithmic Trading</option>
+                            <option value="AI Stock Predictions">AI Stock Predictions</option>
+                            <option value="Market Analysis Reports">Market Analysis Reports</option>
+                            <option value="Portfolio Management">Portfolio Management</option>
+                            <option value="Custom Algorithm Development">Custom Algorithm Development</option>
+                            <option value="Other Query">Other Query</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <textarea id="clientMessage" placeholder="Your Message or Requirements" rows="5" required></textarea>
+                    </div>
+                    <button type="button" onclick="sendToWhatsApp()" class="btn btn-whatsapp">
+                        <i class="fab fa-whatsapp"></i>
+                        Send via WhatsApp
+                    </button>
+                </form>
+            </div>
         </div>
-    </section>
+    </div>
+</section>
 
+<style>
+.btn-whatsapp {
+    background: #25D366;
+    color: white;
+    border: none;
+    width: 100%;
+    justify-content: center;
+}
+
+.btn-whatsapp:hover {
+    background: #128C7E;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(37, 211, 102, 0.4);
+}
+
+.direct-whatsapp {
+    margin-top: 2rem;
+    text-align: center;
+}
+
+.direct-whatsapp .btn-whatsapp {
+    background: linear-gradient(135deg, #25D366, #128C7E);
+}
+
+.contact-form p {
+    color: var(--text-light);
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+</style>
+
+<script>
+function sendToWhatsApp() {
+    const name = document.getElementById('clientName').value;
+    const phone = document.getElementById('clientPhone').value;
+    const service = document.getElementById('serviceType').value;
+    const message = document.getElementById('clientMessage').value;
+    
+    const formattedMessage = `Hello Algo For You!%0A%0A*Name:* ${name}%0A*Phone:* ${phone}%0A*Service Interested:* ${service}%0A*Message:* ${message}%0A%0AI found you through your website.`.trim();
+    
+    const whatsappUrl = `https://wa.me/917770952979?text=${formattedMessage}`;
+    
+    window.open(whatsappUrl, '_blank');
+    alert('WhatsApp opened! Please send the message.');
+    document.getElementById('whatsappForm').reset();
+}
+</script>
+  
     <!-- Footer -->
     <footer class="footer">
         <div class="container">
