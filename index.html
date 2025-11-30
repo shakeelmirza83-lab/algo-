@@ -930,25 +930,7 @@ function sendToWhatsApp() {
     </div>
 </section>
 
-<script>
-function toggleFAQ(element) {
-    const faqItem = element.parentElement;
-    const answer = faqItem.querySelector('.faq-answer');
-    const toggle = faqItem.querySelector('.faq-toggle');
-    
-    if (answer.style.maxHeight) {
-        // Close FAQ
-        answer.style.maxHeight = null;
-        toggle.textContent = '+';
-        toggle.style.transform = 'rotate(0deg)';
-    } else {
-        // Open FAQ
-        answer.style.maxHeight = answer.scrollHeight + 'px';
-        toggle.textContent = '×';
-        toggle.style.transform = 'rotate(45deg)';
-    }
-}
-    <!-- Testimonials Section -->
+<!-- Testimonials Section -->
 <section id="testimonials" class="testimonials" style="padding: 80px 0; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white;">
     <div class="container" style="max-width: 1200px; margin: 0 auto; padding: 0 2rem;">
         <div class="section-header" style="text-align: center; margin-bottom: 4rem;">
@@ -1024,6 +1006,26 @@ function toggleFAQ(element) {
         </div>
     </div>
 </section>
+
+<script>
+function toggleFAQ(element) {
+    const faqItem = element.parentElement;
+    const answer = faqItem.querySelector('.faq-answer');
+    const toggle = faqItem.querySelector('.faq-toggle');
+    
+    if (answer.style.maxHeight) {
+        // Close FAQ
+        answer.style.maxHeight = null;
+        toggle.textContent = '+';
+        toggle.style.transform = 'rotate(0deg)';
+    } else {
+        // Open FAQ
+        answer.style.maxHeight = answer.scrollHeight + 'px';
+        toggle.textContent = '×';
+        toggle.style.transform = 'rotate(45deg)';
+    }
+}
+</script>
 </script>
     <!-- Footer -->
     <footer class="footer">
