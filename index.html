@@ -168,14 +168,14 @@
             opacity: 0.9;
         }
 
-        /* Header */
+        /* Header with NEW Logo */
         .header {
             position: fixed;
             top: 0;
             width: 100%;
             background: rgba(255, 255, 255, 0.95);
             z-index: 1000;
-            padding: 15px 0;
+            padding: 12px 0;
             box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
             backdrop-filter: blur(10px);
             transition: all 0.3s ease;
@@ -190,10 +190,50 @@
             align-items: center;
         }
 
-        .logo {
-            font-size: 1.8rem;
-            font-weight: 700;
-            color: var(--primary);
+        /* NEW: Logo with icon and stylish text */
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+
+        .logo-img {
+            width: 42px;
+            height: 42px;
+            background: var(--gradient);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: white;
+            font-size: 1.1rem;
+            box-shadow: 0 4px 12px rgba(30, 64, 175, 0.3);
+        }
+
+        .logo-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .company-name {
+            font-size: 1.7rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #1e40af, #3b82f6, #06b6d4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1;
+            letter-spacing: -0.5px;
+        }
+
+        .company-tagline {
+            font-size: 0.65rem;
+            color: var(--text-light);
+            font-weight: 600;
+            letter-spacing: 0.8px;
+            margin-top: 2px;
         }
 
         .nav-menu {
@@ -500,10 +540,17 @@
             position: relative;
         }
 
-        /* Content Sections */
+        /* Content Sections - HIDDEN BY DEFAULT */
         .content-section {
             padding: 100px 0;
             animation: fadeIn 0.5s ease-in;
+            display: none; /* Hidden by default */
+        }
+
+        /* Only show Home and Live Market by default */
+        #home,
+        #market {
+            display: block;
         }
 
         @keyframes fadeIn {
@@ -1263,6 +1310,31 @@
             width: 100%;
         }
 
+        /* Back to Home Button */
+        .back-to-home {
+            position: fixed;
+            top: 120px;
+            left: 20px;
+            z-index: 1000;
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: none;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 12px rgba(30, 64, 175, 0.3);
+        }
+
+        .back-to-home:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+
         /* Responsive Design */
         @media (max-width: 768px) {
             .nav-menu {
@@ -1383,6 +1455,33 @@
             .chart-wrapper {
                 height: 300px;
             }
+
+            /* NEW: Responsive logo for mobile */
+            .logo-container {
+                gap: 8px;
+            }
+            
+            .logo-img {
+                width: 35px;
+                height: 35px;
+                font-size: 0.9rem;
+            }
+            
+            .company-name {
+                font-size: 1.3rem;
+            }
+            
+            .company-tagline {
+                font-size: 0.55rem;
+            }
+
+            /* Back to home button for mobile */
+            .back-to-home {
+                top: 100px;
+                left: 10px;
+                padding: 10px 15px;
+                font-size: 0.8rem;
+            }
         }
     </style>
 </head>
@@ -1390,6 +1489,12 @@
     <!-- Background Elements -->
     <div class="candlestick-bg"></div>
     <div class="floating-candles" id="floatingCandles"></div>
+
+    <!-- Back to Home Button -->
+    <button class="back-to-home" id="backToHome">
+        <i class="fas fa-arrow-left"></i>
+        Back to Home
+    </button>
 
     <!-- Enhanced Market Ticker with Today's Real Prices -->
     <div class="market-ticker">
@@ -1418,10 +1523,18 @@
         </div>
     </div>
 
-    <!-- Header -->
+    <!-- Header with NEW Logo -->
     <header class="header">
         <div class="nav-container">
-            <div class="logo">ALGO FOR YOU</div>
+            <a href="#home" class="logo-container">
+                <div class="logo-img">
+                    <i class="fas fa-robot"></i>
+                </div>
+                <div class="logo-text">
+                    <div class="company-name">ALGO FOR YOU</div>
+                    <div class="company-tagline">ALGORITHMIC TRADING</div>
+                </div>
+            </a>
             <button class="mobile-menu-btn" id="mobileMenuBtn">
                 <i class="fas fa-bars"></i>
             </button>
@@ -1578,7 +1691,7 @@
         </div>
     </section>
 
-    <!-- Services Section -->
+    <!-- Services Section (HIDDEN BY DEFAULT) -->
     <section id="services" class="content-section">
         <div class="container">
             <div class="section-header">
@@ -1611,7 +1724,7 @@
         </div>
     </section>
 
-    <!-- Packages Section -->
+    <!-- Packages Section (HIDDEN BY DEFAULT) -->
     <section id="packages" class="content-section packages">
         <div class="container">
             <div class="section-header">
@@ -1677,7 +1790,7 @@
         </div>
     </section>
 
-    <!-- FAQ Section -->
+    <!-- FAQ Section (HIDDEN BY DEFAULT) -->
     <section id="faq" class="content-section faq">
         <div class="container">
             <div class="section-header">
@@ -1729,7 +1842,7 @@
         </div>
     </section>
 
-    <!-- Testimonials Section -->
+    <!-- Testimonials Section (HIDDEN BY DEFAULT) -->
     <section id="testimonials" class="content-section testimonials">
         <div class="container">
             <div class="section-header">
@@ -1777,7 +1890,7 @@
         </div>
     </section>
 
-    <!-- Disclaimer Section -->
+    <!-- Disclaimer Section (HIDDEN BY DEFAULT) -->
     <section id="disclaimer" class="content-section disclaimer">
         <div class="container">
             <div class="section-header">
@@ -1842,7 +1955,7 @@
         </div>
     </section>
 
-    <!-- Contact Section -->
+    <!-- Contact Section (HIDDEN BY DEFAULT) -->
     <section id="contact" class="content-section contact">
         <div class="container">
             <div class="section-header">
@@ -2128,6 +2241,9 @@
             
             // Set up real-time updates
             setInterval(updateRealTimeData, 3000);
+
+            // Initialize navigation
+            initializeNavigation();
         });
 
         // Create floating candles
@@ -2150,6 +2266,58 @@
                 candle.appendChild(topWick);
                 candle.appendChild(bottomWick);
                 container.appendChild(candle);
+            }
+        }
+
+        // Initialize navigation system
+        function initializeNavigation() {
+            const backToHomeBtn = document.getElementById('backToHome');
+            
+            // Show back to home button when not on home/market
+            function updateBackButton() {
+                const hash = window.location.hash;
+                if (hash === '#home' || hash === '#market' || hash === '') {
+                    backToHomeBtn.style.display = 'none';
+                } else {
+                    backToHomeBtn.style.display = 'flex';
+                }
+            }
+
+            // Back to home button click
+            backToHomeBtn.addEventListener('click', function() {
+                showSection('home');
+                window.location.hash = 'home';
+            });
+
+            // Update back button on hash change
+            window.addEventListener('hashchange', updateBackButton);
+            updateBackButton();
+        }
+
+        // Show specific section and hide others
+        function showSection(sectionId) {
+            // Hide all content sections
+            document.querySelectorAll('.content-section').forEach(section => {
+                section.style.display = 'none';
+            });
+            
+            // Show the requested section
+            const targetSection = document.getElementById(sectionId);
+            if (targetSection) {
+                targetSection.style.display = 'block';
+                
+                // Special handling for home section
+                if (sectionId === 'home') {
+                    document.querySelector('.stats').style.display = 'block';
+                } else {
+                    document.querySelector('.stats').style.display = 'none';
+                }
+                
+                // Scroll to top of the section
+                window.scrollTo({
+                    top: targetSection.offsetTop - 100,
+                    behavior: 'smooth'
+                });
             }
         }
 
@@ -2516,7 +2684,7 @@
             navMenu.classList.toggle('active');
         });
 
-        // Smooth scrolling for anchor links
+        // Enhanced smooth scrolling for anchor links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
@@ -2524,16 +2692,14 @@
                 const targetId = this.getAttribute('href');
                 if (targetId === '#') return;
                 
-                const targetElement = document.querySelector(targetId);
-                if (targetElement) {
-                    // Close mobile menu if open
-                    navMenu.classList.remove('active');
-                    
-                    window.scrollTo({
-                        top: targetElement.offsetTop - 100,
-                        behavior: 'smooth'
-                    });
-                }
+                // Close mobile menu if open
+                navMenu.classList.remove('active');
+                
+                // Show the target section
+                showSection(targetId.substring(1));
+                
+                // Update URL hash
+                window.location.hash = targetId;
             });
         });
 
@@ -2541,6 +2707,14 @@
         window.addEventListener('click', (e) => {
             if (e.target.classList.contains('modal')) {
                 e.target.style.display = 'none';
+            }
+        });
+
+        // Handle initial page load with hash
+        window.addEventListener('load', function() {
+            const hash = window.location.hash;
+            if (hash && hash !== '#home' && hash !== '#market') {
+                showSection(hash.substring(1));
             }
         });
     </script>
