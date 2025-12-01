@@ -3,16 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Algo For You - Complete Algorithmic Trading Platform</title>
+    <title>Algo For You - Algorithmic Trading Solutions</title>
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- TradingView Widget -->
     <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
-    <!-- Chart.js -->
+    <!-- Chart.js for new features -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     
     <style>
-        /* Brightex Tech Color Scheme */
+        /* ========== YOUR ORIGINAL STYLES ========== */
         :root {
             --primary: #1e40af;
             --primary-dark: #1e3a8a;
@@ -24,10 +24,6 @@
             --white: #ffffff;
             --gradient: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
             --gradient-2: linear-gradient(135deg, #1e40af, #06b6d4);
-            --success: #10b981;
-            --danger: #ef4444;
-            --warning: #f59e0b;
-            --info: #3b82f6;
         }
 
         * {
@@ -45,20 +41,150 @@
             background: #000000;
         }
 
-        /* Header & Navigation - UPDATED WITH ALL MENUS */
+        /* Candlestick Background */
+        .candlestick-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            opacity: 0.1;
+            background: #000000;
+        }
+
+        /* Floating Candles */
+        .floating-candles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .candle {
+            position: absolute;
+            width: 8px;
+            background: #10b981;
+            border-radius: 2px;
+            animation: floatCandle 25s linear infinite;
+            opacity: 0.4;
+        }
+
+        .candle.red {
+            background: #ef4444;
+        }
+
+        .candle .wick {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 2px;
+            height: 20px;
+            background: #6b7280;
+        }
+
+        .candle .top-wick {
+            top: -20px;
+        }
+
+        .candle .bottom-wick {
+            bottom: -20px;
+        }
+
+        @keyframes floatCandle {
+            0% {
+                transform: translateY(100vh) translateX(-100px);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.4;
+            }
+            90% {
+                opacity: 0.4;
+            }
+            100% {
+                transform: translateY(-100px) translateX(100px);
+                opacity: 0;
+            }
+        }
+
+        /* Enhanced Market Ticker */
+        .market-ticker {
+            background: rgba(30, 64, 175, 0.95);
+            color: white;
+            padding: 12px 0;
+            position: fixed;
+            top: 80px;
+            width: 100%;
+            z-index: 999;
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .ticker-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            font-size: 0.9rem;
+            font-weight: 600;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .ticker-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 15px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .ticker-item:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .ticker-item.up {
+            color: #10b981;
+        }
+
+        .ticker-item.down {
+            color: #ef4444;
+        }
+
+        .ticker-price {
+            font-weight: 700;
+            font-size: 1rem;
+        }
+
+        .ticker-change {
+            font-size: 0.8rem;
+            opacity: 0.9;
+        }
+
+        /* Header */
         .header {
             position: fixed;
             top: 0;
             width: 100%;
-            background: rgba(255, 255, 255, 0.98);
+            background: rgba(255, 255, 255, 0.95);
             z-index: 1000;
             padding: 12px 0;
             box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
             backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
         }
 
         .nav-container {
-            max-width: 1400px;
+            max-width: 1200px;
             margin: 0 auto;
             padding: 0 20px;
             display: flex;
@@ -66,7 +192,6 @@
             align-items: center;
         }
 
-        /* Enhanced Logo */
         .logo-container {
             display: flex;
             align-items: center;
@@ -112,13 +237,11 @@
             margin-top: 2px;
         }
 
-        /* UPDATED NAV MENU WITH ALL SECTIONS */
+        /* UPDATED NAV MENU - ALL NEW FEATURES ADDED */
         .nav-menu {
             display: flex;
             list-style: none;
-            gap: 20px;
-            flex-wrap: wrap;
-            justify-content: center;
+            gap: 25px;
         }
 
         .nav-menu a {
@@ -128,16 +251,29 @@
             font-size: 0.9rem;
             transition: all 0.3s ease;
             position: relative;
-            padding: 5px 10px;
-            border-radius: 5px;
+            padding: 5px 0;
         }
 
         .nav-menu a:hover {
             color: var(--primary);
-            background: rgba(30, 64, 175, 0.1);
         }
 
-        /* User Profile in Header */
+        .nav-menu a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: width 0.3s ease;
+        }
+
+        .nav-menu a:hover::after {
+            width: 100%;
+        }
+
+        /* User Profile in Header (NEW) */
         .user-profile {
             display: none;
             align-items: center;
@@ -190,24 +326,6 @@
             display: block;
         }
 
-        /* Login Button */
-        .login-btn {
-            background: var(--primary);
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 6px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .login-btn:hover {
-            background: var(--primary-dark);
-            transform: translateY(-2px);
-        }
-
-        /* Mobile Menu */
         .mobile-menu-btn {
             display: none;
             background: none;
@@ -215,32 +333,6 @@
             font-size: 1.5rem;
             color: var(--primary);
             cursor: pointer;
-        }
-
-        /* Market Ticker */
-        .market-ticker {
-            background: rgba(30, 64, 175, 0.95);
-            color: white;
-            padding: 12px 0;
-            position: fixed;
-            top: 70px;
-            width: 100%;
-            z-index: 999;
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .ticker-content {
-            display: flex;
-            align-items: center;
-            justify-content: space-around;
-            font-size: 0.9rem;
-            font-weight: 600;
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 0 20px;
-            flex-wrap: wrap;
-            gap: 10px;
         }
 
         /* Hero Section */
@@ -280,7 +372,51 @@
             margin-right: auto;
         }
 
-        /* Quick Actions */
+        .hero-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 30px;
+        }
+
+        .btn {
+            padding: 15px 35px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn-primary {
+            background: var(--white);
+            color: var(--primary);
+            box-shadow: 0 4px 15px rgba(255, 255, 255, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(255, 255, 255, 0.4);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--white);
+            border: 2px solid var(--white);
+        }
+
+        .btn-secondary:hover {
+            background: var(--white);
+            color: var(--primary);
+        }
+
+        /* Quick Actions - UPDATED WITH NEW FEATURES */
         .quick-actions {
             display: flex;
             justify-content: center;
@@ -309,14 +445,166 @@
             transform: translateY(-2px);
         }
 
-        /* Main Content Sections */
-        .content-section {
-            padding: 100px 0;
-            display: none;
-            animation: fadeIn 0.5s ease-in;
+        /* Trust Badges */
+        .trust-badges {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 40px;
+            flex-wrap: wrap;
         }
 
-        #home {
+        .badge {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 0.9rem;
+        }
+
+        .badge i {
+            font-size: 1.2rem;
+            color: #10b981;
+        }
+
+        /* Enhanced Stats Section */
+        .stats {
+            background: var(--bg-light);
+            padding: 80px 0;
+        }
+
+        .stats-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .stat-card {
+            text-align: center;
+            padding: 40px 30px;
+            background: var(--white);
+            border-radius: 15px;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            border-left: 4px solid var(--primary);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .stat-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 20px;
+            background: var(--gradient);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.3s ease;
+        }
+
+        .stat-card:hover .stat-icon {
+            transform: scale(1.1);
+        }
+
+        .stat-icon i {
+            font-size: 2rem;
+            color: var(--white);
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+
+        .stat-label {
+            color: var(--text-light);
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        /* Live Market Section */
+        .live-market {
+            padding: 100px 0;
+            background: var(--white);
+        }
+
+        .market-charts {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .chart-container {
+            background: var(--white);
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            border: 1px solid #e5e7eb;
+            transition: all 0.3s ease;
+            height: 450px;
+        }
+
+        .chart-container:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .chart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid var(--bg-light);
+        }
+
+        .chart-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .chart-price {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .chart-price.up {
+            color: #10b981;
+        }
+
+        .chart-price.down {
+            color: #ef4444;
+        }
+
+        .chart-wrapper {
+            height: 350px;
+            border-radius: 10px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Content Sections */
+        .content-section {
+            padding: 100px 0;
+            animation: fadeIn 0.5s ease-in;
+            display: none;
+        }
+
+        #home,
+        #market {
             display: block;
         }
 
@@ -326,7 +614,7 @@
         }
 
         .container {
-            max-width: 1400px;
+            max-width: 1200px;
             margin: 0 auto;
             padding: 0 20px;
         }
@@ -349,6 +637,8 @@
             max-width: 600px;
             margin: 0 auto;
         }
+
+        /* ========== NEW FEATURES STYLES ========== */
 
         /* Back to Home Button */
         .back-to-home {
@@ -375,7 +665,27 @@
             transform: translateY(-2px);
         }
 
-        /* ========== BACKTESTING STYLES ========== */
+        /* Login Button */
+        .login-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .login-btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+
+        /* Backtesting Styles */
         .backtest-container {
             background: white;
             padding: 30px;
@@ -461,7 +771,7 @@
             margin-top: 5px;
         }
 
-        /* ========== PORTFOLIO STYLES ========== */
+        /* Portfolio Styles */
         .portfolio-summary {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -499,7 +809,7 @@
             margin-top: 15px;
         }
 
-        /* ========== TRADE JOURNAL STYLES ========== */
+        /* Trade Journal Styles */
         .trade-entry-form {
             background: white;
             padding: 30px;
@@ -541,7 +851,7 @@
             margin-top: 5px;
         }
 
-        /* ========== STRATEGY BUILDER STYLES ========== */
+        /* Strategy Builder Styles */
         .strategy-builder-container {
             display: flex;
             gap: 30px;
@@ -598,7 +908,7 @@
             margin-bottom: 20px;
         }
 
-        /* ========== ALERTS STYLES ========== */
+        /* Alerts Styles */
         .alerts-container {
             display: grid;
             gap: 30px;
@@ -640,7 +950,519 @@
             align-items: center;
         }
 
-        /* ========== MODAL STYLES ========== */
+        /* ========== YOUR ORIGINAL STYLES CONTINUE ========== */
+
+        /* Services Section */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .service-card {
+            background: var(--white);
+            padding: 40px 30px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid #e5e7eb;
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--gradient);
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .service-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 25px;
+            background: var(--gradient);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .service-icon i {
+            font-size: 2rem;
+            color: var(--white);
+        }
+
+        .service-card h3 {
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: var(--text-dark);
+        }
+
+        .service-card p {
+            color: var(--text-light);
+            line-height: 1.6;
+        }
+
+        /* Packages Section */
+        .packages {
+            padding: 100px 0;
+            background: var(--bg-light);
+        }
+
+        .packages-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .package-card {
+            background: var(--white);
+            border-radius: 15px;
+            padding: 40px 30px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            position: relative;
+            border: 2px solid #e5e7eb;
+        }
+
+        .package-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+            border-color: var(--primary);
+        }
+
+        .package-card.popular {
+            border-color: var(--primary);
+            transform: scale(1.05);
+        }
+
+        .package-card.popular::before {
+            content: 'MOST POPULAR';
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--primary);
+            color: var(--white);
+            padding: 5px 20px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .package-header {
+            margin-bottom: 30px;
+        }
+
+        .package-name {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+
+        .package-price {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 10px;
+        }
+
+        .package-period {
+            color: var(--text-light);
+            font-size: 1rem;
+        }
+
+        .package-features {
+            list-style: none;
+            margin-bottom: 30px;
+            text-align: left;
+        }
+
+        .package-features li {
+            padding: 12px 0;
+            border-bottom: 1px solid #f1f5f9;
+            color: var(--text-dark);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .package-features li:last-child {
+            border-bottom: none;
+        }
+
+        .package-features li i {
+            color: #10b981;
+            font-size: 1.1rem;
+        }
+
+        .package-btn {
+            background: var(--gradient);
+            color: var(--white);
+            border: none;
+            padding: 15px 40px;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+
+        .package-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(59, 130, 246, 0.3);
+        }
+
+        /* FAQ Section */
+        .faq {
+            padding: 100px 0;
+            background: var(--white);
+        }
+
+        .faq-item {
+            background: var(--white);
+            border-radius: 10px;
+            margin-bottom: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+            border-left: 4px solid var(--primary);
+        }
+
+        .faq-question {
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 1.1rem;
+            background: var(--white);
+            transition: background 0.3s ease;
+        }
+
+        .faq-question:hover {
+            background: var(--bg-light);
+        }
+
+        .faq-answer {
+            padding: 0 20px;
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            background: var(--white);
+        }
+
+        .faq-answer p {
+            padding-bottom: 20px;
+            color: var(--text-light);
+            line-height: 1.6;
+        }
+
+        .faq-item.active .faq-answer {
+            max-height: 500px;
+        }
+
+        /* Testimonials Section */
+        .testimonials {
+            padding: 100px 0;
+            background: var(--white);
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+        }
+
+        .testimonial-card {
+            background: var(--white);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            position: relative;
+            border: 1px solid #e5e7eb;
+        }
+
+        .testimonial-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--gradient);
+        }
+
+        .stars {
+            color: #fbbf24;
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+        }
+
+        .testimonial-card p {
+            font-style: italic;
+            margin-bottom: 20px;
+            color: var(--text-light);
+            line-height: 1.6;
+        }
+
+        .client-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .client-avatar {
+            width: 50px;
+            height: 50px;
+            background: var(--gradient);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: var(--white);
+        }
+
+        /* Disclaimer Section */
+        .disclaimer {
+            padding: 100px 0;
+            background: var(--bg-light);
+        }
+
+        .disclaimer-content {
+            background: var(--white);
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            border-left: 4px solid var(--primary);
+        }
+
+        .disclaimer-section {
+            margin-bottom: 30px;
+        }
+
+        .disclaimer-section h3 {
+            color: var(--primary-dark);
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+        }
+
+        .disclaimer-section p {
+            color: var(--text-light);
+            margin-bottom: 10px;
+            line-height: 1.6;
+        }
+
+        .disclaimer-section ul {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        .disclaimer-section li {
+            color: var(--text-light);
+            margin-bottom: 8px;
+            line-height: 1.6;
+        }
+
+        .warning-box {
+            background: #fef2f2;
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 4px solid #ef4444;
+            margin: 20px 0;
+        }
+
+        .highlight-box {
+            background: var(--bg-light);
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 4px solid var(--primary);
+            margin: 20px 0;
+        }
+
+        /* Contact Section */
+        .contact {
+            padding: 100px 0;
+            background: var(--gradient);
+            color: var(--white);
+        }
+
+        .contact-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+        }
+
+        .contact-info h3 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+
+        .contact-info > p {
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+        }
+
+        .contact-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .contact-icon i {
+            color: var(--primary);
+            font-size: 1.2rem;
+        }
+
+        .contact-form {
+            background: var(--white);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .contact-form h3 {
+            color: var(--text-dark);
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+        }
+
+        .contact-form > p {
+            color: var(--text-light);
+            margin-bottom: 25px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            font-size: 1rem;
+            background: var(--white);
+            color: var(--text-dark);
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .btn-whatsapp {
+            background: #25D366;
+            color: white;
+            border: none;
+            width: 100%;
+            justify-content: center;
+            padding: 15px;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn-whatsapp:hover {
+            background: #128C7E;
+            transform: translateY(-2px);
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--primary-dark);
+            color: var(--white);
+            padding: 60px 0 20px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1.5fr;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 20px;
+            font-size: 1.3rem;
+            color: var(--white);
+        }
+
+        .footer-section p {
+            color: #d1d5db;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 12px;
+        }
+
+        .footer-section ul li a {
+            color: #d1d5db;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-section ul li a:hover {
+            color: var(--white);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid #374151;
+            padding-top: 20px;
+            text-align: center;
+            color: #9ca3af;
+            font-size: 0.9rem;
+        }
+
+        /* Modal Styles */
         .modal {
             display: none;
             position: fixed;
@@ -673,8 +1495,10 @@
             align-items: center;
         }
 
-        .modal-body {
-            padding: 30px;
+        .modal-header h3 {
+            color: var(--primary);
+            font-size: 1.5rem;
+            margin: 0;
         }
 
         .close-modal {
@@ -683,48 +1507,193 @@
             font-size: 1.5rem;
             cursor: pointer;
             color: var(--text-light);
+            transition: color 0.3s ease;
         }
 
-        /* ========== TABLE STYLES ========== */
+        .close-modal:hover {
+            color: var(--primary);
+        }
+
+        .modal-body {
+            padding: 30px;
+        }
+
+        /* Calculator Styles */
+        .calculator-form {
+            display: grid;
+            gap: 20px;
+        }
+
+        .calculator-input {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .calculator-input label {
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        .calculator-input input {
+            padding: 12px 15px;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .calculator-input input:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .calculator-result {
+            background: var(--bg-light);
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .calculator-result h4 {
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+
+        .profit-amount {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #10b981;
+            margin: 10px 0;
+        }
+
+        .profit-breakdown {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .breakdown-item {
+            background: var(--white);
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .breakdown-item h5 {
+            color: var(--text-light);
+            font-size: 0.9rem;
+            margin-bottom: 5px;
+        }
+
+        .breakdown-value {
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        /* Average Calculator */
+        .trade-values-list {
+            background: var(--bg-light);
+            padding: 15px;
+            border-radius: 10px;
+            border-left: 4px solid var(--primary);
+        }
+
+        .trade-values-list h5 {
+            color: var(--primary);
+            margin-bottom: 10px;
+            font-size: 1rem;
+        }
+
+        .input-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .add-trade-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            justify-content: center;
+            margin-top: 10px;
+        }
+
+        .add-trade-btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+
         .trades-table {
             width: 100%;
             border-collapse: collapse;
             margin-top: 20px;
         }
 
-        .trades-table th {
-            background: var(--primary);
-            color: white;
-            padding: 12px;
-            text-align: left;
-        }
-
+        .trades-table th,
         .trades-table td {
             padding: 12px;
-            border-bottom: 1px solid #eee;
+            text-align: left;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .trades-table th {
+            background: var(--bg-light);
+            font-weight: 600;
+            color: var(--primary);
         }
 
         .trades-table tr:hover {
             background: var(--bg-light);
         }
 
-        /* ========== CHART STYLES ========== */
-        .chart-container {
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            margin: 30px 0;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+        .delete-btn {
+            background: #ef4444;
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.8rem;
         }
 
-        /* ========== RESPONSIVE STYLES ========== */
+        .delete-btn:hover {
+            background: #dc2626;
+        }
+
+        /* TradingView Widget */
+        .tradingview-widget-container {
+            height: 100%;
+            width: 100%;
+        }
+
+        /* Login/Register Modal */
+        .auth-form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        /* Responsive Design */
         @media (max-width: 1024px) {
             .nav-menu {
-                gap: 15px;
+                gap: 20px;
             }
             
-            .hero h1 {
-                font-size: 2.8rem;
+            .footer-content {
+                grid-template-columns: 1fr 1fr;
             }
             
             .strategy-builder-container {
@@ -758,22 +1727,48 @@
             }
             
             .hero h1 {
-                font-size: 2.2rem;
+                font-size: 2.5rem;
             }
             
             .hero p {
                 font-size: 1.1rem;
             }
             
-            .quick-actions {
+            .hero-buttons {
                 flex-direction: column;
                 align-items: center;
             }
             
-            .action-btn {
+            .btn {
                 width: 100%;
                 max-width: 300px;
                 justify-content: center;
+            }
+            
+            .trust-badges {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .contact-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            
+            .stats-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .packages-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .package-card.popular {
+                transform: scale(1);
             }
             
             .market-ticker {
@@ -785,18 +1780,69 @@
                 gap: 10px;
             }
             
-            .form-grid, .form-row, .alert-form {
+            .ticker-item {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .quick-actions {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .action-btn {
+                width: 100%;
+                max-width: 250px;
+                justify-content: center;
+            }
+            
+            .profit-breakdown {
                 grid-template-columns: 1fr;
             }
             
-            .parameters-grid {
+            .input-row {
                 grid-template-columns: 1fr;
             }
             
-            .performance-metrics, .portfolio-summary, .trade-statistics {
-                grid-template-columns: repeat(2, 1fr);
+            .trades-table {
+                font-size: 0.8rem;
             }
             
+            .trades-table th,
+            .trades-table td {
+                padding: 8px;
+            }
+            
+            .market-charts {
+                grid-template-columns: 1fr;
+            }
+            
+            .chart-container {
+                height: 400px;
+            }
+            
+            .chart-wrapper {
+                height: 300px;
+            }
+
+            .logo-container {
+                gap: 8px;
+            }
+            
+            .logo-img {
+                width: 35px;
+                height: 35px;
+                font-size: 0.9rem;
+            }
+            
+            .company-name {
+                font-size: 1.3rem;
+            }
+            
+            .company-tagline {
+                font-size: 0.55rem;
+            }
+
             .back-to-home {
                 top: 100px;
                 left: 10px;
@@ -806,28 +1852,30 @@
         }
 
         @media (max-width: 480px) {
-            .performance-metrics, .portfolio-summary, .trade-statistics {
-                grid-template-columns: 1fr;
+            .performance-metrics,
+            .portfolio-summary,
+            .trade-statistics {
+                grid-template-columns: repeat(2, 1fr);
             }
             
             .hero h1 {
-                font-size: 1.8rem;
-            }
-            
-            .section-header h2 {
                 font-size: 2rem;
             }
         }
     </style>
 </head>
 <body>
+    <!-- Background Elements -->
+    <div class="candlestick-bg"></div>
+    <div class="floating-candles" id="floatingCandles"></div>
+
     <!-- Back to Home Button -->
     <button class="back-to-home" id="backToHome">
         <i class="fas fa-arrow-left"></i>
         Back to Home
     </button>
 
-    <!-- Market Ticker -->
+    <!-- Enhanced Market Ticker -->
     <div class="market-ticker">
         <div class="ticker-content">
             <div class="ticker-item up" id="niftyTicker">
@@ -871,6 +1919,7 @@
                 <i class="fas fa-bars"></i>
             </button>
             
+            <!-- UPDATED NAV MENU WITH ALL NEW FEATURES -->
             <ul class="nav-menu" id="navMenu">
                 <li><a href="#home">Home</a></li>
                 <li><a href="#market">Live Market</a></li>
@@ -882,9 +1931,12 @@
                 <li><a href="#services">Services</a></li>
                 <li><a href="#packages">Packages</a></li>
                 <li><a href="#testimonials">Testimonials</a></li>
-                <li><a href="#contact">Contact</a></li>
+                <li><a href="#faq">FAQ</a></li>
+                <li><a href="#disclaimer">Disclaimer</a></li>
+                <li><a href="#contact">Contact Us</a></li>
             </ul>
             
+            <!-- User Profile -->
             <div class="user-profile" id="userProfile">
                 <div class="user-avatar" id="userAvatar">U</div>
                 <div class="dropdown-menu">
@@ -895,59 +1947,168 @@
                 </div>
             </div>
             
+            <!-- Login Button -->
             <button class="login-btn" id="loginBtn" onclick="showLoginModal()">
                 <i class="fas fa-user"></i> Login
             </button>
         </div>
     </header>
 
-    <!-- Hero Section -->
+    <!-- Enhanced Hero Section with NEW Quick Actions -->
     <section id="home" class="hero">
         <div class="hero-container">
-            <h1>Complete Algorithmic Trading Platform</h1>
-            <p>Everything You Need for Successful Trading: Backtesting, Portfolio Tracking, Alerts & More!</p>
+            <h1>Algorithmic Trading Revolution Starts Here</h1>
+            <p>Experience 92% Accuracy with AI-Powered Trading Algorithms. Join 500+ Successful Traders Today!</p>
             
+            <div class="hero-buttons">
+                <a href="#contact" class="btn btn-primary">
+                    <i class="fas fa-rocket"></i>
+                    Start Trading Now
+                </a>
+                <a href="#packages" class="btn btn-secondary">
+                    <i class="fas fa-crown"></i>
+                    View Premium Plans
+                </a>
+            </div>
+
+            <!-- UPDATED Quick Actions with NEW Features -->
             <div class="quick-actions">
-                <button class="action-btn" onclick="showSection('backtesting')">
-                    <i class="fas fa-chart-line"></i>
-                    Start Backtesting
-                </button>
-                <button class="action-btn" onclick="showSection('portfolio')">
-                    <i class="fas fa-chart-pie"></i>
-                    Track Portfolio
+                <button class="action-btn" onclick="downloadBrochure()">
+                    <i class="fas fa-download"></i>
+                    Download Brochure
                 </button>
                 <button class="action-btn" onclick="openCalculator()">
                     <i class="fas fa-calculator"></i>
-                    Calculators
+                    Profit Calculator
                 </button>
-                <button class="action-btn" onclick="showSection('strategy-builder')">
-                    <i class="fas fa-puzzle-piece"></i>
-                    Build Strategy
+                <button class="action-btn" onclick="openAverageCalculator()">
+                    <i class="fas fa-chart-bar"></i>
+                    Average Calculator
+                </button>
+                <button class="action-btn" onclick="showSection('backtesting')">
+                    <i class="fas fa-chart-line"></i>
+                    Backtesting
+                </button>
+                <button class="action-btn" onclick="showSection('portfolio')">
+                    <i class="fas fa-chart-pie"></i>
+                    Portfolio
                 </button>
                 <button class="action-btn" onclick="showLoginModal()">
                     <i class="fas fa-user"></i>
-                    Login/Register
+                    Login
                 </button>
+            </div>
+
+            <!-- Trust Badges -->
+            <div class="trust-badges">
+                <div class="badge">
+                    <i class="fas fa-shield-alt"></i>
+                    <span>Bank-Level Security</span>
+                </div>
+                <div class="badge">
+                    <i class="fas fa-clock"></i>
+                    <span>24/7 Support</span>
+                </div>
+                <div class="badge">
+                    <i class="fas fa-rupee-sign"></i>
+                    <span>Transparent Pricing</span>
+                </div>
+                <div class="badge">
+                    <i class="fas fa-trophy"></i>
+                    <span>92% Success Rate</span>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- =================== ALL FEATURES SECTIONS =================== -->
+    <!-- Enhanced Stats Section -->
+    <section class="stats">
+        <div class="stats-container">
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+                <div class="stat-number">92%</div>
+                <div class="stat-label">Success Rate</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-users"></i>
+                </div>
+                <div class="stat-number">500+</div>
+                <div class="stat-label">Happy Clients</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-rupee-sign"></i>
+                </div>
+                <div class="stat-number">₹5Cr+</div>
+                <div class="stat-label">Portfolio Managed</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-clock"></i>
+                </div>
+                <div class="stat-number">24/7</div>
+                <div class="stat-label">Support</div>
+            </div>
+        </div>
+    </section>
 
-    <!-- Live Market Section -->
-    <section id="market" class="content-section">
+    <!-- =================== NEW FEATURES SECTIONS =================== -->
+
+    <!-- Live Market Section (Original) -->
+    <section id="market" class="content-section live-market">
         <div class="container">
             <div class="section-header">
                 <h2>Live Market Data</h2>
-                <p>Real-time charts and market data</p>
+                <p>Real-time Indian stock market indices with live TradingView charts</p>
             </div>
-            <div class="chart-container">
-                <div id="market-charts"></div>
+            
+            <div class="market-charts">
+                <!-- NIFTY 50 Chart -->
+                <div class="chart-container">
+                    <div class="chart-header">
+                        <div class="chart-title">NIFTY 50</div>
+                        <div class="chart-price up" id="niftyLivePrice">22,403.85</div>
+                    </div>
+                    <div class="chart-wrapper">
+                        <div class="tradingview-widget-container">
+                            <div id="nifty-chart"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- BANK NIFTY Chart -->
+                <div class="chart-container">
+                    <div class="chart-header">
+                        <div class="chart-title">BANK NIFTY</div>
+                        <div class="chart-price up" id="bankniftyLivePrice">48,026.90</div>
+                    </div>
+                    <div class="chart-wrapper">
+                        <div class="tradingview-widget-container">
+                            <div id="banknifty-chart"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SENSEX Chart -->
+                <div class="chart-container">
+                    <div class="chart-header">
+                        <div class="chart-title">SENSEX</div>
+                        <div class="chart-price up" id="sensexLivePrice">73,895.54</div>
+                    </div>
+                    <div class="chart-wrapper">
+                        <div class="tradingview-widget-container">
+                            <div id="sensex-chart"></div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- Backtesting Section -->
+    <!-- NEW: Backtesting Section -->
     <section id="backtesting" class="content-section">
         <div class="container">
             <div class="section-header">
@@ -956,79 +2117,76 @@
             </div>
             
             <div class="backtest-container">
-                <!-- Backtesting content will be added dynamically -->
-                <div id="backtestContent">
-                    <div class="parameters-grid">
-                        <div class="param-group">
-                            <label>Select Strategy</label>
-                            <select class="form-control" id="strategySelect">
-                                <option value="ma_crossover">Moving Average Crossover</option>
-                                <option value="rsi">RSI Strategy</option>
-                                <option value="bollinger">Bollinger Bands</option>
-                                <option value="macd">MACD Strategy</option>
-                            </select>
+                <div class="parameters-grid">
+                    <div class="param-group">
+                        <label>Select Strategy</label>
+                        <select class="form-control" id="strategySelect">
+                            <option value="ma_crossover">Moving Average Crossover</option>
+                            <option value="rsi">RSI Strategy</option>
+                            <option value="bollinger">Bollinger Bands</option>
+                            <option value="macd">MACD Strategy</option>
+                        </select>
+                    </div>
+                    
+                    <div class="param-group">
+                        <label>Stock/Index</label>
+                        <select class="form-control" id="backtestSymbol">
+                            <option value="NIFTY">NIFTY 50</option>
+                            <option value="BANKNIFTY">BANK NIFTY</option>
+                            <option value="RELIANCE">RELIANCE</option>
+                            <option value="TCS">TCS</option>
+                        </select>
+                    </div>
+                    
+                    <div class="param-group">
+                        <label>Time Period</label>
+                        <select class="form-control" id="backtestPeriod">
+                            <option value="1m">1 Month</option>
+                            <option value="3m">3 Months</option>
+                            <option value="6m">6 Months</option>
+                            <option value="1y">1 Year</option>
+                        </select>
+                    </div>
+                    
+                    <div class="param-group">
+                        <label>Initial Capital (₹)</label>
+                        <input type="number" class="form-control" id="initialCapital" value="100000">
+                    </div>
+                </div>
+                
+                <button class="run-backtest" onclick="runBacktest()">
+                    <i class="fas fa-play"></i> Run Backtest
+                </button>
+                
+                <div id="backtestResults" style="display: none;">
+                    <div class="performance-metrics">
+                        <div class="metric-card">
+                            <div class="metric-value" id="totalReturn">0%</div>
+                            <div class="metric-label">Total Return</div>
                         </div>
-                        
-                        <div class="param-group">
-                            <label>Stock/Index</label>
-                            <select class="form-control" id="backtestSymbol">
-                                <option value="NIFTY">NIFTY 50</option>
-                                <option value="BANKNIFTY">BANK NIFTY</option>
-                                <option value="RELIANCE">RELIANCE</option>
-                                <option value="TCS">TCS</option>
-                            </select>
+                        <div class="metric-card">
+                            <div class="metric-value" id="totalProfit">₹0</div>
+                            <div class="metric-label">Total Profit</div>
                         </div>
-                        
-                        <div class="param-group">
-                            <label>Time Period</label>
-                            <select class="form-control" id="backtestPeriod">
-                                <option value="1m">1 Month</option>
-                                <option value="3m">3 Months</option>
-                                <option value="6m">6 Months</option>
-                                <option value="1y">1 Year</option>
-                            </select>
+                        <div class="metric-card">
+                            <div class="metric-value" id="winRate">0%</div>
+                            <div class="metric-label">Win Rate</div>
                         </div>
-                        
-                        <div class="param-group">
-                            <label>Initial Capital (₹)</label>
-                            <input type="number" class="form-control" id="initialCapital" value="100000">
+                        <div class="metric-card">
+                            <div class="metric-value" id="maxDrawdown">0%</div>
+                            <div class="metric-label">Max Drawdown</div>
                         </div>
                     </div>
                     
-                    <button class="run-backtest" onclick="runBacktest()">
-                        <i class="fas fa-play"></i> Run Backtest
-                    </button>
-                    
-                    <div id="backtestResults" style="display: none;">
-                        <div class="performance-metrics">
-                            <div class="metric-card">
-                                <div class="metric-value" id="totalReturn">0%</div>
-                                <div class="metric-label">Total Return</div>
-                            </div>
-                            <div class="metric-card">
-                                <div class="metric-value" id="totalProfit">₹0</div>
-                                <div class="metric-label">Total Profit</div>
-                            </div>
-                            <div class="metric-card">
-                                <div class="metric-value" id="winRate">0%</div>
-                                <div class="metric-label">Win Rate</div>
-                            </div>
-                            <div class="metric-card">
-                                <div class="metric-value" id="maxDrawdown">0%</div>
-                                <div class="metric-label">Max Drawdown</div>
-                            </div>
-                        </div>
-                        
-                        <div class="chart-container">
-                            <canvas id="equityChart"></canvas>
-                        </div>
+                    <div class="chart-container" style="height: 300px;">
+                        <canvas id="equityChart"></canvas>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Portfolio Tracker -->
+    <!-- NEW: Portfolio Tracker Section -->
     <section id="portfolio" class="content-section">
         <div class="container">
             <div class="section-header">
@@ -1065,13 +2223,13 @@
                 </div>
             </div>
             
-            <div class="chart-container">
+            <div class="chart-container" style="height: 300px;">
                 <canvas id="portfolioChart"></canvas>
             </div>
         </div>
     </section>
 
-    <!-- Trade Journal -->
+    <!-- NEW: Trade Journal Section -->
     <section id="trade-journal" class="content-section">
         <div class="container">
             <div class="section-header">
@@ -1091,7 +2249,7 @@
                     <input type="number" placeholder="Exit Price" class="form-control" id="exitPriceTrade">
                     <input type="number" placeholder="Quantity" class="form-control" id="tradeQuantity">
                     <input type="text" placeholder="Strategy Used" class="form-control" id="tradeStrategy">
-                    <textarea placeholder="Trade Notes" class="form-control" id="tradeNotes"></textarea>
+                    <textarea placeholder="Trade Notes" class="form-control" id="tradeNotes" rows="3"></textarea>
                     <button class="btn btn-primary" onclick="saveTrade()">Save Trade</button>
                 </div>
             </div>
@@ -1117,7 +2275,7 @@
         </div>
     </section>
 
-    <!-- Strategy Builder -->
+    <!-- NEW: Strategy Builder Section -->
     <section id="strategy-builder" class="content-section">
         <div class="container">
             <div class="section-header">
@@ -1171,19 +2329,23 @@
                     </div>
                     
                     <div class="strategy-flow" id="strategyFlow">
-                        <p>Drag and drop elements here to build your strategy</p>
+                        <p style="color: var(--text-light); text-align: center; padding: 50px;">
+                            Drag and drop elements here to build your strategy
+                        </p>
                     </div>
                     
-                    <div id="generatedCode" style="display: none;">
+                    <div id="generatedCode" style="display: none; margin-top: 20px;">
                         <h4>Generated Strategy Code</h4>
-                        <pre><code id="strategyCode"></code></pre>
+                        <pre style="background: var(--bg-light); padding: 15px; border-radius: 8px; overflow-x: auto;">
+                            <code id="strategyCode"></code>
+                        </pre>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Alerts System -->
+    <!-- NEW: Alerts System Section -->
     <section id="alerts" class="content-section">
         <div class="container">
             <div class="section-header">
@@ -1221,51 +2383,397 @@
         </div>
     </section>
 
-    <!-- =================== ORIGINAL SECTIONS =================== -->
+    <!-- =================== YOUR ORIGINAL SECTIONS =================== -->
 
     <!-- Services Section -->
     <section id="services" class="content-section">
         <div class="container">
             <div class="section-header">
                 <h2>Our Services</h2>
-                <p>Comprehensive algorithmic trading solutions</p>
+                <p>Comprehensive algorithmic trading solutions for modern traders</p>
             </div>
-            <!-- Original services content -->
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <h3>Algorithmic Trading</h3>
+                    <p>Advanced automated trading systems with AI bots for high-frequency trading and optimal execution</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <h3>AI Predictions</h3>
+                    <p>Machine learning models for accurate stock price predictions and market trend analysis</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-chart-bar"></i>
+                    </div>
+                    <h3>Market Analysis</h3>
+                    <p>Real-time technical and fundamental analysis with advanced neural network analytics</p>
+                </div>
+            </div>
         </div>
     </section>
 
     <!-- Packages Section -->
-    <section id="packages" class="content-section">
+    <section id="packages" class="content-section packages">
         <div class="container">
             <div class="section-header">
                 <h2>Our Trading Packages</h2>
-                <p>Choose the perfect plan for your needs</p>
+                <p>Choose the perfect plan for your trading needs</p>
             </div>
-            <!-- Original packages content -->
+            
+            <div class="packages-grid">
+                <!-- Monthly Package -->
+                <div class="package-card">
+                    <div class="package-header">
+                        <div class="package-name">MONTHLY</div>
+                        <div class="package-price">₹12,500 +GST</div>
+                        <div class="package-period">Billed Monthly</div>
+                    </div>
+                    <ul class="package-features">
+                        <li><i class="fas fa-check"></i> Completely Automated</li>
+                        <li><i class="fas fa-check"></i> Trades Indices</li>
+                        <li><i class="fas fa-check"></i> WhatsApp Support</li>
+                        <li><i class="fas fa-check"></i> Remote Support</li>
+                        <li><i class="fas fa-check"></i> 1 Strategy</li>
+                        <li><i class="fas fa-check"></i> ₹1000 Maintenance Charges per month</li>
+                    </ul>
+                    <button class="package-btn" onclick="selectPackage('MONTHLY')">CHOOSE THIS PLAN</button>
+                </div>
+
+                <!-- Quarterly Package -->
+                <div class="package-card popular">
+                    <div class="package-header">
+                        <div class="package-name">QUARTERLY</div>
+                        <div class="package-price">₹38,000 +GST</div>
+                        <div class="package-period">Billed Quarterly</div>
+                    </div>
+                    <ul class="package-features">
+                        <li><i class="fas fa-check"></i> Completely Automated</li>
+                        <li><i class="fas fa-check"></i> Trades Indices</li>
+                        <li><i class="fas fa-check"></i> WhatsApp Support</li>
+                        <li><i class="fas fa-check"></i> Remote Support</li>
+                        <li><i class="fas fa-check"></i> 3-4 Strategies</li>
+                        <li><i class="fas fa-check"></i> ₹1000 Maintenance Charges per month</li>
+                    </ul>
+                    <button class="package-btn" onclick="selectPackage('QUARTERLY')">CHOOSE THIS PLAN</button>
+                </div>
+
+                <!-- Half Yearly Package -->
+                <div class="package-card">
+                    <div class="package-header">
+                        <div class="package-name">HALF YEARLY</div>
+                        <div class="package-price">₹72,000 +GST</div>
+                        <div class="package-period">Billed Half Yearly</div>
+                    </div>
+                    <ul class="package-features">
+                        <li><i class="fas fa-check"></i> Completely Automated</li>
+                        <li><i class="fas fa-check"></i> Trades Indices</li>
+                        <li><i class="fas fa-check"></i> WhatsApp Support</li>
+                        <li><i class="fas fa-check"></i> Remote Support</li>
+                        <li><i class="fas fa-check"></i> 7-8 Strategies</li>
+                        <li><i class="fas fa-check"></i> ₹1000 Maintenance Charges per month</li>
+                    </ul>
+                    <button class="package-btn" onclick="selectPackage('HALF YEARLY')">CHOOSE THIS PLAN</button>
+                </div>
+            </div>
         </div>
     </section>
 
-    <!-- Testimonials -->
-    <section id="testimonials" class="content-section">
+    <!-- Testimonials Section -->
+    <section id="testimonials" class="content-section testimonials">
         <div class="container">
             <div class="section-header">
                 <h2>Client Testimonials</h2>
-                <p>What our clients say about us</p>
+                <p>What our clients say about our algorithmic trading services</p>
             </div>
-            <!-- Original testimonials content -->
+            
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <div class="stars">⭐⭐⭐⭐⭐</div>
+                    <p>"Algo For You transformed my trading completely. Their algorithms gave me 35% returns in just 3 months. The AI predictions are incredibly accurate!"</p>
+                    <div class="client-info">
+                        <div class="client-avatar">RS</div>
+                        <div class="client-details">
+                            <h4>Rahul Sharma</h4>
+                            <p>Mumbai Investor</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-card">
+                    <div class="stars">⭐⭐⭐⭐⭐</div>
+                    <p>"As someone new to stock markets, their guidance and automated systems made trading so easy. I'm consistently making profits without stress."</p>
+                    <div class="client-info">
+                        <div class="client-avatar">PM</div>
+                        <div class="client-details">
+                            <h4>Priya Mehta</h4>
+                            <p>Delhi Trader</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="testimonial-card">
+                    <div class="stars">⭐⭐⭐⭐⭐</div>
+                    <p>"The portfolio management service is outstanding. They optimized my investments and reduced risks significantly. Highly recommended!"</p>
+                    <div class="client-info">
+                        <div class="client-avatar">AK</div>
+                        <div class="client-details">
+                            <h4>Amit Kumar</h4>
+                            <p>Bangalore Businessman</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section id="faq" class="content-section faq">
+        <div class="container">
+            <div class="section-header">
+                <h2>Frequently Asked Questions</h2>
+                <p>Get answers to common questions about our algorithmic trading services</p>
+            </div>
+            
+            <div class="faq-content">
+                <div class="faq-item">
+                    <div class="faq-question">
+                        What is algorithmic trading?
+                        <span>+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Algorithmic trading uses computer programs and AI to execute trades automatically based on predefined strategies. It removes human emotion from trading and can process market data much faster than manual trading.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        What's the minimum investment required?
+                        <span>+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>We offer flexible plans starting from ₹12,500 per month. The minimum investment depends on the trading strategy and risk profile. Contact us for a personalized consultation.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        What is the success rate of your algorithms?
+                        <span>+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Our algorithms have consistently achieved 85-95% accuracy in backtesting. However, past performance doesn't guarantee future results. We provide detailed performance reports for each strategy.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        Do I need trading experience?
+                        <span>+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>No prior trading experience is necessary. Our systems are designed to be user-friendly, and we provide complete guidance and support throughout your trading journey.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Disclaimer Section -->
+    <section id="disclaimer" class="content-section disclaimer">
+        <div class="container">
+            <div class="section-header">
+                <h2>Legal Disclaimer</h2>
+                <p>Important Risk Disclosures and Legal Information</p>
+            </div>
+            
+            <div class="disclaimer-content">
+                <div class="disclaimer-section">
+                    <div class="warning-box">
+                        <h3>⚠️ Important Warning</h3>
+                        <p><strong>Algorithmic trading involves substantial risk of loss and is not suitable for every investor.</strong> The valuation of stocks and other investments may fluctuate, and as a result, clients may lose more than their original investment.</p>
+                    </div>
+                </div>
+
+                <div class="disclaimer-section">
+                    <h3>Risk Disclosure</h3>
+                    <p>All investments and trading involve risk, including the possible loss of principal. Past performance does not guarantee future results.</p>
+                    
+                    <ul>
+                        <li><strong>Market Risk:</strong> Investments are subject to market fluctuations</li>
+                        <li><strong>Technical Risk:</strong> Algorithms may experience technical failures</li>
+                        <li><strong>Execution Risk:</strong> Delays or errors in trade execution may occur</li>
+                        <li><strong>Leverage Risk:</strong> Use of leverage can magnify losses</li>
+                    </ul>
+                </div>
+
+                <div class="disclaimer-section">
+                    <h3>Performance Disclaimer</h3>
+                    <div class="highlight-box">
+                        <p><strong>Algo For You does not guarantee any specific investment results.</strong> Performance figures are based on historical backtesting and should not be considered as guarantees of future performance.</p>
+                    </div>
+                    <p>Hypothetical performance results have many inherent limitations. No representation is being made that any account will achieve profits or losses similar to those shown.</p>
+                </div>
+
+                <div class="disclaimer-section">
+                    <h3>Educational Purpose</h3>
+                    <p>The information provided by Algo For You is for educational and informational purposes only. It should not be considered as financial advice or a recommendation to buy or sell any securities.</p>
+                    <p><strong>Algo For You is not a registered investment advisor.</strong> You should consult with appropriate licensed professionals before making any investment decisions.</p>
+                </div>
+
+                <div class="disclaimer-section">
+                    <h3>Limitation of Liability</h3>
+                    <p>To the maximum extent permitted by law, Algo For You shall not be liable for any indirect, incidental, special, consequential, or punitive damages, or any loss of profits or revenues resulting from your use of our services.</p>
+                </div>
+
+                <div class="disclaimer-section">
+                    <h3>User Responsibilities</h3>
+                    <ul>
+                        <li>Only risk capital that you can afford to lose</li>
+                        <li>Regularly monitor your trading activities</li>
+                        <li>Understand the risks involved in algorithmic trading</li>
+                        <li>Accept full responsibility for all trading decisions</li>
+                    </ul>
+                </div>
+
+                <div class="disclaimer-section">
+                    <p><strong>Last Updated:</strong> January 2024</p>
+                    <p>By using our services, you acknowledge that you have read, understood, and agree to this disclaimer.</p>
+                </div>
+            </div>
         </div>
     </section>
 
     <!-- Contact Section -->
-    <section id="contact" class="content-section">
+    <section id="contact" class="content-section contact">
         <div class="container">
             <div class="section-header">
                 <h2>Contact Us</h2>
-                <p>Get in touch with our experts</p>
+                <p>Get in touch with our trading experts via WhatsApp</p>
             </div>
-            <!-- Original contact content -->
+            <div class="contact-content">
+                <div class="contact-info">
+                    <h3>Start Your Trading Journey</h3>
+                    <p>Contact us for a free consultation and demo of our algorithmic trading systems.</p>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-phone"></i>
+                        </div>
+                        <div>
+                            <h4>Phone / WhatsApp</h4>
+                            <p>+91 77709 52979</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div>
+                            <h4>Email Address</h4>
+                            <p>contact@algoforyou.com</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <div>
+                            <h4>Office Address</h4>
+                            <p>A-100 Ekta Nagar, Bahodapur, Gwalior</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="contact-form">
+                    <h3>Send Message via WhatsApp</h3>
+                    <p>Fill the form and we'll open WhatsApp with your message</p>
+                    <form id="whatsappForm">
+                        <div class="form-group">
+                            <input type="text" id="clientName" placeholder="Your Full Name" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="tel" id="clientPhone" placeholder="Your WhatsApp Number" required>
+                        </div>
+                        <div class="form-group">
+                            <select id="serviceType" required>
+                                <option value="">Select Service Interested In</option>
+                                <option value="Algorithmic Trading">Algorithmic Trading</option>
+                                <option value="AI Stock Predictions">AI Stock Predictions</option>
+                                <option value="Market Analysis Reports">Market Analysis Reports</option>
+                                <option value="Portfolio Management">Portfolio Management</option>
+                                <option value="Custom Algorithm Development">Custom Algorithm Development</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <textarea id="clientMessage" placeholder="Your Message or Requirements" rows="5" required></textarea>
+                        </div>
+                        <button type="button" onclick="sendToWhatsApp()" class="btn-whatsapp">
+                            <i class="fab fa-whatsapp"></i>
+                            Send via WhatsApp
+                        </button>
+                    </form>
+                </div>
+            </div>
         </div>
     </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>ALGO FOR YOU</h3>
+                    <p>Transforming trading strategies into powerful algorithms for unparalleled market success. Your premier partner in algorithmic trading solutions.</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#market">Live Market</a></li>
+                        <li><a href="#backtesting">Backtesting</a></li>
+                        <li><a href="#portfolio">Portfolio</a></li>
+                        <li><a href="#trade-journal">Trade Journal</a></li>
+                        <li><a href="#strategy-builder">Strategy Builder</a></li>
+                        <li><a href="#alerts">Alerts</a></li>
+                        <li><a href="#services">Services</a></li>
+                        <li><a href="#packages">Packages</a></li>
+                        <li><a href="#testimonials">Testimonials</a></li>
+                        <li><a href="#disclaimer">Disclaimer</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Services</h4>
+                    <ul>
+                        <li><a href="#services">Algorithmic Trading</a></li>
+                        <li><a href="#services">AI Predictions</a></li>
+                        <li><a href="#services">Market Analysis</a></li>
+                        <li><a href="#services">Portfolio Management</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Contact Info</h4>
+                    <p>+91 77709 52979</p>
+                    <p>contact@algoforyou.com</p>
+                    <p>Gwalior, Madhya Pradesh</p>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2024 Algo For You. All rights reserved. | Algorithmic Trading Solutions</p>
+            </div>
+        </div>
+    </footer>
 
     <!-- =================== MODALS =================== -->
 
@@ -1281,7 +2789,7 @@
                     <input type="email" id="loginEmail" placeholder="Email Address" class="form-control">
                     <input type="password" id="loginPassword" placeholder="Password" class="form-control">
                     <button class="btn btn-primary" onclick="loginUser()">Login</button>
-                    <p>Don't have an account? <a href="#" onclick="showRegister()">Register here</a></p>
+                    <p style="text-align: center; margin-top: 15px;">Don't have an account? <a href="#" onclick="showRegister()">Register here</a></p>
                 </div>
             </div>
         </div>
@@ -1302,36 +2810,137 @@
                     <input type="password" id="regPassword" placeholder="Password" class="form-control">
                     <input type="password" id="regConfirmPassword" placeholder="Confirm Password" class="form-control">
                     <button class="btn btn-primary" onclick="registerUser()">Create Account</button>
-                    <p>Already have an account? <a href="#" onclick="showLogin()">Login here</a></p>
+                    <p style="text-align: center; margin-top: 15px;">Already have an account? <a href="#" onclick="showLogin()">Login here</a></p>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Calculator Modal -->
+    <!-- Profit Calculator Modal (Original) -->
     <div class="modal" id="calculatorModal">
         <div class="modal-content">
             <div class="modal-header">
-                <h3>Trading Calculators</h3>
+                <h3>Profit Calculator</h3>
                 <button class="close-modal" onclick="closeModal('calculatorModal')">&times;</button>
             </div>
             <div class="modal-body">
-                <div class="calculator-tabs">
-                    <button class="calc-tab active" onclick="showCalcTab('profit')">Profit Calculator</button>
-                    <button class="calc-tab" onclick="showCalcTab('position')">Position Sizing</button>
-                    <button class="calc-tab" onclick="showCalcTab('option')">Option Calculator</button>
+                <div class="calculator-form">
+                    <div class="calculator-input">
+                        <label for="investmentAmount">Investment Amount (₹)</label>
+                        <input type="number" id="investmentAmount" placeholder="Enter investment amount" min="1000" step="1000" value="100000">
+                    </div>
+                    <div class="calculator-input">
+                        <label for="tradingPeriod">Trading Period (Months)</label>
+                        <input type="number" id="tradingPeriod" placeholder="Enter trading period" min="1" max="36" value="12">
+                    </div>
+                    <div class="calculator-input">
+                        <label for="successRate">Expected Success Rate (%)</label>
+                        <input type="number" id="successRate" placeholder="Enter success rate" min="50" max="95" value="85">
+                    </div>
+                    <div class="calculator-input">
+                        <label for="avgReturn">Average Return per Trade (%)</label>
+                        <input type="number" id="avgReturn" placeholder="Enter average return" min="1" max="20" value="5" step="0.5">
+                    </div>
+                    <button class="btn btn-primary" onclick="calculateProfit()" style="width: 100%;">
+                        <i class="fas fa-calculator"></i>
+                        Calculate Potential Profit
+                    </button>
+                </div>
+                <div class="calculator-result" id="calculatorResult" style="display: none;">
+                    <h4>Projected Profit Analysis</h4>
+                    <div class="profit-amount" id="profitAmount">₹0</div>
+                    <p>Based on your inputs and our algorithmic trading performance</p>
+                    <div class="profit-breakdown">
+                        <div class="breakdown-item">
+                            <h5>Total Investment</h5>
+                            <div class="breakdown-value" id="totalInvestmentCalc">₹0</div>
+                        </div>
+                        <div class="breakdown-item">
+                            <h5>Projected Profit</h5>
+                            <div class="breakdown-value" id="projectedProfit">₹0</div>
+                        </div>
+                        <div class="breakdown-item">
+                            <h5>Total Value</h5>
+                            <div class="breakdown-value" id="totalValue">₹0</div>
+                        </div>
+                        <div class="breakdown-item">
+                            <h5>ROI</h5>
+                            <div class="breakdown-value" id="roiPercentage">0%</div>
+                        </div>
+                    </div>
+                    <div class="warning-box" style="margin-top: 20px;">
+                        <p><strong>Disclaimer:</strong> This is a hypothetical projection based on historical performance. Past results do not guarantee future returns. Algorithmic trading involves risk of loss.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Average Calculator Modal (Original) -->
+    <div class="modal" id="averageCalculatorModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Average Calculator</h3>
+                <button class="close-modal" onclick="closeModal('averageCalculatorModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="calculator-form">
+                    <div class="calculator-input">
+                        <label>Add Trade Details:</label>
+                        <div class="input-row">
+                            <input type="number" id="tradePrice" placeholder="Price per share (₹)" min="0" step="0.01">
+                            <input type="number" id="tradeQuantity" placeholder="Quantity" min="1" value="1">
+                        </div>
+                        <button type="button" class="add-trade-btn" onclick="addTrade()">
+                            <i class="fas fa-plus"></i>
+                            Add Trade
+                        </button>
+                    </div>
+                    
+                    <div class="trade-values-list" id="tradesTableContainer" style="display: none;">
+                        <h5>Your Trades:</h5>
+                        <table class="trades-table">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Price (₹)</th>
+                                    <th>Quantity</th>
+                                    <th>Total Value (₹)</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tradesTableBody">
+                                <!-- Trades will be added here dynamically -->
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <button class="btn btn-primary" onclick="calculateWeightedAverage()" style="width: 100%; margin-top: 20px;">
+                        <i class="fas fa-calculator"></i>
+                        Calculate Weighted Average
+                    </button>
                 </div>
                 
-                <div id="profitCalc" class="calc-content">
-                    <!-- Profit calculator content -->
-                </div>
-                
-                <div id="positionCalc" class="calc-content" style="display: none;">
-                    <!-- Position sizing content -->
-                </div>
-                
-                <div id="optionCalc" class="calc-content" style="display: none;">
-                    <!-- Option calculator content -->
+                <div class="calculator-result" id="averageResult" style="display: none; margin-top: 30px;">
+                    <h4>Average Calculation Results</h4>
+                    <div class="profit-breakdown">
+                        <div class="breakdown-item">
+                            <h5>Total Trades</h5>
+                            <div class="breakdown-value" id="totalTrades">0</div>
+                        </div>
+                        <div class="breakdown-item">
+                            <h5>Total Quantity</h5>
+                            <div class="breakdown-value" id="totalQuantity">0</div>
+                        </div>
+                        <div class="breakdown-item">
+                            <h5>Total Investment</h5>
+                            <div class="breakdown-value" id="totalInvestmentAvg">₹0</div>
+                        </div>
+                        <div class="breakdown-item">
+                            <h5>Weighted Average</h5>
+                            <div class="breakdown-value" id="weightedAverage">₹0</div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -1344,77 +2953,222 @@
         let trades = [];
         let alerts = [];
         let strategies = [];
+        let allTrades = [];
         let equityChart = null;
         let portfolioChart = null;
+        let chartsInitialized = false;
 
         // =================== INITIALIZATION ===================
         document.addEventListener('DOMContentLoaded', function() {
-            initializeApp();
-            setupEventListeners();
+            createCandles();
+            initializeRealTimeData();
+            initializeTradingViewCharts();
+            setupNavigation();
+            
+            // Load user data
             loadUserData();
-            startRealTimeUpdates();
-        });
-
-        function initializeApp() {
-            // Check if user is logged in
-            const savedUser = localStorage.getItem('algo_trading_user');
-            if (savedUser) {
-                currentUser = JSON.parse(savedUser);
-                showUserProfile();
+            
+            // Set up real-time updates
+            setInterval(updateRealTimeData, 5000);
+            setInterval(checkAlerts, 3000);
+            
+            // Request notification permission
+            if ("Notification" in window) {
+                Notification.requestPermission();
             }
             
-            // Load saved data
-            portfolio = JSON.parse(localStorage.getItem('portfolio')) || [];
-            trades = JSON.parse(localStorage.getItem('trades')) || [];
-            alerts = JSON.parse(localStorage.getItem('alerts')) || [];
+            // Setup drag and drop for strategy builder
+            setupDragAndDrop();
+        });
+
+        // =================== ORIGINAL FUNCTIONS ===================
+        function createCandles() {
+            const container = document.getElementById('floatingCandles');
             
-            // Initialize charts
-            initializeCharts();
-            
-            // Update displays
-            updateMarketData();
-            updatePortfolioDisplay();
-            updateTradeStats();
-            updateAlertsDisplay();
+            for (let i = 0; i < 20; i++) {
+                const candle = document.createElement('div');
+                candle.className = Math.random() > 0.5 ? 'candle' : 'candle red';
+                candle.style.left = Math.random() * 100 + '%';
+                candle.style.height = (Math.random() * 40 + 20) + 'px';
+                candle.style.animationDelay = (Math.random() * 20) + 's';
+                
+                const topWick = document.createElement('div');
+                topWick.className = 'wick top-wick';
+                
+                const bottomWick = document.createElement('div');
+                bottomWick.className = 'wick bottom-wick';
+                
+                candle.appendChild(topWick);
+                candle.appendChild(bottomWick);
+                container.appendChild(candle);
+            }
         }
 
-        // =================== NAVIGATION ===================
+        function initializeRealTimeData() {
+            updateAllDisplays({
+                nifty: { price: 22403.85, change: 62.20 },
+                banknifty: { price: 48026.90, change: 128.45 },
+                sensex: { price: 73895.54, change: 149.98 }
+            });
+        }
+
+        function updateRealTimeData() {
+            const fluctuations = {
+                nifty: (Math.random() - 0.5) * 15,
+                banknifty: (Math.random() - 0.5) * 25,
+                sensex: (Math.random() - 0.5) * 40
+            };
+
+            const currentData = {
+                nifty: { price: 22403.85 + fluctuations.nifty, change: 62.20 + fluctuations.nifty },
+                banknifty: { price: 48026.90 + fluctuations.banknifty, change: 128.45 + fluctuations.banknifty },
+                sensex: { price: 73895.54 + fluctuations.sensex, change: 149.98 + fluctuations.sensex }
+            };
+
+            updateAllDisplays(currentData);
+        }
+
+        function updateAllDisplays(data) {
+            for (const [index, values] of Object.entries(data)) {
+                updatePriceDisplay(index, values.price, values.change);
+            }
+        }
+
+        function updatePriceDisplay(index, price, change) {
+            const changePercent = (change / (price - change)) * 100;
+            const isPositive = change >= 0;
+            
+            const formattedPrice = price.toFixed(2);
+            const formattedChange = change.toFixed(2);
+            const formattedPercent = Math.abs(changePercent).toFixed(2);
+            
+            document.getElementById(`${index}Price`).textContent = formattedPrice;
+            document.getElementById(`${index}Change`).textContent = 
+                `${isPositive ? '+' : '-'}${formattedChange} (${isPositive ? '+' : '-'}${formattedPercent}%)`;
+            
+            const ticker = document.getElementById(`${index}Ticker`);
+            ticker.className = `ticker-item ${isPositive ? 'up' : 'down'}`;
+            
+            document.getElementById(`${index}LivePrice`).textContent = formattedPrice;
+            document.getElementById(`${index}LivePrice`).className = `chart-price ${isPositive ? 'up' : 'down'}`;
+        }
+
+        function initializeTradingViewCharts() {
+            if (chartsInitialized) return;
+            
+            if (typeof TradingView === 'undefined') {
+                setTimeout(initializeTradingViewCharts, 100);
+                return;
+            }
+
+            try {
+                // NIFTY 50 Chart
+                new TradingView.widget({
+                    "width": "100%",
+                    "height": "100%",
+                    "symbol": "NSE:NIFTY",
+                    "interval": "D",
+                    "timezone": "Asia/Kolkata",
+                    "theme": "light",
+                    "style": "1",
+                    "locale": "in",
+                    "toolbar_bg": "#f1f3f6",
+                    "enable_publishing": false,
+                    "allow_symbol_change": true,
+                    "container_id": "nifty-chart",
+                    "studies": ["RSI@tv-basicstudies"],
+                    "hide_side_toolbar": false
+                });
+
+                // BANK NIFTY Chart
+                new TradingView.widget({
+                    "width": "100%",
+                    "height": "100%",
+                    "symbol": "NSE:BANKNIFTY",
+                    "interval": "D",
+                    "timezone": "Asia/Kolkata",
+                    "theme": "light",
+                    "style": "1",
+                    "locale": "in",
+                    "toolbar_bg": "#f1f3f6",
+                    "enable_publishing": false,
+                    "allow_symbol_change": true,
+                    "container_id": "banknifty-chart",
+                    "studies": ["RSI@tv-basicstudies"],
+                    "hide_side_toolbar": false
+                });
+
+                // SENSEX Chart
+                new TradingView.widget({
+                    "width": "100%",
+                    "height": "100%",
+                    "symbol": "BSE:SENSEX",
+                    "interval": "D",
+                    "timezone": "Asia/Kolkata",
+                    "theme": "light",
+                    "style": "1",
+                    "locale": "in",
+                    "toolbar_bg": "#f1f3f6",
+                    "enable_publishing": false,
+                    "allow_symbol_change": true,
+                    "container_id": "sensex-chart",
+                    "studies": ["RSI@tv-basicstudies"],
+                    "hide_side_toolbar": false
+                });
+
+                chartsInitialized = true;
+            } catch (error) {
+                console.error('Error initializing TradingView charts:', error);
+            }
+        }
+
+        // =================== NEW FUNCTIONS ===================
+
+        // Navigation System
+        function setupNavigation() {
+            const backToHomeBtn = document.getElementById('backToHome');
+            
+            function updateBackButton() {
+                const hash = window.location.hash;
+                if (hash === '#home' || hash === '#market' || hash === '') {
+                    backToHomeBtn.style.display = 'none';
+                } else {
+                    backToHomeBtn.style.display = 'flex';
+                }
+            }
+
+            backToHomeBtn.addEventListener('click', function() {
+                showSection('home');
+                window.location.hash = 'home';
+            });
+
+            window.addEventListener('hashchange', updateBackButton);
+            updateBackButton();
+        }
+
         function showSection(sectionId) {
-            // Hide all sections
             document.querySelectorAll('.content-section').forEach(section => {
                 section.style.display = 'none';
             });
             
-            // Show selected section
             const targetSection = document.getElementById(sectionId);
             if (targetSection) {
                 targetSection.style.display = 'block';
                 
-                // Update back button
-                const backBtn = document.getElementById('backToHome');
-                if (sectionId !== 'home') {
-                    backBtn.style.display = 'flex';
+                if (sectionId === 'home') {
+                    document.querySelector('.stats').style.display = 'block';
                 } else {
-                    backBtn.style.display = 'none';
+                    document.querySelector('.stats').style.display = 'none';
                 }
                 
-                // Scroll to section
                 window.scrollTo({
                     top: targetSection.offsetTop - 100,
                     behavior: 'smooth'
                 });
-                
-                // Update URL hash
-                window.location.hash = sectionId;
             }
         }
 
-        // Back to home button
-        document.getElementById('backToHome').addEventListener('click', function() {
-            showSection('home');
-        });
-
-        // =================== USER AUTHENTICATION ===================
+        // User Authentication
         function showLoginModal() {
             closeModal('registerModal');
             document.getElementById('loginModal').style.display = 'flex';
@@ -1434,13 +3188,11 @@
             const email = document.getElementById('loginEmail').value;
             const password = document.getElementById('loginPassword').value;
             
-            // Simple validation
             if (!email || !password) {
                 alert('Please enter email and password');
                 return;
             }
             
-            // For demo purposes - in real app, this would be server-side
             currentUser = {
                 name: email.split('@')[0],
                 email: email,
@@ -1466,7 +3218,6 @@
                 return;
             }
             
-            // For demo purposes
             currentUser = {
                 name: name,
                 email: email,
@@ -1488,12 +3239,6 @@
             if (currentUser && currentUser.name) {
                 const initials = currentUser.name.charAt(0).toUpperCase();
                 document.getElementById('userAvatar').textContent = initials;
-                
-                // Update user name in dropdown
-                const userNameElement = document.querySelector('.user-profile span');
-                if (userNameElement) {
-                    userNameElement.textContent = currentUser.name;
-                }
             }
         }
 
@@ -1508,31 +3253,26 @@
             showSection('home');
         }
 
-        // =================== BACKTESTING ===================
+        // Backtesting System
         function runBacktest() {
             const strategy = document.getElementById('strategySelect').value;
             const symbol = document.getElementById('backtestSymbol').value;
             const period = document.getElementById('backtestPeriod').value;
             const capital = parseInt(document.getElementById('initialCapital').value);
             
-            // Simulate backtest results
             const results = simulateBacktest(strategy, symbol, period, capital);
             
-            // Display results
             document.getElementById('totalReturn').textContent = results.totalReturn + '%';
             document.getElementById('totalProfit').textContent = '₹' + results.totalProfit.toLocaleString();
             document.getElementById('winRate').textContent = results.winRate + '%';
             document.getElementById('maxDrawdown').textContent = results.maxDrawdown + '%';
             
-            // Show results section
             document.getElementById('backtestResults').style.display = 'block';
             
-            // Update equity chart
             updateEquityChart(results.equityCurve);
         }
 
         function simulateBacktest(strategy, symbol, period, capital) {
-            // Simulate backtest results
             const baseReturn = {
                 'ma_crossover': 12.5,
                 'rsi': 8.3,
@@ -1546,7 +3286,6 @@
             const winRate = 60 + Math.random() * 20;
             const maxDrawdown = 5 + Math.random() * 10;
             
-            // Generate equity curve
             const equityCurve = [];
             let currentEquity = capital;
             for (let i = 0; i < 30; i++) {
@@ -1564,7 +3303,7 @@
             };
         }
 
-        // =================== PORTFOLIO MANAGEMENT ===================
+        // Portfolio Management
         function addHolding() {
             const symbol = document.getElementById('stockSymbol').value;
             const buyPrice = parseFloat(document.getElementById('buyPrice').value);
@@ -1580,7 +3319,7 @@
                 symbol: symbol.toUpperCase(),
                 buyPrice: buyPrice,
                 quantity: quantity,
-                currentPrice: buyPrice * (1 + (Math.random() * 0.1 - 0.05)), // Simulate current price
+                currentPrice: buyPrice * (1 + (Math.random() * 0.1 - 0.05)),
                 added: new Date().toISOString()
             };
             
@@ -1589,7 +3328,6 @@
             
             updatePortfolioDisplay();
             
-            // Clear form
             document.getElementById('stockSymbol').value = '';
             document.getElementById('buyPrice').value = '';
             document.getElementById('quantity').value = '';
@@ -1605,27 +3343,23 @@
                 totalInvestment += holding.buyPrice * holding.quantity;
                 currentValue += holding.currentPrice * holding.quantity;
                 
-                // Simulate price change
                 holding.currentPrice *= (1 + (Math.random() * 0.02 - 0.01));
             });
             
             const totalPnl = currentValue - totalInvestment;
             const dailyPnl = totalPnl * (Math.random() * 0.1 - 0.05);
             
-            // Update display
             document.getElementById('totalInvestment').textContent = '₹' + Math.round(totalInvestment).toLocaleString();
             document.getElementById('currentValue').textContent = '₹' + Math.round(currentValue).toLocaleString();
             document.getElementById('totalPnl').textContent = '₹' + Math.round(totalPnl).toLocaleString();
             document.getElementById('dailyPnl').textContent = '₹' + Math.round(dailyPnl).toLocaleString();
             
-            // Update portfolio chart
             updatePortfolioChart();
             
-            // Save updated portfolio
             localStorage.setItem('portfolio', JSON.stringify(portfolio));
         }
 
-        // =================== TRADE JOURNAL ===================
+        // Trade Journal
         function saveTrade() {
             const instrument = document.getElementById('tradeInstrument').value;
             const type = document.getElementById('tradeType').value;
@@ -1646,7 +3380,7 @@
                 instrument: instrument.toUpperCase(),
                 type: type,
                 entry: entry,
-                exit: exit || entry * (type === 'BUY' ? 1.05 : 0.95), // Simulate exit if not provided
+                exit: exit || entry * (type === 'BUY' ? 1.05 : 0.95),
                 quantity: quantity,
                 strategy: strategy,
                 notes: notes,
@@ -1658,7 +3392,6 @@
             
             updateTradeStats();
             
-            // Clear form
             document.getElementById('tradeInstrument').value = '';
             document.getElementById('entryPriceTrade').value = '';
             document.getElementById('exitPriceTrade').value = '';
@@ -1692,7 +3425,7 @@
             document.getElementById('profitFactor').textContent = profitFactor;
         }
 
-        // =================== ALERTS SYSTEM ===================
+        // Alerts System
         function createAlert() {
             const symbol = document.getElementById('alertSymbol').value;
             const condition = document.getElementById('alertCondition').value;
@@ -1719,7 +3452,6 @@
             
             updateAlertsDisplay();
             
-            // Clear form
             document.getElementById('alertSymbol').value = '';
             document.getElementById('alertPrice').value = '';
             
@@ -1753,7 +3485,83 @@
             updateAlertsDisplay();
         }
 
-        // =================== STRATEGY BUILDER ===================
+        function checkAlerts() {
+            alerts.forEach(alert => {
+                if (!alert.triggered) {
+                    const currentPrice = 22403.85 * (1 + (Math.random() * 0.1 - 0.05));
+                    
+                    let shouldTrigger = false;
+                    if (alert.condition === 'ABOVE' && currentPrice >= alert.price) {
+                        shouldTrigger = true;
+                    } else if (alert.condition === 'BELOW' && currentPrice <= alert.price) {
+                        shouldTrigger = true;
+                    }
+                    
+                    if (shouldTrigger) {
+                        alert.triggered = true;
+                        alert.triggeredAt = new Date().toISOString();
+                        alert.triggeredPrice = currentPrice;
+                        
+                        if (Notification.permission === "granted") {
+                            new Notification(`Alert: ${alert.symbol}`, {
+                                body: `${alert.symbol} ${alert.condition} ₹${alert.price}\nCurrent: ₹${currentPrice.toFixed(2)}`,
+                                icon: 'https://cdn-icons-png.flaticon.com/512/2933/2933116.png'
+                            });
+                        }
+                        
+                        localStorage.setItem('alerts', JSON.stringify(alerts));
+                        updateAlertsDisplay();
+                    }
+                }
+            });
+        }
+
+        // Strategy Builder
+        function setupDragAndDrop() {
+            const draggables = document.querySelectorAll('.indicator, .condition, .action');
+            const workspace = document.getElementById('strategyFlow');
+            
+            draggables.forEach(draggable => {
+                draggable.addEventListener('dragstart', function(e) {
+                    e.dataTransfer.setData('text/plain', this.getAttribute('data-type'));
+                });
+            });
+            
+            workspace.addEventListener('dragover', function(e) {
+                e.preventDefault();
+            });
+            
+            workspace.addEventListener('drop', function(e) {
+                e.preventDefault();
+                const type = e.dataTransfer.getData('text/plain');
+                
+                const element = document.createElement('div');
+                element.className = 'indicator';
+                element.setAttribute('data-type', type);
+                element.draggable = true;
+                element.innerHTML = `<i class="fas fa-${getIconForType(type)}"></i> <span>${type}</span>`;
+                
+                workspace.appendChild(element);
+                
+                element.addEventListener('dragstart', function(ev) {
+                    ev.dataTransfer.setData('text/plain', this.getAttribute('data-type'));
+                });
+            });
+        }
+
+        function getIconForType(type) {
+            const icons = {
+                'MA': 'chart-line',
+                'RSI': 'wave-square',
+                'MACD': 'chart-bar',
+                'CROSS_ABOVE': 'arrow-up',
+                'CROSS_BELOW': 'arrow-down',
+                'BUY': 'shopping-cart',
+                'SELL': 'money-bill-wave'
+            };
+            return icons[type] || 'circle';
+        }
+
         function generateStrategyCode() {
             const elements = document.querySelectorAll('#strategyFlow .indicator, #strategyFlow .condition, #strategyFlow .action');
             
@@ -1778,36 +3586,9 @@
             document.getElementById('generatedCode').style.display = 'block';
         }
 
-        // =================== MARKET DATA ===================
-        function updateMarketData() {
-            // Simulate market data updates
-            const indices = ['nifty', 'banknifty', 'sensex'];
-            
-            indices.forEach(index => {
-                const change = (Math.random() - 0.5) * 100;
-                const price = {
-                    'nifty': 22403.85,
-                    'banknifty': 48026.90,
-                    'sensex': 73895.54
-                }[index];
-                
-                const currentPrice = price + change;
-                const changePercent = (change / price) * 100;
-                
-                // Update ticker
-                document.getElementById(`${index}Price`).textContent = currentPrice.toFixed(2);
-                document.getElementById(`${index}Change`).textContent = 
-                    `${change >= 0 ? '+' : ''}${change.toFixed(2)} (${change >= 0 ? '+' : ''}${changePercent.toFixed(2)}%)`;
-                
-                // Update ticker class
-                const ticker = document.getElementById(`${index}Ticker`);
-                ticker.className = `ticker-item ${change >= 0 ? 'up' : 'down'}`;
-            });
-        }
-
-        // =================== CHARTS ===================
+        // Charts
         function initializeCharts() {
-            // Initialize equity chart
+            // Equity chart
             const equityCtx = document.getElementById('equityChart')?.getContext('2d');
             if (equityCtx) {
                 equityChart = new Chart(equityCtx, {
@@ -1838,7 +3619,7 @@
                 });
             }
             
-            // Initialize portfolio chart
+            // Portfolio chart
             const portfolioCtx = document.getElementById('portfolioChart')?.getContext('2d');
             if (portfolioCtx) {
                 portfolioChart = new Chart(portfolioCtx, {
@@ -1883,166 +3664,257 @@
             }
         }
 
-        // =================== UTILITY FUNCTIONS ===================
+        // Load User Data
+        function loadUserData() {
+            const savedUser = localStorage.getItem('algo_trading_user');
+            if (savedUser) {
+                currentUser = JSON.parse(savedUser);
+                showUserProfile();
+            }
+            
+            portfolio = JSON.parse(localStorage.getItem('portfolio')) || [];
+            trades = JSON.parse(localStorage.getItem('trades')) || [];
+            alerts = JSON.parse(localStorage.getItem('alerts')) || [];
+            
+            initializeCharts();
+            updatePortfolioDisplay();
+            updateTradeStats();
+            updateAlertsDisplay();
+        }
+
+        // =================== ORIGINAL FUNCTIONS ===================
+        function downloadBrochure() {
+            alert('Brochure download starting... 📄\n\nYour brochure will be downloaded shortly.');
+        }
+
         function openCalculator() {
             document.getElementById('calculatorModal').style.display = 'flex';
         }
 
+        function openAverageCalculator() {
+            document.getElementById('averageCalculatorModal').style.display = 'flex';
+        }
+
         function closeModal(modalId) {
             document.getElementById(modalId).style.display = 'none';
+            
+            if (modalId === 'averageCalculatorModal') {
+                resetAverageCalculator();
+            }
         }
 
-        function showCalcTab(tabName) {
-            // Hide all tabs
-            document.querySelectorAll('.calc-content').forEach(tab => {
-                tab.style.display = 'none';
-            });
-            
-            // Remove active class from all tabs
-            document.querySelectorAll('.calc-tab').forEach(tab => {
-                tab.classList.remove('active');
-            });
-            
-            // Show selected tab
-            document.getElementById(tabName + 'Calc').style.display = 'block';
-            
-            // Add active class to clicked tab
-            event.target.classList.add('active');
+        function resetAverageCalculator() {
+            allTrades = [];
+            document.getElementById('tradePrice').value = '';
+            document.getElementById('tradeQuantity').value = '1';
+            document.getElementById('tradesTableContainer').style.display = 'none';
+            document.getElementById('averageResult').style.display = 'none';
+            document.getElementById('tradesTableBody').innerHTML = '';
         }
 
-        function setupEventListeners() {
-            // Mobile menu toggle
-            document.getElementById('mobileMenuBtn').addEventListener('click', function() {
-                document.getElementById('navMenu').classList.toggle('active');
-            });
+        function addTrade() {
+            const price = parseFloat(document.getElementById('tradePrice').value);
+            const quantity = parseInt(document.getElementById('tradeQuantity').value);
             
-            // Navigation links
-            document.querySelectorAll('.nav-menu a').forEach(link => {
-                link.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    const targetId = this.getAttribute('href').substring(1);
-                    showSection(targetId);
-                    
-                    // Close mobile menu if open
-                    document.getElementById('navMenu').classList.remove('active');
-                });
-            });
+            if (isNaN(price) || isNaN(quantity) || price <= 0 || quantity <= 0) {
+                alert('Please enter valid price and quantity');
+                return;
+            }
             
-            // Hash change listener
-            window.addEventListener('hashchange', function() {
-                const hash = window.location.hash.substring(1);
-                if (hash) {
-                    showSection(hash);
-                }
-            });
-            
-            // Drag and drop for strategy builder
-            setupDragAndDrop();
-        }
-
-        function setupDragAndDrop() {
-            const draggables = document.querySelectorAll('.indicator, .condition, .action');
-            const workspace = document.getElementById('strategyFlow');
-            
-            draggables.forEach(draggable => {
-                draggable.addEventListener('dragstart', function(e) {
-                    e.dataTransfer.setData('text/plain', this.getAttribute('data-type'));
-                });
-            });
-            
-            workspace.addEventListener('dragover', function(e) {
-                e.preventDefault();
-            });
-            
-            workspace.addEventListener('drop', function(e) {
-                e.preventDefault();
-                const type = e.dataTransfer.getData('text/plain');
-                
-                const element = document.createElement('div');
-                element.className = 'indicator';
-                element.setAttribute('data-type', type);
-                element.draggable = true;
-                element.innerHTML = `<i class="fas fa-${getIconForType(type)}"></i> <span>${type}</span>`;
-                
-                workspace.appendChild(element);
-                
-                // Make new element draggable
-                element.addEventListener('dragstart', function(ev) {
-                    ev.dataTransfer.setData('text/plain', this.getAttribute('data-type'));
-                });
-            });
-        }
-
-        function getIconForType(type) {
-            const icons = {
-                'MA': 'chart-line',
-                'RSI': 'wave-square',
-                'MACD': 'chart-bar',
-                'CROSS_ABOVE': 'arrow-up',
-                'CROSS_BELOW': 'arrow-down',
-                'BUY': 'shopping-cart',
-                'SELL': 'money-bill-wave'
+            const trade = {
+                id: Date.now(),
+                price: price,
+                quantity: quantity,
+                totalValue: price * quantity
             };
-            return icons[type] || 'circle';
+            
+            allTrades.push(trade);
+            updateTradesTable();
+            document.getElementById('tradePrice').value = '';
+            document.getElementById('tradeQuantity').value = '1';
+            document.getElementById('tradesTableContainer').style.display = 'block';
         }
 
-        function startRealTimeUpdates() {
-            // Update market data every 5 seconds
-            setInterval(updateMarketData, 5000);
+        function updateTradesTable() {
+            const tableBody = document.getElementById('tradesTableBody');
+            tableBody.innerHTML = '';
             
-            // Update portfolio every 10 seconds
-            setInterval(updatePortfolioDisplay, 10000);
-            
-            // Check alerts every 3 seconds
-            setInterval(checkAlerts, 3000);
-        }
-
-        function checkAlerts() {
-            alerts.forEach(alert => {
-                if (!alert.triggered) {
-                    // Simulate checking current price
-                    const currentPrice = 22403.85 * (1 + (Math.random() * 0.1 - 0.05));
-                    
-                    let shouldTrigger = false;
-                    if (alert.condition === 'ABOVE' && currentPrice >= alert.price) {
-                        shouldTrigger = true;
-                    } else if (alert.condition === 'BELOW' && currentPrice <= alert.price) {
-                        shouldTrigger = true;
-                    }
-                    
-                    if (shouldTrigger) {
-                        alert.triggered = true;
-                        alert.triggeredAt = new Date().toISOString();
-                        alert.triggeredPrice = currentPrice;
-                        
-                        // Show notification
-                        if (Notification.permission === "granted") {
-                            new Notification(`Alert: ${alert.symbol}`, {
-                                body: `${alert.symbol} ${alert.condition} ₹${alert.price}\nCurrent: ₹${currentPrice.toFixed(2)}`,
-                                icon: 'https://cdn-icons-png.flaticon.com/512/2933/2933116.png'
-                            });
-                        }
-                        
-                        // Save updated alerts
-                        localStorage.setItem('alerts', JSON.stringify(alerts));
-                        updateAlertsDisplay();
-                    }
-                }
+            allTrades.forEach((trade, index) => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${index + 1}</td>
+                    <td>₹${trade.price.toFixed(2)}</td>
+                    <td>${trade.quantity}</td>
+                    <td>₹${trade.totalValue.toFixed(2)}</td>
+                    <td>
+                        <button class="delete-btn" onclick="deleteTrade(${trade.id})">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </td>
+                `;
+                tableBody.appendChild(row);
             });
         }
 
-        function loadUserData() {
-            // Load any additional user data
-            // This can be expanded based on requirements
+        function deleteTrade(tradeId) {
+            allTrades = allTrades.filter(trade => trade.id !== tradeId);
+            updateTradesTable();
+            
+            if (allTrades.length === 0) {
+                document.getElementById('tradesTableContainer').style.display = 'none';
+                document.getElementById('averageResult').style.display = 'none';
+            }
         }
 
-        // Request notification permission
-        if ("Notification" in window) {
-            Notification.requestPermission();
+        function calculateWeightedAverage() {
+            if (allTrades.length === 0) {
+                alert('Please add at least one trade');
+                return;
+            }
+            
+            const totalTrades = allTrades.length;
+            const totalQuantity = allTrades.reduce((sum, trade) => sum + trade.quantity, 0);
+            const totalInvestment = allTrades.reduce((sum, trade) => sum + trade.totalValue, 0);
+            const weightedAverage = totalInvestment / totalQuantity;
+            
+            const formatter = new Intl.NumberFormat('en-IN', {
+                style: 'currency',
+                currency: 'INR',
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2
+            });
+            
+            document.getElementById('totalTrades').textContent = totalTrades;
+            document.getElementById('totalQuantity').textContent = totalQuantity;
+            document.getElementById('totalInvestmentAvg').textContent = formatter.format(totalInvestment);
+            document.getElementById('weightedAverage').textContent = formatter.format(weightedAverage);
+            
+            document.getElementById('averageResult').style.display = 'block';
+            document.getElementById('averageResult').scrollIntoView({ behavior: 'smooth' });
         }
 
-        // Initialize with home section
-        showSection('home');
+        function calculateProfit() {
+            const investment = parseFloat(document.getElementById('investmentAmount').value);
+            const period = parseInt(document.getElementById('tradingPeriod').value);
+            const successRate = parseFloat(document.getElementById('successRate').value) / 100;
+            const avgReturn = parseFloat(document.getElementById('avgReturn').value) / 100;
+            
+            if (isNaN(investment) || isNaN(period) || isNaN(successRate) || isNaN(avgReturn)) {
+                alert('Please enter valid numbers in all fields');
+                return;
+            }
+            
+            const tradesPerMonth = 20 * 2;
+            const totalTrades = tradesPerMonth * period;
+            const successfulTrades = Math.floor(totalTrades * successRate);
+            
+            let currentValue = investment;
+            for (let i = 0; i < successfulTrades; i++) {
+                currentValue += currentValue * avgReturn;
+            }
+            
+            const totalProfit = currentValue - investment;
+            const roi = (totalProfit / investment) * 100;
+            
+            const formatter = new Intl.NumberFormat('en-IN', {
+                style: 'currency',
+                currency: 'INR',
+                minimumFractionDigits: 0,
+                maximumFractionDigits: 0
+            });
+            
+            document.getElementById('totalInvestmentCalc').textContent = formatter.format(investment);
+            document.getElementById('projectedProfit').textContent = formatter.format(totalProfit);
+            document.getElementById('totalValue').textContent = formatter.format(currentValue);
+            document.getElementById('roiPercentage').textContent = roi.toFixed(2) + '%';
+            document.getElementById('profitAmount').textContent = formatter.format(totalProfit);
+            
+            document.getElementById('calculatorResult').style.display = 'block';
+            document.getElementById('calculatorResult').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function selectPackage(packageName) {
+            const message = `Hello Algo For You!%0A%0AI'm interested in your *${packageName}* trading package.%0APlease provide me with more details and the next steps.`;
+            const whatsappUrl = `https://wa.me/917770952979?text=${message}`;
+            window.open(whatsappUrl, '_blank');
+        }
+
+        function sendToWhatsApp() {
+            const name = document.getElementById('clientName').value;
+            const phone = document.getElementById('clientPhone').value;
+            const service = document.getElementById('serviceType').value;
+            const message = document.getElementById('clientMessage').value;
+            
+            const formattedMessage = `Hello Algo For You!%0A%0A*Name:* ${name}%0A*Phone:* ${phone}%0A*Service Interested:* ${service}%0A*Message:* ${message}%0A%0AI found you through your website.`.trim();
+            
+            const whatsappUrl = `https://wa.me/917770952979?text=${formattedMessage}`;
+            
+            window.open(whatsappUrl, '_blank');
+            document.getElementById('whatsappForm').reset();
+        }
+
+        // Event Listeners
+        document.querySelectorAll('.faq-question').forEach(question => {
+            question.addEventListener('click', () => {
+                const faqItem = question.parentElement;
+                const answer = faqItem.querySelector('.faq-answer');
+                const toggle = question.querySelector('span');
+                
+                if (faqItem.classList.contains('active')) {
+                    answer.style.maxHeight = null;
+                    toggle.textContent = '+';
+                    faqItem.classList.remove('active');
+                } else {
+                    answer.style.maxHeight = answer.scrollHeight + 'px';
+                    toggle.textContent = '-';
+                    faqItem.classList.add('active');
+                }
+            });
+        });
+
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('.header');
+            if (window.scrollY > 100) {
+                header.style.background = 'rgba(255, 255, 255, 0.98)';
+                header.style.boxShadow = '0 2px 30px rgba(0, 0, 0, 0.15)';
+            } else {
+                header.style.background = 'rgba(255, 255, 255, 0.95)';
+                header.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.1)';
+            }
+        });
+
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const navMenu = document.getElementById('navMenu');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+        });
+
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                navMenu.classList.remove('active');
+                showSection(targetId.substring(1));
+                window.location.hash = targetId;
+            });
+        });
+
+        window.addEventListener('click', (e) => {
+            if (e.target.classList.contains('modal')) {
+                e.target.style.display = 'none';
+            }
+        });
+
+        window.addEventListener('load', function() {
+            const hash = window.location.hash;
+            if (hash && hash !== '#home' && hash !== '#market') {
+                showSection(hash.substring(1));
+            }
+        });
     </script>
 </body>
 </html>
