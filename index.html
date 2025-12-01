@@ -36,10 +36,220 @@
             color: var(--text-dark);
             overflow-x: hidden;
             font-size: 14px;
-            background: #000000; /* Black Background */
+            background: #000000;
         }
 
-        /* Simple Candlestick Background */
+        /* NEW: 3D Hero Section Styles */
+        .hero {
+            background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 25%, #3b82f6 50%, #06b6d4 75%, #0891b2 100%);
+            background-size: 400% 400%;
+            animation: gradientAnimation 15s ease infinite;
+            position: relative;
+            overflow: hidden;
+            color: var(--white);
+            padding: 180px 0 100px;
+            text-align: center;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+        }
+
+        @keyframes gradientAnimation {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* 3D Grid Background */
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                linear-gradient(90deg, transparent 79%, rgba(255,255,255,0.1) 80%, transparent 81%),
+                linear-gradient(transparent 79%, rgba(255,255,255,0.1) 80%, transparent 81%);
+            background-size: 50px 50px;
+            animation: gridMove 20s linear infinite;
+            z-index: 1;
+        }
+
+        @keyframes gridMove {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(50px, 50px); }
+        }
+
+        /* Floating 3D Stock Elements */
+        .floating-stock-elements {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .stock-element {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            animation: float3d 15s ease-in-out infinite;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 
+                0 8px 32px rgba(0, 0, 0, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2);
+        }
+
+        .stock-element::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 50%;
+            background: linear-gradient(180deg, rgba(255,255,255,0.3) 0%, transparent 100%);
+            border-radius: 8px 8px 0 0;
+        }
+
+        .stock-element.green {
+            background: rgba(16, 185, 129, 0.15);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+        }
+
+        .stock-element.red {
+            background: rgba(239, 68, 68, 0.15);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+        }
+
+        @keyframes float3d {
+            0%, 100% { 
+                transform: translateY(0px) rotateX(0deg) rotateY(0deg); 
+                box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+            }
+            50% { 
+                transform: translateY(-20px) rotateX(5deg) rotateY(5deg); 
+                box-shadow: 0 25px 40px rgba(0,0,0,0.3);
+            }
+        }
+
+        /* Real-time Data Stream */
+        .data-stream {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .data-point {
+            position: absolute;
+            color: rgba(255, 255, 255, 0.7);
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            font-weight: bold;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+            animation: dataFlow 15s linear infinite;
+            white-space: nowrap;
+        }
+
+        .data-point.green {
+            color: #10b981;
+            text-shadow: 0 0 10px rgba(16, 185, 129, 0.5);
+        }
+
+        .data-point.red {
+            color: #ef4444;
+            text-shadow: 0 0 10px rgba(239, 68, 68, 0.5);
+        }
+
+        @keyframes dataFlow {
+            0% {
+                transform: translateY(100vh) translateX(-100px);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100px) translateX(100px);
+                opacity: 0;
+            }
+        }
+
+        /* Wave Background */
+        .wave-background {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 150px;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none"><path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" fill="%23ffffff" opacity="0.1"/></svg>');
+            background-size: cover;
+            animation: wave 10s linear infinite;
+            z-index: 2;
+        }
+
+        @keyframes wave {
+            0% { transform: translateX(0); }
+            50% { transform: translateX(-50px); }
+            100% { transform: translateX(0); }
+        }
+
+        /* Enhanced Hero Container */
+        .hero-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            position: relative;
+            z-index: 3;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 
+                0 25px 50px rgba(0, 0, 0, 0.25),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2);
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            line-height: 1.2;
+            text-shadow: 
+                0 2px 10px rgba(0, 0, 0, 0.3),
+                0 0 30px rgba(59, 130, 246, 0.5);
+            background: linear-gradient(135deg, #ffffff 0%, #e0f2fe 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            font-size: 1.4rem;
+            opacity: 0.9;
+            margin-bottom: 40px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            text-shadow: 0 2px 20px rgba(0, 0, 0, 0.5);
+            background: linear-gradient(135deg, #e0f2fe 0%, #bae6fd 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Your existing candlestick styles */
         .candlestick-bg {
             position: fixed;
             top: 0;
@@ -52,7 +262,6 @@
             background: #000000;
         }
 
-        /* Floating Candlesticks */
         .floating-candles {
             position: fixed;
             top: 0;
@@ -277,43 +486,6 @@
             font-size: 1.5rem;
             color: var(--primary);
             cursor: pointer;
-        }
-
-        /* Enhanced Hero Section */
-        .hero {
-            background: var(--gradient);
-            color: var(--white);
-            padding: 180px 0 100px;
-            position: relative;
-            overflow: hidden;
-            text-align: center;
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-        }
-
-        .hero-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-            position: relative;
-            z-index: 2;
-        }
-
-        .hero h1 {
-            font-size: 3.5rem;
-            font-weight: 700;
-            margin-bottom: 20px;
-            line-height: 1.2;
-        }
-
-        .hero p {
-            font-size: 1.4rem;
-            opacity: 0.9;
-            margin-bottom: 40px;
-            max-width: 800px;
-            margin-left: auto;
-            margin-right: auto;
         }
 
         .hero-buttons {
@@ -1551,8 +1723,13 @@
         </div>
     </header>
 
-    <!-- Enhanced Home Section -->
+    <!-- NEW: 3D Enhanced Home Section -->
     <section id="home" class="hero">
+        <!-- New 3D Background Elements -->
+        <div class="floating-stock-elements" id="floatingStockElements"></div>
+        <div class="data-stream" id="dataStream"></div>
+        <div class="wave-background"></div>
+        
         <div class="hero-container">
             <h1>Algorithmic Trading Revolution Starts Here</h1>
             <p>Experience 92% Accuracy with AI-Powered Trading Algorithms. Join 500+ Successful Traders Today!</p>
@@ -2233,11 +2410,59 @@
             sensex: { price: 73895.54, change: 149.98 }
         };
 
+        // NEW: 3D Elements Creation Functions
+        function create3DElements() {
+            const container = document.getElementById('floatingStockElements');
+            if (!container) return;
+            
+            // Create floating stock elements
+            for (let i = 0; i < 8; i++) {
+                const element = document.createElement('div');
+                element.className = `stock-element ${Math.random() > 0.5 ? 'green' : 'red'}`;
+                
+                // Random position and size
+                const size = Math.random() * 80 + 40;
+                element.style.width = `${size}px`;
+                element.style.height = `${size / 3}px`;
+                element.style.left = `${Math.random() * 100}%`;
+                element.style.top = `${Math.random() * 100}%`;
+                element.style.animationDelay = `${Math.random() * 10}s`;
+                
+                container.appendChild(element);
+            }
+        }
+
+        function createDataStream() {
+            const dataStream = document.getElementById('dataStream');
+            if (!dataStream) return;
+            
+            for (let i = 0; i < 15; i++) {
+                const dataPoint = document.createElement('div');
+                dataPoint.className = `data-point ${Math.random() > 0.5 ? 'green' : 'red'}`;
+                
+                // Random stock-like data
+                const symbols = ['RELIANCE', 'TCS', 'INFY', 'HDFC', 'ICICI', 'SBIN', 'HINDUNILVR', 'BHARTIARTL'];
+                const symbol = symbols[Math.floor(Math.random() * symbols.length)];
+                const price = (Math.random() * 1000 + 1000).toFixed(2);
+                const change = (Math.random() - 0.5) * 10;
+                
+                dataPoint.textContent = `${symbol} ₹${price} ${change >= 0 ? '+' : ''}${change.toFixed(2)}`;
+                dataPoint.style.left = `${Math.random() * 100}%`;
+                dataPoint.style.animationDelay = `${Math.random() * 15}s`;
+                
+                dataStream.appendChild(dataPoint);
+            }
+        }
+
         // Initialize everything when page loads
         document.addEventListener('DOMContentLoaded', function() {
             createCandles();
             initializeRealTimeData();
             initializeTradingViewCharts();
+            
+            // NEW: Create 3D elements
+            create3DElements();
+            createDataStream();
             
             // Set up real-time updates
             setInterval(updateRealTimeData, 3000);
