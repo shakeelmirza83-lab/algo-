@@ -8,7 +8,72 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- Real-time Data Libraries -->
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.5.1/socket.io.min.js"></script>
+
+<!-- Status Indicator CSS -->
+<style>
+    .data-status {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        z-index: 1000;
+        background: rgba(30, 64, 175, 0.95);
+        color: white;
+        padding: 10px 15px;
+        border-radius: 8px;
+        font-size: 0.8rem;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    }
     
+    .status-dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: #10b981;
+        animation: pulse 2s infinite;
+    }
+    
+    @keyframes pulse {
+        0% { opacity: 1; transform: scale(1); }
+        50% { opacity: 0.5; transform: scale(0.9); }
+        100% { opacity: 1; transform: scale(1); }
+    }
+    
+    .data-status .time {
+        opacity: 0.7;
+        font-size: 0.7rem;
+    }
+    
+    /* Improved Ticker Styles */
+    .ticker-volume {
+        font-size: 0.7rem;
+        opacity: 0.8;
+        margin-left: 8px;
+        padding: 2px 6px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 4px;
+    }
+    
+    /* Real-time Price in Options */
+    .real-price-tag {
+        display: inline-block;
+        margin-left: 10px;
+        padding: 2px 8px;
+        background: var(--primary);
+        color: white;
+        border-radius: 4px;
+        font-size: 0.7rem;
+        font-weight: 600;
+    }
+</style>
     <style>
         /* Brightex Tech Color Scheme */
         :root {
